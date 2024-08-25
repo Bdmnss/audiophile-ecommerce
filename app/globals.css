@@ -16,3 +16,16 @@ body {
 html {
   font-size: 62.5%;
 }
+
+@keyframes slide-left-to-right {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-left-to-right {
+  animation: slide-left-to-right 0.5s ease forwards;
+}
