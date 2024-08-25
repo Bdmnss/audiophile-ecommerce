@@ -9,10 +9,12 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
+        'header-home-mobile': "url('/assets/home/mobile/image-header.jpg')",
+        'home-circles': "url('/assets/home/desktop/pattern-circles.svg')",
+        'zx7-speaker-background-mobile': "url('/assets/home/mobile/image-speaker-zx7.jpg')",
+        'YX1-earphones-background-mobile': "url('/assets/home/mobile/image-earphones-yx1.jpg')",
+        'best-gear-mobile': "url('/assets/shared/mobile/image-best-gear.jpg')",
+      }
     },
   },
   plugins: [],
