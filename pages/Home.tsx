@@ -1,11 +1,9 @@
 "use client";
 
-import headphonesImage from "../public/assets/shared/desktop/image-category-thumbnail-headphones.png";
-import speakersImage from "../public/assets/shared/desktop/image-category-thumbnail-speakers.png";
-import earphonesImage from "../public/assets/shared/desktop/image-category-thumbnail-earphones.png";
 import productSpeakerImage from "../public/assets/home/mobile/image-speaker-zx9.png";
 import BurgerMenu from "../components/BurgerMenu";
 import { useMenuStore } from "@/stores/menuStore";
+import Navigation from "@/components/Navigation";
 
 export default function HomePage() {
   const menuStore = useMenuStore();
@@ -33,68 +31,7 @@ export default function HomePage() {
           </div>
 
           <div className="flex flex-col justify-center items-center px-[2.4rem] pb-[12rem]">
-            <div className="flex flex-col justify-center items-center gap-[7rem] w-[100%] mb-[12rem]">
-              <div
-                className="relative bg-[#f1f1f1] flex flex-col justify-center items-center pb-6 rounded-xl 
-          w-[100%] pt-[7rem]"
-              >
-                <img
-                  src={headphonesImage.src}
-                  alt="headphones image"
-                  className="absolute w-[13rem] top-[-4.5rem]"
-                />
-                <p className="text-black text-[1.5rem] font-bold mb-[1.7rem]">
-                  HEADPHONES
-                </p>
-                <div className="flex items-center gap-[1.3rem]">
-                  <p className="text-[gray] text-[1.3rem] font-bold">SHOP</p>
-                  <svg width="8" height="12" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1.322 1l5 5-5 5" stroke="#D87D4A" fill="none" />
-                  </svg>
-                </div>
-              </div>
-
-              <div
-                className="relative bg-[#f1f1f1] flex flex-col justify-center items-center pb-6 rounded-xl 
-          w-[100%] pt-[7rem]"
-              >
-                <img
-                  src={speakersImage.src}
-                  alt="headphones image"
-                  className="absolute w-[13rem] top-[-4.5rem]"
-                />
-                <p className="text-black text-[1.5rem] font-bold mb-[1.7rem]">
-                  HEADPHONES
-                </p>
-                <div className="flex items-center gap-[1.3rem]">
-                  <p className="text-[gray] text-[1.3rem] font-bold">SHOP</p>
-                  <svg width="8" height="12" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1.322 1l5 5-5 5" stroke="#D87D4A" fill="none" />
-                  </svg>
-                </div>
-              </div>
-
-              <div
-                className="relative bg-[#f1f1f1] flex flex-col justify-center items-center pb-6 rounded-xl 
-          w-[100%] pt-[7rem]"
-              >
-                <img
-                  src={earphonesImage.src}
-                  alt="headphones image"
-                  className="absolute w-[13rem] top-[-4.5rem]"
-                />
-                <p className="text-black text-[1.5rem] font-bold mb-[1.7rem]">
-                  HEADPHONES
-                </p>
-                <div className="flex items-center gap-[1.3rem]">
-                  <p className="text-[gray] text-[1.3rem] font-bold">SHOP</p>
-                  <svg width="8" height="12" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1.322 1l5 5-5 5" stroke="#D87D4A" fill="none" />
-                  </svg>
-                </div>
-              </div>
-            </div>
-
+            <Navigation />
             <div
               className="bg-[#d87d4a] w-[100%] bg-home-circles bg-center bg-cover bg-no-repeat
         flex flex-col justify-center items-center text-center mb-[2.4rem] py-[5.5rem] rounded-lg"
