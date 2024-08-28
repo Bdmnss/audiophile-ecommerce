@@ -17,15 +17,28 @@ html {
   font-size: 62.5%;
 }
 
-@keyframes slide-left-to-right {
+@keyframes slide-top-to-bottom {
   from {
-    transform: translateX(-100%);
+    transform: translateY(-100%);
   }
   to {
-    transform: translateX(0);
+    transform: translateY(0);
   }
 }
 
-.animate-slide-left-to-right {
-  animation: slide-left-to-right 0.5s ease forwards;
+@keyframes slide-bottom-to-top {
+  from {
+    transform: translateY(0%);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+.animate-slide-top-to-bottom {
+  animation: slide-top-to-bottom 0.5s ease forwards;
+}
+
+.animate-slide-bottom-to-top {
+  animation: slide-bottom-to-top 0.5s ease forwards;
 }

@@ -7,10 +7,10 @@ export default function BurgerMenu() {
   const menuStore = useMenuStore();
   return (
     <div
-      className={`relative w-[100%] h-[100%] bg-white top-0 ${
+      className={`fixed w-[100%] h-[80%] bg-white z-10 ${
         menuStore.isMenuOpen
-          ? "animate-slide-right-to-left"
-          : "animate-slide-left-to-right"
+          ? "animate-slide-top-to-bottom"
+          : "animate-slide-bottom-to-top"
       }`}
     >
       <div className="my-[14rem]">

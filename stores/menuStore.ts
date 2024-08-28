@@ -6,6 +6,6 @@ type MenuStore = {
 };
 
 export const useMenuStore = create<MenuStore>((set) => ({
-  isMenuOpen: true,
+  isMenuOpen: false,
   setMenuOpen: (isOpen: boolean) => set({isMenuOpen: isOpen}),
 }));

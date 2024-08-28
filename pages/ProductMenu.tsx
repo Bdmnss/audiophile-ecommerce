@@ -12,7 +12,7 @@ export default function ProductMenu({
   console.log(productMenu);
   return (
     <div className="pb-[12rem]">
-      <div className="bg-black py-[3.2rem] flex justify-center items-center">
+      <div className="bg-black pb-[3.2rem]  pt-[11rem] flex justify-center items-center">
         <h1 className="text-[2.8rem] font-bold text-white">
           {productMenuName?.toString().toUpperCase()}
         </h1>
