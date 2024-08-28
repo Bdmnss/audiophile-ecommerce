@@ -13,7 +13,7 @@ export default function BurgerMenu() {
           : "animate-slide-left-to-right"
       }`}
     >
-      <div className="my-[20rem]">
+      <div className="my-[14rem]">
         <Navigation />
       </div>
     </div>

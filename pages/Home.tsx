@@ -4,6 +4,7 @@ import productSpeakerImage from "../public/assets/home/mobile/image-speaker-zx9.
 import BurgerMenu from "../components/BurgerMenu";
 import { useMenuStore } from "@/stores/menuStore";
 import Navigation from "@/components/Navigation";
+import SloganText from "@/components/SloganText";
 
 export default function HomePage() {
   const menuStore = useMenuStore();
@@ -85,24 +86,7 @@ export default function HomePage() {
               </button>
             </div>
 
-            <div className="w-[100%] h-[30rem] bg-best-gear-mobile bg-no-repeat bg-cover rounded-lg mb-[4rem]"></div>
-
-            <div className="flex flex-col justify-center items-center text-center">
-              <h2 className="text-black text-[2.8rem] font-bold mb-[3.2rem]">
-                BRINGING YOU THE <span className="text-[#d87d4a]">BEST</span>{" "}
-                AUDIO GEAR
-              </h2>
-
-              <p className="text-[gray] text-[1.5rem] font-medium leading-[2.5rem]">
-                Located at the heart of New York City, Audiophile is the premier
-                store for high end headphones, earphones, speakers, and audio
-                accessories. We have a large showroom and luxury demonstration
-                rooms available for you to browse and experience a wide range of
-                our products. Stop by our store to meet some of the fantastic
-                people who make Audiophile the best place to buy your portable
-                audio equipment.
-              </p>
-            </div>
+            <SloganText />
           </div>
         </div>
       ) : (

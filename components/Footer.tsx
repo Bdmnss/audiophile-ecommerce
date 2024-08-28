@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer className="bg-[#101010] flex flex-col items-center justify-center text-center pb-[5rem]">
@@ -11,10 +13,10 @@ export default function Footer() {
       </div>
 
       <div className="flex flex-col items-center gap-[1.6rem] text-white text-[1.3rem] font-bold mb-[5rem]">
-        <p>HOME</p>
-        <p>HEADPHONES</p>
-        <p>SPEAKERS</p>
-        <p>EARPHONES</p>
+        <Link href="/">HOME</Link>
+        <Link href="/headphones">HEADPHONES</Link>
+        <Link href="/speakers">SPEAKERS</Link>
+        <Link href="/earphones">EARPHONES</Link>
       </div>
 
       <p className="text-[1.5rem] leading-[2.5rem] font-medium text-[gray] mb-[5rem]">
