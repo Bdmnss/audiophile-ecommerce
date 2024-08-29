@@ -1,12 +1,20 @@
+"use client";
+
 import headphonesImage from "../public/assets/shared/desktop/image-category-thumbnail-headphones.png";
 import speakersImage from "../public/assets/shared/desktop/image-category-thumbnail-speakers.png";
 import earphonesImage from "../public/assets/shared/desktop/image-category-thumbnail-earphones.png";
+import { useMenuStore } from "@/stores/menuStore";
 import Link from "next/link";
 
 export default function Navigation() {
+  const menuStore = useMenuStore();
   return (
     <div className="flex flex-col justify-center items-center gap-[7rem] w-[100%] mb-[12rem]">
-      <Link href="/headphones" className="w-[100%]">
+      <Link
+        href="/headphones"
+        className="w-[100%]"
+        onClick={() => menuStore.setMenuOpen(false)}
+      >
         <div
           className="relative bg-[#f1f1f1] flex flex-col justify-center items-center pb-6 rounded-xl 
            pt-[7rem]"
@@ -29,7 +37,11 @@ export default function Navigation() {
         </div>
       </Link>
 
-      <Link href="/speakers" className="w-[100%]">
+      <Link
+        href="/speakers"
+        className="w-[100%]"
+        onClick={() => menuStore.setMenuOpen(false)}
+      >
         <div
           className="relative bg-[#f1f1f1] flex flex-col justify-center items-center pb-6 rounded-xl 
            pt-[7rem]"
@@ -52,7 +64,11 @@ export default function Navigation() {
         </div>
       </Link>
 
-      <Link href="/earphones" className="w-[100%]">
+      <Link
+        href="/earphones"
+        className="w-[100%]"
+        onClick={() => menuStore.setMenuOpen(false)}
+      >
         <div
           className="relative bg-[#f1f1f1] flex flex-col justify-center items-center pb-6 rounded-xl 
          pt-[7rem]"

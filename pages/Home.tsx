@@ -1,12 +1,11 @@
 "use client";
 
 import productSpeakerImage from "../public/assets/home/mobile/image-speaker-zx9.png";
-import { useMenuStore } from "@/stores/menuStore";
 import Navigation from "@/components/Navigation";
 import SloganText from "@/components/SloganText";
+import Link from "next/link";
 
 export default function HomePage() {
-  const menuStore = useMenuStore();
   return (
     <main>
       <div>
@@ -24,9 +23,11 @@ export default function HomePage() {
             Experience natural, lifelike audio and exceptional build quality
             made for the passionate music enthusiast.
           </p>
-          <button className="bg-[#d87d4a] px-10 py-5 text-white text-[1.3rem] font-bold">
-            SEE PRODUCT
-          </button>
+          <Link href="/product/xx99-mark-two-headphones">
+            <button className="bg-[#d87d4a] px-10 py-5 text-white text-[1.3rem] font-bold">
+              SEE PRODUCT
+            </button>
+          </Link>
         </div>
 
         <div className="flex flex-col justify-center items-center px-[2.4rem] pb-[12rem]">
@@ -47,9 +48,11 @@ export default function HomePage() {
               Upgrade to premium speakers that are phenomenally built to deliver
               truly remarkable sound.
             </p>
-            <button className="bg-black px-10 py-5 text-white text-[1.3rem] font-bold">
-              SEE PRODUCT
-            </button>
+            <Link href="/product/zx9-speaker">
+              <button className="bg-black px-10 py-5 text-white text-[1.3rem] font-bold">
+                SEE PRODUCT
+              </button>
+            </Link>
           </div>
 
           <div
@@ -59,12 +62,14 @@ export default function HomePage() {
             <h2 className="text-black text-[2.8rem] font-bold mb-[3.2rem]">
               ZX7 SPEAKER
             </h2>
-            <button
-              className="px-10 py-5 text-black text-[1.3rem] font-bold border-[1px] 
+            <Link href="/product/zx7-speaker">
+              <button
+                className="px-10 py-5 text-black text-[1.3rem] font-bold border-[1px] 
           border-black"
-            >
-              SEE PRODUCT
-            </button>
+              >
+                SEE PRODUCT
+              </button>
+            </Link>
           </div>
 
           <div
@@ -76,12 +81,14 @@ export default function HomePage() {
             <h2 className="text-black text-[2.8rem] font-bold mb-[3.2rem]">
               YX1 EARPHONES
             </h2>
-            <button
-              className="bg-[#f1f1f100] px-10 py-5 text-black text-[1.3rem] font-bold border-[1px] 
+            <Link href="/product/yx1-earphones">
+              <button
+                className="bg-[#f1f1f100] px-10 py-5 text-black text-[1.3rem] font-bold border-[1px] 
           border-black"
-            >
-              SEE PRODUCT
-            </button>
+              >
+                SEE PRODUCT
+              </button>
+            </Link>
           </div>
 
           <SloganText />
