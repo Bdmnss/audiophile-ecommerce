@@ -23,7 +23,7 @@ export default function HomePage() {
             Experience natural, lifelike audio and exceptional build quality
             made for the passionate music enthusiast.
           </p>
-          <Link href="/product/xx99-mark-two-headphones">
+          <Link href="/headphones/xx99-mark-two-headphones">
             <button className="bg-[#d87d4a] px-10 py-5 text-white text-[1.3rem] font-bold">
               SEE PRODUCT
             </button>
@@ -48,7 +48,7 @@ export default function HomePage() {
               Upgrade to premium speakers that are phenomenally built to deliver
               truly remarkable sound.
             </p>
-            <Link href="/product/zx9-speaker">
+            <Link href="/speakers/zx9-speaker">
               <button className="bg-black px-10 py-5 text-white text-[1.3rem] font-bold">
                 SEE PRODUCT
               </button>
@@ -62,7 +62,7 @@ export default function HomePage() {
             <h2 className="text-black text-[2.8rem] font-bold mb-[3.2rem]">
               ZX7 SPEAKER
             </h2>
-            <Link href="/product/zx7-speaker">
+            <Link href="/speakers/zx7-speaker">
               <button
                 className="px-10 py-5 text-black text-[1.3rem] font-bold border-[1px] 
           border-black"
@@ -81,7 +81,7 @@ export default function HomePage() {
             <h2 className="text-black text-[2.8rem] font-bold mb-[3.2rem]">
               YX1 EARPHONES
             </h2>
-            <Link href="/product/yx1-earphones">
+            <Link href="/earphones/yx1-earphones">
               <button
                 className="bg-[#f1f1f100] px-10 py-5 text-black text-[1.3rem] font-bold border-[1px] 
           border-black"

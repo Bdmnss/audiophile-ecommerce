@@ -9,7 +9,6 @@ export default function ProductMenu({
   productMenuName: string;
 }) {
   const productMenu = data.filter((item) => item.category === productMenuName);
-  console.log(productMenu);
   return (
     <div className="pb-[12rem]">
       <div className="bg-black pb-[3.2rem]  pt-[11rem] flex justify-center items-center">
