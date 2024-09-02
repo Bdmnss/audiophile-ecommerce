@@ -15,6 +15,11 @@ export default function ProductPage({
 }) {
   const cartStore = useCartStore();
   const product = data.filter((item) => item.slug === productName);
+
+  console.log(cartStore.cartItems);
+  console.log(cartStore.cartItemsQuantity);
+  console.log(cartStore.totalPrice);
+
   return (
     <div className="pt-[9rem] px-[2.4rem] pb-[12rem]">
       <Link
@@ -69,7 +74,47 @@ export default function ProductPage({
               </button>
             </div>
 
-            <button className="bg-[#d87d4a] text-white text-[1.3rem] font-bold py-[1rem] px-[3rem]">
+            <button
+              className="bg-[#d87d4a] text-white text-[1.3rem] font-bold py-[1rem] px-[3rem]"
+              onClick={() => {
+                const existingCartItem = cartStore.cartItems.find(
+                  (cartItem) => cartItem.name === product.name
+                );
+
+                if (existingCartItem) {
+                  existingCartItem.quantity = cartStore.itemsQuantity;
+                  existingCartItem.price =
+                    product.price * existingCartItem.quantity;
+                  cartStore.setTotalPrice(
+                    cartStore.cartItems.reduce(
+                      (acc, item) => acc + item.price,
+                      0
+                    )
+                  );
+                  cartStore.setItemsQuantity(1);
+                } else {
+                  cartStore.setCartItems([
+                    ...cartStore.cartItems,
+                    {
+                      id: product.id,
+                      name: product.name,
+                      price: product.price * cartStore.itemsQuantity,
+                      quantity: cartStore.itemsQuantity,
+                      image: product.image.mobile,
+                      originalPrice: product.price,
+                    },
+                  ]);
+                  cartStore.setCartItemsQuantity(
+                    cartStore.cartItemsQuantity + 1
+                  );
+                  cartStore.setTotalPrice(
+                    cartStore.totalPrice +
+                      product.price * cartStore.itemsQuantity
+                  );
+                  cartStore.setItemsQuantity(1);
+                }
+              }}
+            >
               ADD TO CART
             </button>
           </div>
