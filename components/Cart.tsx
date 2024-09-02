@@ -73,7 +73,7 @@ export default function Cart() {
                         ))
                       : "";
                   }}
-                  className="text-[gray] text-[1.3rem] font-bold"
+                  className="text-[gray] text-[2rem] font-bold"
                 >
                   -
                 </button>

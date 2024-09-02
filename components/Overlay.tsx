@@ -1,7 +1,7 @@
 import { useMenuStore } from "@/stores/menuStore";
 import { useCartStore } from "@/stores/cartStore";
 
-export default function () {
+export default function Overlay() {
   const menuStore = useMenuStore();
   const cartStore = useCartStore();
   return (
