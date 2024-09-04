@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useMenuStore } from "../stores/menuStore";
 import { useCartStore } from "../stores/cartStore";
+import { useCheckoutStore } from "@/stores/checkoutStore";
 import BurgerMenu from "./BurgerMenu";
 import Overlay from "./Overlay";
 import Cart from "./Cart";
@@ -9,6 +10,7 @@ import Cart from "./Cart";
 export default function Header() {
   const menuStore = useMenuStore();
   const cartStore = useCartStore();
+  const checkoutStore = useCheckoutStore();
   return (
     <header className="relative flex justify-center">
       <div
@@ -21,6 +23,7 @@ export default function Header() {
           height="15"
           xmlns="http://www.w3.org/2000/svg"
           onClick={() => {
+            if (checkoutStore.isPayActive) return;
             menuStore.setMenuOpen(!menuStore.isMenuOpen);
             cartStore.setCartOpen(false);
           }}
@@ -33,6 +36,12 @@ export default function Header() {
         <Link
           href="/"
           onClick={() => {
+            if (checkoutStore.isPayActive) {
+              cartStore.setCartItems([]);
+              cartStore.setTotalPrice(0);
+              cartStore.setCartItemsQuantity(0);
+              checkoutStore.setPayActive(false);
+            }
             menuStore.setMenuOpen(false);
             cartStore.setCartOpen(false);
           }}
@@ -59,6 +68,7 @@ export default function Header() {
             height="20"
             xmlns="http://www.w3.org/2000/svg"
             onClick={() => {
+              if (checkoutStore.isPayActive) return;
               menuStore.setMenuOpen(false);
               cartStore.setCartOpen(!cartStore.isCartOpen);
             }}

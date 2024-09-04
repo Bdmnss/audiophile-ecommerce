@@ -16,10 +16,6 @@ export default function ProductPage({
   const cartStore = useCartStore();
   const product = data.filter((item) => item.slug === productName);
 
-  console.log(cartStore.cartItems);
-  console.log(cartStore.cartItemsQuantity);
-  console.log(cartStore.totalPrice);
-
   return (
     <div className="pt-[9rem] px-[2.4rem] pb-[12rem]">
       <Link

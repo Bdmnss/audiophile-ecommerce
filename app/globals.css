@@ -42,3 +42,35 @@ html {
 .animate-slide-bottom-to-top {
   animation: slide-bottom-to-top 0.5s ease forwards;
 }
+
+.custom-radio {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #d9d9d9;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.custom-radio input {
+  opacity: 0;
+  position: absolute;
+  cursor: pointer;
+}
+
+.custom-radio .checkmark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  background-color: white;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.custom-radio input:checked ~ .checkmark {
+  background-color: #d87d4a;
+  border: 2px solid #d87d4a;
+}

@@ -104,12 +104,16 @@ export default function Cart() {
         </p>
       </div>
 
-      <button
-        disabled={cartStore.cartItemsQuantity === 0}
-        className="bg-[#d87d4a] text-white text-[1.5rem] py-[1rem] px-[2rem] rounded-lg disabled:opacity-50"
-      >
-        CHECKOUT
-      </button>
+      <Link href="/checkout" passHref>
+        <button
+          onClick={() => cartStore.setCartOpen(false)}
+          disabled={cartStore.cartItemsQuantity === 0}
+          className="bg-[#d87d4a] text-white text-[1.5rem] py-[1rem] px-[2rem] rounded-lg 
+          disabled:opacity-50 w-[100%]"
+        >
+          CHECKOUT
+        </button>
+      </Link>
     </div>
   );
 }
