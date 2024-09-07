@@ -89,7 +89,7 @@ export default function Checkout() {
   };
   return (
     <div className="relative">
-      <div className="px-[2.4rem] py-[9rem] bg-[#fafafa] md:px-[4rem]">
+      <div className="px-[2.4rem] py-[9rem] bg-[#fafafa] md:px-[4rem] lg:px-[16.5rem]">
         <Link href="/" className="text-[gray] text-[1.5rem] font-medium">
           Go Back
         </Link>
@@ -497,7 +497,7 @@ export default function Checkout() {
         <div className="bg-[#000000bf] top-0 h-full w-full fixed cursor-pointer z-[1]">
           <div
             className="fixed bg-white w-[90%] z-10 top-[20rem] 
-            transform -translate-x-1/2 left-1/2 p-[3.2rem] rounded-xl md:w-[70%]"
+            transform -translate-x-1/2 left-1/2 p-[3.2rem] rounded-xl md:w-[70%] lg:w-[40%]"
           >
             <svg
               width="64"

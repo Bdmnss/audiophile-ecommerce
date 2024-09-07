@@ -24,7 +24,7 @@ const config: Config = {
         'best-gear-desktop': "url('/assets/shared/desktop/image-best-gear.jpg')",
       },
       gridTemplateColumns: {
-        'gallery': "275px 395px",
+        'gallery': "40% 56%",
       }
     },
   },

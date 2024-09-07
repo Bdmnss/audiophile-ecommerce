@@ -9,14 +9,14 @@ export default function Cart() {
         cartStore.isCartOpen
           ? "animate-slide-top-to-bottom mt-[10rem]"
           : "animate-slide-bottom-to-top"
-      } md:w-[50%] right-[4%]`}
+      } md:w-[50%] right-[4%] lg:w-[30%]`}
     >
       <div className="flex justify-between items-center">
         <p className="text-black text-[1.8rem] font-bold">
           CART ({cartStore.cartItemsQuantity})
         </p>
         <p
-          className="text-[gray] text-[1.5rem] underline"
+          className="text-[gray] text-[1.5rem] underline cursor-pointer hover:text-[#d87d4a]"
           onClick={() => {
             cartStore.setCartItems([]);
             cartStore.setTotalPrice(0);
@@ -73,7 +73,7 @@ export default function Cart() {
                         ))
                       : "";
                   }}
-                  className="text-[gray] text-[2rem] font-bold"
+                  className="text-[gray] text-[2rem] font-bold hover:text-[#d87d4a]"
                 >
                   -
                 </button>
@@ -87,7 +87,7 @@ export default function Cart() {
                       cartStore.totalPrice + product.originalPrice
                     );
                   }}
-                  className="text-[gray] text-[2rem] font-bold]"
+                  className="text-[gray] text-[2rem] font-bold hover:text-[#d87d4a]"
                 >
                   +
                 </button>
@@ -109,7 +109,7 @@ export default function Cart() {
           onClick={() => cartStore.setCartOpen(false)}
           disabled={cartStore.cartItemsQuantity === 0}
           className="bg-[#d87d4a] text-white text-[1.5rem] py-[1rem] px-[2rem] rounded-lg 
-          disabled:opacity-50 w-[100%]"
+          disabled:opacity-50 w-[100%] hover:bg-[#fbaf85]"
         >
           CHECKOUT
         </button>
