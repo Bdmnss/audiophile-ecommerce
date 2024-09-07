@@ -3,10 +3,16 @@ import React from "react";
 export default function SloganText() {
   return (
     <div>
-      <div className="w-[100%] h-[30rem] bg-best-gear-mobile bg-no-repeat bg-cover rounded-lg mb-[4rem]"></div>
+      <div
+        className="w-[100%] h-[30rem] bg-best-gear-mobile bg-no-repeat bg-cover rounded-lg 
+      mb-[4rem] md:bg-best-gear-tablet"
+      ></div>
 
-      <div className="flex flex-col justify-center items-center text-center">
-        <h2 className="text-black text-[2.8rem] font-bold mb-[3.2rem]">
+      <div className="flex flex-col justify-center items-center text-center md:px-10">
+        <h2
+          className="text-black text-[2.8rem] font-bold mb-[3.2rem] md:text-[4rem] 
+        md:leading-[4.4rem]"
+        >
           BRINGING YOU THE <span className="text-[#d87d4a]">BEST</span> AUDIO
           GEAR
         </h2>

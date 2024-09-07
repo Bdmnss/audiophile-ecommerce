@@ -15,8 +15,7 @@ export default function Header() {
     <header className="relative flex justify-center">
       <div
         className="bg-[#101010] flex justify-between p-10 items-center border-b-[1px] border-b-[gray] 
-        fixed z-20 w-[100%]
-    "
+        fixed z-20 w-[100%] md:justify-normal md:gap-[4.2rem] md:bg-black"
       >
         <svg
           width="16"
@@ -54,7 +53,7 @@ export default function Header() {
           </svg>
         </Link>
 
-        <div className="relative">
+        <div className="relative md:absolute md:right-[5%]">
           {cartStore.cartItemsQuantity === 0 ? null : (
             <div
               className="absolute text-white right-[-8px] top-[-7px] bg-[#d87d4a] 

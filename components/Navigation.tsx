@@ -9,7 +9,10 @@ import Link from "next/link";
 export default function Navigation() {
   const menuStore = useMenuStore();
   return (
-    <div className="flex flex-col justify-center items-center gap-[7rem] w-[100%] mb-[12rem]">
+    <div
+      className="flex flex-col justify-center items-center gap-[7rem] w-[100%] mb-[12rem] 
+    md:flex-row md:gap-[1rem]"
+    >
       <Link
         href="/headphones"
         className="w-[100%]"

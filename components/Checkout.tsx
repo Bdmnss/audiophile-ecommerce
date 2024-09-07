@@ -89,13 +89,13 @@ export default function Checkout() {
   };
   return (
     <div className="relative">
-      <div className="px-[2.4rem] py-[9rem] bg-[#fafafa]">
+      <div className="px-[2.4rem] py-[9rem] bg-[#fafafa] md:px-[4rem]">
         <Link href="/" className="text-[gray] text-[1.5rem] font-medium">
           Go Back
         </Link>
 
         <div className="bg-white mt-[2.4rem] p-[2.4rem]">
-          <h1 className="text-black text-[2.8rem] font-bold mb-[3.2rem]">
+          <h1 className="text-black text-[2.8rem] font-bold mb-[3.2rem] md:text-[3.2rem]">
             CHECKOUT
           </h1>
 
@@ -107,58 +107,59 @@ export default function Checkout() {
               <p className="text-[#d87d4a] text-[1.3rem] font-bold">
                 BILLING DETAILS
               </p>
-
-              <div>
-                <label
-                  htmlFor="name"
-                  className={`text-black text-[1.2rem] font-bold ${
-                    errors.name && "text-red-500"
-                  }`}
-                >
-                  Name
-                </label>
-                <input
-                  type="text"
-                  {...register("name")}
-                  id="name"
-                  placeholder="Alexei Ward"
-                  className={`text-black text-[1.4rem] font-bold w-full p-[1.6rem] border 
+              <div className="flex flex-col gap-[2.4rem] md:flex-row md:gap-[1.6rem]">
+                <div className="md:w-[50%]">
+                  <label
+                    htmlFor="name"
+                    className={`text-black text-[1.2rem] font-bold ${
+                      errors.name && "text-red-500"
+                    }`}
+                  >
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    {...register("name")}
+                    id="name"
+                    placeholder="Alexei Ward"
+                    className={`text-black text-[1.4rem] font-bold w-full p-[1.6rem] border 
             border-[#d9d9d9] mt-[1rem] rounded-xl focus:border-[#d87d4a] outline-none 
             ${errors.name && "border-red-500"}`}
-                />
-                {errors.name && (
-                  <p className="text-red-500 text-[1.2rem] font-bold mt-[1rem]">
-                    {errors.name?.message}
-                  </p>
-                )}
-              </div>
+                  />
+                  {errors.name && (
+                    <p className="text-red-500 text-[1.2rem] font-bold mt-[1rem]">
+                      {errors.name?.message}
+                    </p>
+                  )}
+                </div>
 
-              <div>
-                <label
-                  htmlFor="email"
-                  className={`text-black text-[1.2rem] font-bold ${
-                    errors.email && "text-red-500"
-                  }`}
-                >
-                  Email Address
-                </label>
-                <input
-                  type="text"
-                  {...register("email")}
-                  id="email"
-                  placeholder="alexei@mail.com"
-                  className={`text-black text-[1.4rem] font-bold w-full p-[1.6rem] border 
+                <div className="md:w-[50%]">
+                  <label
+                    htmlFor="email"
+                    className={`text-black text-[1.2rem] font-bold ${
+                      errors.email && "text-red-500"
+                    }`}
+                  >
+                    Email Address
+                  </label>
+                  <input
+                    type="text"
+                    {...register("email")}
+                    id="email"
+                    placeholder="alexei@mail.com"
+                    className={`text-black text-[1.4rem] font-bold w-full p-[1.6rem] border 
             border-[#d9d9d9] mt-[1rem] rounded-xl focus:border-[#d87d4a] outline-none 
             ${errors.name && "border-red-500"}`}
-                />
-                {errors.email && (
-                  <p className="text-red-500 text-[1.2rem] font-bold mt-[1rem]">
-                    {errors.email?.message}
-                  </p>
-                )}
+                  />
+                  {errors.email && (
+                    <p className="text-red-500 text-[1.2rem] font-bold mt-[1rem]">
+                      {errors.email?.message}
+                    </p>
+                  )}
+                </div>
               </div>
 
-              <div>
+              <div className="md:w-[49%]">
                 <label
                   htmlFor="phone"
                   className={`text-black text-[1.2rem] font-bold ${
@@ -214,57 +215,59 @@ export default function Checkout() {
                 )}
               </div>
 
-              <div>
-                <label
-                  htmlFor="zip"
-                  className={`text-black text-[1.2rem] font-bold ${
-                    errors.zip && "text-red-500"
-                  }`}
-                >
-                  ZIP Code
-                </label>
-                <input
-                  type="text"
-                  {...register("zip")}
-                  id="zip"
-                  placeholder="10001"
-                  className={`text-black text-[1.4rem] font-bold w-full p-[1.6rem] border 
+              <div className="flex flex-col gap-[2.4rem] md:flex-row md:gap-[1.6rem]">
+                <div className="md:w-[50%]">
+                  <label
+                    htmlFor="zip"
+                    className={`text-black text-[1.2rem] font-bold ${
+                      errors.zip && "text-red-500"
+                    }`}
+                  >
+                    ZIP Code
+                  </label>
+                  <input
+                    type="text"
+                    {...register("zip")}
+                    id="zip"
+                    placeholder="10001"
+                    className={`text-black text-[1.4rem] font-bold w-full p-[1.6rem] border 
             border-[#d9d9d9] mt-[1rem] rounded-xl focus:border-[#d87d4a] outline-none 
             ${errors.name && "border-red-500"}`}
-                />
-                {errors.zip && (
-                  <p className="text-red-500 text-[1.2rem] font-bold mt-[1rem]">
-                    {errors.zip?.message}
-                  </p>
-                )}
-              </div>
+                  />
+                  {errors.zip && (
+                    <p className="text-red-500 text-[1.2rem] font-bold mt-[1rem]">
+                      {errors.zip?.message}
+                    </p>
+                  )}
+                </div>
 
-              <div>
-                <label
-                  htmlFor="city"
-                  className={`text-black text-[1.2rem] font-bold ${
-                    errors.city && "text-red-500"
-                  }`}
-                >
-                  City
-                </label>
-                <input
-                  type="text"
-                  {...register("city")}
-                  id="city"
-                  placeholder="New York"
-                  className={`text-black text-[1.4rem] font-bold w-full p-[1.6rem] border 
+                <div className="md:w-[50%]">
+                  <label
+                    htmlFor="city"
+                    className={`text-black text-[1.2rem] font-bold ${
+                      errors.city && "text-red-500"
+                    }`}
+                  >
+                    City
+                  </label>
+                  <input
+                    type="text"
+                    {...register("city")}
+                    id="city"
+                    placeholder="New York"
+                    className={`text-black text-[1.4rem] font-bold w-full p-[1.6rem] border 
             border-[#d9d9d9] mt-[1rem] rounded-xl focus:border-[#d87d4a] outline-none 
             ${errors.name && "border-red-500"}`}
-                />
-                {errors.city && (
-                  <p className="text-red-500 text-[1.2rem] font-bold mt-[1rem]">
-                    {errors.city?.message}
-                  </p>
-                )}
+                  />
+                  {errors.city && (
+                    <p className="text-red-500 text-[1.2rem] font-bold mt-[1rem]">
+                      {errors.city?.message}
+                    </p>
+                  )}
+                </div>
               </div>
 
-              <div>
+              <div className="md:w-[49%]">
                 <label
                   htmlFor="country"
                   className={`text-black text-[1.2rem] font-bold ${
@@ -299,58 +302,63 @@ export default function Checkout() {
                 <p className="text-black text-[1.2rem] font-bold">
                   Payment Method
                 </p>
-                <div
-                  className={`flex items-center gap-5 w-full p-[1.6rem] border mt-[1rem] rounded-xl 
+                <div className="flex flex-col md:flex-row md:gap-[1.6rem]">
+                  <div
+                    className={`flex items-center gap-5 w-full p-[1.6rem] border mt-[1rem] rounded-xl 
                 mb-[1.6rem] ${
                   selectedPayment === "eMoney"
                     ? "border-[#d87d4a]"
                     : "border-[#d9d9d9]"
-                }`}
-                  onClick={() => setSelectedPayment("eMoney")}
-                >
-                  <label className="custom-radio">
-                    <input
-                      type="radio"
-                      id="eMoney"
-                      name="payment"
-                      checked={selectedPayment === "eMoney"}
-                      onChange={() => setSelectedPayment("eMoney")}
-                    />
-                    <span className="checkmark"></span>
-                  </label>
-                  <label htmlFor="eMoney" className="text-black text-[1.4rem]">
-                    e-Money
-                  </label>
-                </div>
+                } md:w-[50%]`}
+                    onClick={() => setSelectedPayment("eMoney")}
+                  >
+                    <label className="custom-radio">
+                      <input
+                        type="radio"
+                        id="eMoney"
+                        name="payment"
+                        checked={selectedPayment === "eMoney"}
+                        onChange={() => setSelectedPayment("eMoney")}
+                      />
+                      <span className="checkmark"></span>
+                    </label>
+                    <label
+                      htmlFor="eMoney"
+                      className="text-black text-[1.4rem]"
+                    >
+                      e-Money
+                    </label>
+                  </div>
 
-                <div
-                  className={`flex items-center gap-5 w-full p-[1.6rem] border mt-[1rem] rounded-xl 
+                  <div
+                    className={`flex items-center gap-5 w-full p-[1.6rem] border mt-[1rem] rounded-xl 
                 mb-[1.6rem] ${
                   selectedPayment === "cash"
                     ? "border-[#d87d4a]"
                     : "border-[#d9d9d9]"
-                }`}
-                  onClick={() => setSelectedPayment("cash")}
-                >
-                  <label className="custom-radio">
-                    <input
-                      type="radio"
-                      id="cash"
-                      name="payment"
-                      checked={selectedPayment === "cash"}
-                      onChange={() => setSelectedPayment("cash")}
-                    />
-                    <span className="checkmark"></span>
-                  </label>
-                  <label htmlFor="cash" className="text-black text-[1.4rem]">
-                    Cash on Delivery
-                  </label>
+                } md:w-[50%]`}
+                    onClick={() => setSelectedPayment("cash")}
+                  >
+                    <label className="custom-radio">
+                      <input
+                        type="radio"
+                        id="cash"
+                        name="payment"
+                        checked={selectedPayment === "cash"}
+                        onChange={() => setSelectedPayment("cash")}
+                      />
+                      <span className="checkmark"></span>
+                    </label>
+                    <label htmlFor="cash" className="text-black text-[1.4rem]">
+                      Cash on Delivery
+                    </label>
+                  </div>
                 </div>
               </div>
 
               {selectedPayment === "eMoney" ? (
-                <div className="flex flex-col gap-[2.4rem]">
-                  <div>
+                <div className="flex flex-col gap-[2.4rem] md:flex-row md:gap-[1.6rem]">
+                  <div className="md:w-[50%]">
                     <label
                       htmlFor="eMoneyNumber"
                       className={`text-black text-[1.2rem] font-bold ${
@@ -375,7 +383,7 @@ export default function Checkout() {
                     )}
                   </div>
 
-                  <div>
+                  <div className="md:w-[50%]">
                     <label
                       htmlFor="eMoneyPin"
                       className={`text-black text-[1.2rem] font-bold ${
@@ -429,18 +437,20 @@ export default function Checkout() {
               {cartStore.cartItems.map((product) => (
                 <div key={product.id} className="flex flex-col">
                   <div className=" flex justify-between items-center">
-                    <img
-                      src={product.image}
-                      alt="product image"
-                      className="w-[6.4rem] rounded-xl"
-                    />
-                    <div className="flex flex-col items-center">
-                      <p className="text-black text-[1.5rem] font-bold">
-                        {product.name}
-                      </p>
-                      <p className="text-[gray] text-[1.4rem] font-bold">
-                        $ {product.originalPrice}
-                      </p>
+                    <div className="flex items-center gap-[1.6rem]">
+                      <img
+                        src={product.image}
+                        alt="product image"
+                        className="w-[6.4rem] rounded-xl"
+                      />
+                      <div className="flex flex-col">
+                        <p className="text-black text-[1.5rem] font-bold">
+                          {product.name}
+                        </p>
+                        <p className="text-[gray] text-[1.4rem] font-bold">
+                          $ {product.originalPrice}
+                        </p>
+                      </div>
                     </div>
                     <p className="text-[gray] text-[1.5rem] font-bold">
                       x{product.quantity}
@@ -484,8 +494,11 @@ export default function Checkout() {
       </div>
 
       {checkoutStore.isPayActive && (
-        <div className="bg-[#000000bf] top-0 h-full w-full fixed cursor-pointer z-[1] px-6">
-          <div className="fixed bg-white w-full z-10 top-[20rem] p-[3.2rem] rounded-xl">
+        <div className="bg-[#000000bf] top-0 h-full w-full fixed cursor-pointer z-[1]">
+          <div
+            className="fixed bg-white w-[90%] z-10 top-[20rem] 
+            transform -translate-x-1/2 left-1/2 p-[3.2rem] rounded-xl md:w-[70%]"
+          >
             <svg
               width="64"
               height="64"
@@ -500,14 +513,20 @@ export default function Checkout() {
                 />
               </g>
             </svg>
-            <h2 className="text-black text-[2.4rem] font-bold leading-[2.8rem] mb-[1.6rem]">
+            <h2
+              className="text-black text-[2.4rem] font-bold leading-[2.8rem] mb-[1.6rem] 
+            md:text-[3.2rem] md:leading-[3.6rem]"
+            >
               THANK YOU FOR YOUR ORDER
             </h2>
             <p className="text-[gray] text-[1.5rem] font-medium mb-[2.4rem]">
               You will receive an email confirmation shortly.
             </p>
-            <div className="bg-[#f1f1f1] rounded-xl overflow-hidden">
-              <div className="p-[2.4rem]">
+            <div
+              className="flex flex-col bg-[#f1f1f1] rounded-xl overflow-hidden md:flex-row
+            md:justify-between"
+            >
+              <div className="p-[2.4rem] md:w-[60%]">
                 {cartStore.cartItems.map(
                   (product, index) =>
                     index === 0 && (
@@ -516,18 +535,20 @@ export default function Checkout() {
                         className="flex flex-col mb-[1.2rem]"
                       >
                         <div className=" flex justify-between items-center">
-                          <img
-                            src={product.image}
-                            alt="product image"
-                            className="w-[5rem]"
-                          />
-                          <div className="flex flex-col items-center">
-                            <p className="text-black text-[1.5rem] font-bold">
-                              {product.name}
-                            </p>
-                            <p className="text-[gray] text-[1.4rem] font-bold">
-                              $ {product.originalPrice}
-                            </p>
+                          <div className="flex items-center gap-[1.6rem]">
+                            <img
+                              src={product.image}
+                              alt="product image"
+                              className="w-[5rem]"
+                            />
+                            <div className="flex flex-col items-center">
+                              <p className="text-black text-[1.5rem] font-bold">
+                                {product.name}
+                              </p>
+                              <p className="text-[gray] text-[1.4rem] font-bold self-start">
+                                $ {product.originalPrice}
+                              </p>
+                            </div>
                           </div>
                           <p className="text-[gray] text-[1.5rem] font-bold">
                             x{product.quantity}
@@ -546,7 +567,7 @@ export default function Checkout() {
                 )}
               </div>
 
-              <div className="bg-black p-[2.5rem]">
+              <div className="bg-black p-[2.5rem] md:w-[40%] md:flex md:flex-col md:justify-center">
                 <p className="text-[gray] text-[1.5rem] font-medium">
                   GRAND TOTAL
                 </p>

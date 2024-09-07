@@ -9,7 +9,7 @@ export default function Cart() {
         cartStore.isCartOpen
           ? "animate-slide-top-to-bottom mt-[10rem]"
           : "animate-slide-bottom-to-top"
-      }`}
+      } md:w-[50%] right-[4%]`}
     >
       <div className="flex justify-between items-center">
         <p className="text-black text-[1.8rem] font-bold">
