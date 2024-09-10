@@ -20,58 +20,68 @@ type Inputs = {
   eMoneyPin?: number;
 };
 
-const schema = yup.object().shape({
-  name: yup.string().required("Name is required"),
-  email: yup
-    .string()
-    .required("Email is required")
-    .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, "Email is not valid"),
-  phone: yup
-    .number()
-    .required("Phone is required")
-    .typeError("Phone number must be a valid number")
-    .test(
-      "number length",
-      "Phone number must be 9 digits",
-      (val) => val?.toString().length === 9
-    ),
-  address: yup
-    .string()
-    .required("Address is required")
-    .min(5, "Address is too short"),
-  zip: yup
-    .number()
-    .required("ZIP Code is required")
-    .typeError("ZIP Code must be a valid number")
-    .test(
-      "number length",
-      "ZIP Code must be 5 digits",
-      (val) => val?.toString().length === 5
-    ),
-  city: yup.string().required("City is required"),
-  country: yup.string().required("Country is required"),
-  eMoneyNumber: yup
-    .number()
-    .required("e-Money Number is required")
-    .typeError("e-Money Number must be a valid number")
-    .test(
-      "number length",
-      "e-Money Number must be 9 digits",
-      (val) => val?.toString().length === 9
-    ),
-  eMoneyPin: yup
-    .number()
-    .required("e-Money PIN is required")
-    .typeError("e-Money PIN must be a valid number")
-    .test(
-      "number length",
-      "e-Money PIN must be 4 digits",
-      (val) => val?.toString().length === 4
-    ),
-});
-
 export default function Checkout() {
   const [selectedPayment, setSelectedPayment] = useState("eMoney");
+
+  const schema = yup.object().shape({
+    name: yup.string().required("Name is required"),
+    email: yup
+      .string()
+      .required("Email is required")
+      .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, "Email is not valid"),
+    phone: yup
+      .number()
+      .required("Phone is required")
+      .typeError("Phone number must be a valid number")
+      .test(
+        "number length",
+        "Phone number must be 9 digits",
+        (val) => val?.toString().length === 9
+      ),
+    address: yup
+      .string()
+      .required("Address is required")
+      .min(5, "Address is too short"),
+    zip: yup
+      .number()
+      .required("ZIP Code is required")
+      .typeError("ZIP Code must be a valid number")
+      .test(
+        "number length",
+        "ZIP Code must be 5 digits",
+        (val) => val?.toString().length === 5
+      ),
+    city: yup.string().required("City is required"),
+    country: yup.string().required("Country is required"),
+    eMoneyNumber: yup
+      .number()
+      .required("e-Money Number is required")
+      .typeError("e-Money Number must be a valid number")
+      .test(
+        "number length",
+        "e-Money Number must be 9 digits",
+        (val) => val?.toString().length === 9
+      )
+      .test(
+        "is required",
+        "e-Money Number is required",
+        () => selectedPayment !== "eMoney"
+      ),
+    eMoneyPin: yup
+      .number()
+      .required("e-Money PIN is required")
+      .typeError("e-Money PIN must be a valid number")
+      .test(
+        "number length",
+        "e-Money PIN must be 4 digits",
+        (val) => val?.toString().length === 4
+      )
+      .test(
+        "is required",
+        "e-Money Number is required",
+        () => selectedPayment !== "eMoney"
+      ),
+  });
 
   const cartStore = useCartStore();
   const checkoutStore = useCheckoutStore();
@@ -496,8 +506,9 @@ export default function Checkout() {
       {checkoutStore.isPayActive && (
         <div className="bg-[#000000bf] top-0 h-full w-full fixed cursor-pointer z-[1]">
           <div
-            className="fixed bg-white w-[90%] z-10 top-[20rem] 
-            transform -translate-x-1/2 left-1/2 p-[3.2rem] rounded-xl md:w-[70%] lg:w-[40%]"
+            className="fixed bg-white w-[90%] z-10 top-[12rem] h-[73vh] overflow-y-auto
+            transform -translate-x-1/2 left-1/2 p-[3.2rem] rounded-xl md:w-[70%] lg:w-[40%]
+            md:h-[61vh]"
           >
             <svg
               width="64"

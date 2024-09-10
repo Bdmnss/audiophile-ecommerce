@@ -5,11 +5,12 @@ export default function Cart() {
   const cartStore = useCartStore();
   return (
     <div
-      className={`fixed w-[90%] bg-white z-10 flex flex-col p-[3rem] rounded-xl gap-[3.2rem] ${
-        cartStore.isCartOpen
-          ? "animate-slide-top-to-bottom mt-[10rem]"
-          : "animate-slide-bottom-to-top"
-      } md:w-[50%] right-[4%] lg:w-[30%]`}
+      className={`fixed w-[90%] bg-white z-10 flex flex-col p-[3rem] rounded-xl 
+        gap-[3.2rem] overflow-y-auto h-[45vh] md:h-[47vh] ${
+          cartStore.isCartOpen
+            ? "animate-slide-top-to-bottom mt-[10rem]"
+            : "animate-slide-bottom-to-top"
+        } md:w-[50%] right-[4%] lg:w-[30%]`}
     >
       <div className="flex justify-between items-center">
         <p className="text-black text-[1.8rem] font-bold">

@@ -7,11 +7,12 @@ export default function BurgerMenu() {
   const menuStore = useMenuStore();
   return (
     <div
-      className={`fixed w-[100%] bg-white z-10 rounded-xl px-[4rem] ${
-        menuStore.isMenuOpen
-          ? "animate-slide-top-to-bottom"
-          : "animate-slide-bottom-to-top"
-      }`}
+      className={`fixed w-[100%] bg-white z-10 rounded-xl px-[4rem] h-[100%] 
+        overflow-y-scroll md:h-[56%] ${
+          menuStore.isMenuOpen
+            ? "animate-slide-top-to-bottom"
+            : "animate-slide-bottom-to-top"
+        }`}
     >
       <div className="mt-[16rem]">
         <Navigation />
