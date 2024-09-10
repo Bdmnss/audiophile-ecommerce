@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCartStore } from "@/stores/cartStore";
 import { useCheckoutStore } from "@/stores/checkoutStore";
 
@@ -20,79 +20,119 @@ type Inputs = {
   eMoneyPin?: number;
 };
 
+const baseSchema = yup.object().shape({
+  name: yup.string().required("Name is required"),
+  email: yup
+    .string()
+    .required("Email is required")
+    .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, "Email is not valid"),
+  phone: yup
+    .number()
+    .required("Phone is required")
+    .typeError("Phone number must be a valid number")
+    .test(
+      "number length",
+      "Phone number must be 9 digits",
+      (val) => val?.toString().length === 9
+    ),
+  address: yup
+    .string()
+    .required("Address is required")
+    .min(5, "Address is too short"),
+  zip: yup
+    .number()
+    .required("ZIP Code is required")
+    .typeError("ZIP Code must be a valid number")
+    .test(
+      "number length",
+      "ZIP Code must be 5 digits",
+      (val) => val?.toString().length === 5
+    ),
+  city: yup.string().required("City is required"),
+  country: yup.string().required("Country is required"),
+  eMoneyNumber: yup
+    .number()
+    .required("e-Money Number is required")
+    .typeError("e-Money Number must be a valid number")
+    .test(
+      "number length",
+      "e-Money Number must be 9 digits",
+      (val) => val?.toString().length === 9
+    ),
+  eMoneyPin: yup
+    .number()
+    .required("e-Money PIN is required")
+    .typeError("e-Money PIN must be a valid number")
+    .test(
+      "number length",
+      "e-Money PIN must be 4 digits",
+      (val) => val?.toString().length === 4
+    ),
+});
+
 export default function Checkout() {
   const [selectedPayment, setSelectedPayment] = useState("eMoney");
-
-  const schema = yup.object().shape({
-    name: yup.string().required("Name is required"),
-    email: yup
-      .string()
-      .required("Email is required")
-      .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, "Email is not valid"),
-    phone: yup
-      .number()
-      .required("Phone is required")
-      .typeError("Phone number must be a valid number")
-      .test(
-        "number length",
-        "Phone number must be 9 digits",
-        (val) => val?.toString().length === 9
-      ),
-    address: yup
-      .string()
-      .required("Address is required")
-      .min(5, "Address is too short"),
-    zip: yup
-      .number()
-      .required("ZIP Code is required")
-      .typeError("ZIP Code must be a valid number")
-      .test(
-        "number length",
-        "ZIP Code must be 5 digits",
-        (val) => val?.toString().length === 5
-      ),
-    city: yup.string().required("City is required"),
-    country: yup.string().required("Country is required"),
-    eMoneyNumber: yup
-      .number()
-      .required("e-Money Number is required")
-      .typeError("e-Money Number must be a valid number")
-      .test(
-        "number length",
-        "e-Money Number must be 9 digits",
-        (val) => val?.toString().length === 9
-      )
-      .test(
-        "is required",
-        "e-Money Number is required",
-        () => selectedPayment !== "eMoney"
-      ),
-    eMoneyPin: yup
-      .number()
-      .required("e-Money PIN is required")
-      .typeError("e-Money PIN must be a valid number")
-      .test(
-        "number length",
-        "e-Money PIN must be 4 digits",
-        (val) => val?.toString().length === 4
-      )
-      .test(
-        "is required",
-        "e-Money Number is required",
-        () => selectedPayment !== "eMoney"
-      ),
-  });
 
   const cartStore = useCartStore();
   const checkoutStore = useCheckoutStore();
 
+  const [schema, setSchema] = useState(baseSchema);
+
   const {
     register,
     handleSubmit,
+    unregister,
     formState: { errors },
   } = useForm<Inputs>({
     resolver: yupResolver<Inputs>(schema),
   });
+  console.log("errors: ", errors);
+
+  const handleUnregister = (field1: string, field2: string) => {
+    unregister(["eMoneyNumber", "eMoneyPin"]);
+    setSchema((prevSchema) => prevSchema.omit([field1, field2]));
+  };
+
+  const handleReRegister = (field1: string, field2: string) => {
+    register("eMoneyNumber");
+    register("eMoneyPin");
+
+    const fieldValidation = {
+      eMoneyNumber: yup
+        .number()
+        .required("e-Money Number is required")
+        .typeError("e-Money Number must be a valid number")
+        .test(
+          "number length",
+          "e-Money Number must be 9 digits",
+          (val) => val?.toString().length === 9
+        ),
+      eMoneyPin: yup
+        .number()
+        .required("e-Money PIN is required")
+        .typeError("e-Money PIN must be a valid number")
+        .test(
+          "number length",
+          "e-Money PIN must be 4 digits",
+          (val) => val?.toString().length === 4
+        ),
+    };
+
+    setSchema((prevSchema) =>
+      prevSchema.shape({
+        [field1]: fieldValidation[field1],
+        [field2]: fieldValidation[field2],
+      })
+    );
+  };
+
+  useEffect(() => {
+    if (selectedPayment === "cash") {
+      handleUnregister("eMoneyNumber", "eMoneyPin");
+    } else {
+      handleReRegister("eMoneyNumber", "eMoneyPin");
+    }
+  }, [selectedPayment]);
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     checkoutStore.setPayActive(true);
