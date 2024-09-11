@@ -7,6 +7,7 @@ import * as yup from "yup";
 import { useEffect, useState } from "react";
 import { useCartStore } from "@/stores/cartStore";
 import { useCheckoutStore } from "@/stores/checkoutStore";
+import { ObjectSchema } from "yup";
 
 type Inputs = {
   name: string;
@@ -19,6 +20,29 @@ type Inputs = {
   eMoneyNumber?: number;
   eMoneyPin?: number;
 };
+
+type SchemaKeys =
+  | "name"
+  | "email"
+  | "phone"
+  | "address"
+  | "zip"
+  | "city"
+  | "country"
+  | "eMoneyNumber"
+  | "eMoneyPin";
+
+type SchemaType = ObjectSchema<{
+  name: string;
+  email: string;
+  phone: number;
+  address: string;
+  zip: number;
+  city: string;
+  country: string;
+  eMoneyNumber?: number;
+  eMoneyPin?: number;
+}>;
 
 const baseSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -76,7 +100,7 @@ export default function Checkout() {
   const cartStore = useCartStore();
   const checkoutStore = useCheckoutStore();
 
-  const [schema, setSchema] = useState(baseSchema);
+  const [schema, setSchema] = useState<SchemaType>(baseSchema);
 
   const {
     register,
@@ -88,16 +112,16 @@ export default function Checkout() {
   });
   console.log("errors: ", errors);
 
-  const handleUnregister = (field1: string, field2: string) => {
+  const handleUnregister = (field1: SchemaKeys, field2: SchemaKeys) => {
     unregister(["eMoneyNumber", "eMoneyPin"]);
-    setSchema((prevSchema) => prevSchema.omit([field1, field2]));
+    setSchema((prevSchema) => prevSchema.omit([field1, field2]) as SchemaType);
   };
 
-  const handleReRegister = (field1: string, field2: string) => {
+  const handleReRegister = (field1: SchemaKeys, field2: SchemaKeys) => {
     register("eMoneyNumber");
     register("eMoneyPin");
 
-    const fieldValidation = {
+    const fieldValidation: Partial<Record<SchemaKeys, yup.NumberSchema>> = {
       eMoneyNumber: yup
         .number()
         .required("e-Money Number is required")
@@ -118,11 +142,18 @@ export default function Checkout() {
         ),
     };
 
-    setSchema((prevSchema) =>
-      prevSchema.shape({
-        [field1]: fieldValidation[field1],
-        [field2]: fieldValidation[field2],
-      })
+    const newShape = Object.fromEntries(
+      Object.entries(fieldValidation).filter(
+        ([key, value]) => value !== undefined
+      )
+    ) as Record<SchemaKeys, yup.NumberSchema>;
+
+    setSchema(
+      (prevSchema) =>
+        prevSchema.shape({
+          [field1]: newShape[field1],
+          [field2]: newShape[field2],
+        }) as unknown as SchemaType
     );
   };
 
