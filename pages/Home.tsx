@@ -4,6 +4,7 @@ import productSpeakerImage from "../public/assets/home/mobile/image-speaker-zx9.
 import Navigation from "@/components/Navigation";
 import SloganText from "@/components/SloganText";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function HomePage() {
   return (
@@ -47,10 +48,12 @@ export default function HomePage() {
         flex flex-col justify-center items-center text-center mb-[2.4rem] py-[5.5rem] rounded-lg
         md:px-80 lg:flex-row lg:gap-[13rem]"
           >
-            <img
+            <Image
               src={productSpeakerImage.src}
               alt="speaker image"
               className="w-[15rem] mb-[3.2rem] md:w-[20rem] lg:w-[30rem]"
+              width={300}
+              height={300}
             />
             <div>
               <h2

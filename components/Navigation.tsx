@@ -5,6 +5,7 @@ import speakersImage from "../public/assets/shared/desktop/image-category-thumbn
 import earphonesImage from "../public/assets/shared/desktop/image-category-thumbnail-earphones.png";
 import { useMenuStore } from "@/stores/menuStore";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Navigation() {
   const menuStore = useMenuStore();
@@ -22,10 +23,12 @@ export default function Navigation() {
           className="relative bg-[#f1f1f1] flex flex-col justify-center items-center pb-6 rounded-xl 
            pt-[7rem] lg:py-[7rem] group"
         >
-          <img
+          <Image
             src={headphonesImage.src}
             alt="headphones image"
             className="absolute w-[13rem] top-[-4.5rem] lg:w-[20rem] lg:top-[-10rem]"
+            width={260}
+            height={260}
           />
           <p className="text-black text-[1.5rem] font-bold mb-[1.7rem] lg:text-[1.8rem]">
             HEADPHONES
@@ -51,10 +54,12 @@ export default function Navigation() {
           className="relative bg-[#f1f1f1] flex flex-col justify-center items-center pb-6 rounded-xl 
            pt-[7rem] lg:py-[7rem] group"
         >
-          <img
+          <Image
             src={speakersImage.src}
             alt="headphones image"
             className="absolute w-[13rem] top-[-4.5rem] lg:w-[20rem] lg:top-[-10rem]"
+            width={260}
+            height={260}
           />
           <p className="text-black text-[1.5rem] font-bold mb-[1.7rem] lg:text-[1.8rem]">
             SPEAKERS
@@ -80,10 +85,12 @@ export default function Navigation() {
           className="relative bg-[#f1f1f1] flex flex-col justify-center items-center pb-6 rounded-xl 
          pt-[7rem] lg:py-[7rem] group"
         >
-          <img
+          <Image
             src={earphonesImage.src}
             alt="headphones image"
             className="absolute w-[13rem] top-[-4.5rem] lg:w-[20rem] lg:top-[-8rem]"
+            width={260}
+            height={260}
           />
           <p className="text-black text-[1.5rem] font-bold mb-[1.7rem] lg:text-[1.8rem]">
             EARPHONES

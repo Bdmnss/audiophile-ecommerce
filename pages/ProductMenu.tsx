@@ -2,6 +2,7 @@ import data from "../data.json";
 import Navigation from "@/components/Navigation";
 import SloganText from "@/components/SloganText";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function ProductMenu({
   productMenuName,
@@ -29,21 +30,27 @@ export default function ProductMenu({
             }`}
           >
             <div className="lg:w-[50%]">
-              <img
+              <Image
                 src={item.categoryImage.mobile}
                 alt="product image"
                 className="rounded-lg mb-[3.2rem] md:hidden"
+                width={375}
+                height={375}
               />
-              <img
+              <Image
                 src={item.categoryImage.tablet}
                 alt="product image"
                 className="rounded-lg mb-[3.2rem] h-[35rem] hidden md:block lg:hidden"
+                width={768}
+                height={768}
               />
 
-              <img
+              <Image
                 src={item.categoryImage.desktop}
                 alt="product image"
                 className="rounded-lg hidden lg:block"
+                width={768}
+                height={768}
               />
             </div>
             <div className="lg:w-[50%]">

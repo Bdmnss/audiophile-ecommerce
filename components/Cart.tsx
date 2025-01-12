@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useCartStore } from "../stores/cartStore";
+import Image from "next/image";
 
 export default function Cart() {
   const cartStore = useCartStore();
@@ -49,10 +50,12 @@ export default function Cart() {
         <div className="flex flex-col gap-[2.4rem]">
           {cartStore.cartItems.map((product) => (
             <div key={product.id} className="flex justify-between items-center">
-              <img
+              <Image
                 src={product.image}
                 alt="product image"
                 className="w-[6.4rem] rounded-xl"
+                width={64}
+                height={64}
               />
 
               <div className="">

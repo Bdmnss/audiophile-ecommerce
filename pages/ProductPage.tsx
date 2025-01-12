@@ -5,6 +5,7 @@ import data from "../data.json";
 import { useCartStore } from "@/stores/cartStore";
 import Navigation from "@/components/Navigation";
 import SloganText from "@/components/SloganText";
+import Image from "next/image";
 
 export default function ProductPage({
   productMenu,
@@ -29,20 +30,26 @@ export default function ProductPage({
         <div key={product.id}>
           <div className="md:flex md:gap-[7rem] md:mt-[2.4rem] lg:mt-[5.6rem] lg:gap-[12.5rem]">
             <div className="md:w-[50%]">
-              <img
+              <Image
                 src={product.image.mobile}
                 alt="product image"
                 className="mt-[2.4rem] mb-[4rem] rounded-lg md:hidden"
+                width={375}
+                height={375}
               />
-              <img
+              <Image
                 src={product.image.tablet}
                 alt="product image"
                 className="mb-[4rem] rounded-lg hidden md:block lg:hidden"
+                width={768}
+                height={768}
               />
-              <img
+              <Image
                 src={product.image.desktop}
                 alt="product image"
                 className="mb-[4rem] rounded-lg hidden lg:block"
+                width={768}
+                height={768}
               />
             </div>
 
@@ -173,40 +180,52 @@ export default function ProductPage({
             className="mb-[12rem] flex flex-col gap-[2rem] md:grid md:grid-rows-2 
           md:grid-cols-gallery md:justify-center"
           >
-            <img
+            <Image
               src={product.gallery.first.mobile}
               alt="gallery image"
               className="rounded-xl md:hidden"
+              width={375}
+              height={375}
             />
 
-            <img
+            <Image
               src={product.gallery.second.mobile}
               alt="gallery image"
               className="rounded-xl md:hidden"
+              width={375}
+              height={375}
             />
 
-            <img
+            <Image
               src={product.gallery.third.mobile}
               alt="gallery image"
               className="rounded-xl md:hidden"
+              width={375}
+              height={375}
             />
 
-            <img
+            <Image
               src={product.gallery.first.tablet}
               alt="gallery image"
               className="rounded-xl hidden md:block row-start-1"
+              width={768}
+              height={768}
             />
 
-            <img
+            <Image
               src={product.gallery.second.tablet}
               alt="gallery image"
               className="rounded-xl hidden md:block row-start-2"
+              width={768}
+              height={768}
             />
 
-            <img
+            <Image
               src={product.gallery.third.tablet}
               alt="gallery image"
               className="rounded-xl hidden md:block row-span-2 h-full"
+              width={768}
+              height={768}
             />
           </div>
 
@@ -221,22 +240,28 @@ export default function ProductPage({
                   key={item.slug}
                   className="flex flex-col justify-center items-center gap-[3.2rem] mb-[5.5rem]"
                 >
-                  <img
+                  <Image
                     src={item.image.mobile}
                     alt="product image"
                     className="rounded-lg md:hidden"
+                    width={375}
+                    height={375}
                   />
 
-                  <img
+                  <Image
                     src={item.image.tablet}
                     alt="product image"
                     className="rounded-lg hidden md:block lg:hidden"
+                    width={768}
+                    height={768}
                   />
 
-                  <img
+                  <Image
                     src={item.image.desktop}
                     alt="product image"
                     className="rounded-lg hidden lg:block"
+                    width={768}
+                    height={768}
                   />
 
                   <h3 className="text-black text-[1.8rem] font-bold md:text-[2.4rem]">
