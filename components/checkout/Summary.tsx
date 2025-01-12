@@ -1,13 +1,13 @@
-import React from "react";
-import Image from "next/image";
-import { useCartStore } from "@/stores/cartStore";
+import React from 'react'
+import Image from 'next/image'
+import { useCartStore } from '@/stores/cartStore'
 
 const Summary: React.FC = () => {
-  const { cartItems, totalPrice } = useCartStore();
+  const { cartItems, totalPrice } = useCartStore()
 
   return (
     <div className="flex flex-col gap-[2.4rem]">
-      <h2 className="text-[#d87d4a] text-[1.3rem] font-bold">SUMMARY</h2>
+      <h2 className="text-[1.3rem] font-bold text-[#d87d4a]">SUMMARY</h2>
       <ul className="flex flex-col gap-[1.6rem]">
         {cartItems.map((item) => (
           <li key={item.id} className="flex items-center gap-[1.6rem]">
@@ -19,25 +19,25 @@ const Summary: React.FC = () => {
               className="rounded-lg"
             />
             <div className="flex flex-col">
-              <h3 className="text-black text-[1.4rem] font-bold">
+              <h3 className="text-[1.4rem] font-bold text-black">
                 {item.name}
               </h3>
-              <p className="text-black text-[1.2rem] font-medium">
+              <p className="text-[1.2rem] font-medium text-black">
                 Quantity: {item.quantity}
               </p>
-              <p className="text-black text-[1.2rem] font-medium">
+              <p className="text-[1.2rem] font-medium text-black">
                 Price: ${item.price}
               </p>
             </div>
           </li>
         ))}
       </ul>
-      <div className="flex justify-between items-center mt-[2.4rem]">
-        <h3 className="text-black text-[1.4rem] font-bold">Total Price:</h3>
-        <p className="text-black text-[1.4rem] font-bold">${totalPrice}</p>
+      <div className="mt-[2.4rem] flex items-center justify-between">
+        <h3 className="text-[1.4rem] font-bold text-black">Total Price:</h3>
+        <p className="text-[1.4rem] font-bold text-black">${totalPrice}</p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Summary;
+export default Summary

@@ -1,37 +1,35 @@
-import React from "react";
-import { useFormContext } from "react-hook-form";
+import React from 'react'
+import { useFormContext } from 'react-hook-form'
 
 const PaymentDetails: React.FC = () => {
   const {
     register,
     formState: { errors },
-  } = useFormContext();
+  } = useFormContext()
 
   return (
     <div className="flex flex-col gap-[2.4rem]">
-      <p className="text-[#d87d4a] text-[1.3rem] font-bold">PAYMENT DETAILS</p>
+      <p className="text-[1.3rem] font-bold text-[#d87d4a]">PAYMENT DETAILS</p>
 
       <div className="flex flex-col gap-[2.4rem] md:flex-row md:gap-[1.6rem]">
         <div className="md:w-[50%]">
           <label
             htmlFor="eMoneyNumber"
-            className={`text-black text-[1.2rem] font-bold ${
-              errors.eMoneyNumber && "text-red-500"
+            className={`text-[1.2rem] font-bold text-black ${
+              errors.eMoneyNumber && 'text-red-500'
             }`}
           >
             eMoney Number
           </label>
           <input
             type="text"
-            {...register("eMoneyNumber")}
+            {...register('eMoneyNumber')}
             id="eMoneyNumber"
             placeholder="238521993"
-            className={`text-black text-[1.4rem] font-bold w-full p-[1.6rem] border 
-            border-[#d9d9d9] mt-[1rem] rounded-xl focus:border-[#d87d4a] outline-none 
-            ${errors.eMoneyNumber && "border-red-500"}`}
+            className={`mt-[1rem] w-full rounded-xl border border-[#d9d9d9] p-[1.6rem] text-[1.4rem] font-bold text-black outline-none focus:border-[#d87d4a] ${errors.eMoneyNumber && 'border-red-500'}`}
           />
           {errors.eMoneyNumber && (
-            <p className="text-red-500 text-[1.2rem] font-bold mt-[1rem]">
+            <p className="mt-[1rem] text-[1.2rem] font-bold text-red-500">
               {errors.eMoneyNumber.message as string}
             </p>
           )}
@@ -40,30 +38,28 @@ const PaymentDetails: React.FC = () => {
         <div className="md:w-[50%]">
           <label
             htmlFor="eMoneyPin"
-            className={`text-black text-[1.2rem] font-bold ${
-              errors.eMoneyPin && "text-red-500"
+            className={`text-[1.2rem] font-bold text-black ${
+              errors.eMoneyPin && 'text-red-500'
             }`}
           >
             eMoney PIN
           </label>
           <input
             type="text"
-            {...register("eMoneyPin")}
+            {...register('eMoneyPin')}
             id="eMoneyPin"
             placeholder="6891"
-            className={`text-black text-[1.4rem] font-bold w-full p-[1.6rem] border 
-            border-[#d9d9d9] mt-[1rem] rounded-xl focus:border-[#d87d4a] outline-none 
-            ${errors.eMoneyPin && "border-red-500"}`}
+            className={`mt-[1rem] w-full rounded-xl border border-[#d9d9d9] p-[1.6rem] text-[1.4rem] font-bold text-black outline-none focus:border-[#d87d4a] ${errors.eMoneyPin && 'border-red-500'}`}
           />
           {errors.eMoneyPin && (
-            <p className="text-red-500 text-[1.2rem] font-bold mt-[1rem]">
+            <p className="mt-[1rem] text-[1.2rem] font-bold text-red-500">
               {errors.eMoneyPin.message as string}
             </p>
           )}
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default PaymentDetails;
+export default PaymentDetails

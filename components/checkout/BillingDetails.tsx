@@ -1,10 +1,10 @@
-import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { Inputs } from "./Checkout";
+import { FieldErrors, UseFormRegister } from 'react-hook-form'
+import { Inputs } from './Checkout'
 
 type BillingDetailsProps = {
-  register: UseFormRegister<Inputs>;
-  errors: FieldErrors<Inputs>;
-};
+  register: UseFormRegister<Inputs>
+  errors: FieldErrors<Inputs>
+}
 
 export default function BillingDetails({
   register,
@@ -12,28 +12,26 @@ export default function BillingDetails({
 }: BillingDetailsProps) {
   return (
     <div className="flex flex-col gap-[2.4rem]">
-      <p className="text-[#d87d4a] text-[1.3rem] font-bold">BILLING DETAILS</p>
+      <p className="text-[1.3rem] font-bold text-[#d87d4a]">BILLING DETAILS</p>
       <div className="flex flex-col gap-[2.4rem] md:flex-row md:gap-[1.6rem]">
         <div className="md:w-[50%]">
           <label
             htmlFor="name"
-            className={`text-black text-[1.2rem] font-bold ${
-              errors.name && "text-red-500"
+            className={`text-[1.2rem] font-bold text-black ${
+              errors.name && 'text-red-500'
             }`}
           >
             Name
           </label>
           <input
             type="text"
-            {...register("name")}
+            {...register('name')}
             id="name"
             placeholder="Alexei Ward"
-            className={`text-black text-[1.4rem] font-bold w-full p-[1.6rem] border 
-            border-[#d9d9d9] mt-[1rem] rounded-xl focus:border-[#d87d4a] outline-none 
-            ${errors.name && "border-red-500"}`}
+            className={`mt-[1rem] w-full rounded-xl border border-[#d9d9d9] p-[1.6rem] text-[1.4rem] font-bold text-black outline-none focus:border-[#d87d4a] ${errors.name && 'border-red-500'}`}
           />
           {errors.name && (
-            <p className="text-red-500 text-[1.2rem] font-bold mt-[1rem]">
+            <p className="mt-[1rem] text-[1.2rem] font-bold text-red-500">
               {errors.name?.message}
             </p>
           )}
@@ -42,23 +40,21 @@ export default function BillingDetails({
         <div className="md:w-[50%]">
           <label
             htmlFor="email"
-            className={`text-black text-[1.2rem] font-bold ${
-              errors.email && "text-red-500"
+            className={`text-[1.2rem] font-bold text-black ${
+              errors.email && 'text-red-500'
             }`}
           >
             Email Address
           </label>
           <input
             type="text"
-            {...register("email")}
+            {...register('email')}
             id="email"
             placeholder="alexei@mail.com"
-            className={`text-black text-[1.4rem] font-bold w-full p-[1.6rem] border 
-            border-[#d9d9d9] mt-[1rem] rounded-xl focus:border-[#d87d4a] outline-none 
-            ${errors.email && "border-red-500"}`}
+            className={`mt-[1rem] w-full rounded-xl border border-[#d9d9d9] p-[1.6rem] text-[1.4rem] font-bold text-black outline-none focus:border-[#d87d4a] ${errors.email && 'border-red-500'}`}
           />
           {errors.email && (
-            <p className="text-red-500 text-[1.2rem] font-bold mt-[1rem]">
+            <p className="mt-[1rem] text-[1.2rem] font-bold text-red-500">
               {errors.email?.message}
             </p>
           )}
@@ -68,27 +64,25 @@ export default function BillingDetails({
       <div className="md:w-[49%]">
         <label
           htmlFor="phone"
-          className={`text-black text-[1.2rem] font-bold ${
-            errors.phone && "text-red-500"
+          className={`text-[1.2rem] font-bold text-black ${
+            errors.phone && 'text-red-500'
           }`}
         >
           Phone Number
         </label>
         <input
           type="text"
-          {...register("phone")}
+          {...register('phone')}
           id="phone"
           placeholder="555555555"
-          className={`text-black text-[1.4rem] font-bold w-full p-[1.6rem] border 
-            border-[#d9d9d9] mt-[1rem] rounded-xl focus:border-[#d87d4a] outline-none 
-            ${errors.phone && "border-red-500"}`}
+          className={`mt-[1rem] w-full rounded-xl border border-[#d9d9d9] p-[1.6rem] text-[1.4rem] font-bold text-black outline-none focus:border-[#d87d4a] ${errors.phone && 'border-red-500'}`}
         />
         {errors.phone && (
-          <p className="text-red-500 text-[1.2rem] font-bold mt-[1rem]">
+          <p className="mt-[1rem] text-[1.2rem] font-bold text-red-500">
             {errors.phone?.message}
           </p>
         )}
       </div>
     </div>
-  );
+  )
 }

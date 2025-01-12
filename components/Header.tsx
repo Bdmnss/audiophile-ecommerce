@@ -1,31 +1,28 @@
-"use client";
-import Link from "next/link";
-import { useMenuStore } from "../stores/menuStore";
-import { useCartStore } from "../stores/cartStore";
-import { useCheckoutStore } from "@/stores/checkoutStore";
-import BurgerMenu from "./BurgerMenu";
-import Overlay from "./Overlay";
-import Cart from "./Cart";
+'use client'
+import Link from 'next/link'
+import { useMenuStore } from '../stores/menuStore'
+import { useCartStore } from '../stores/cartStore'
+import { useCheckoutStore } from '@/stores/checkoutStore'
+import BurgerMenu from './BurgerMenu'
+import Overlay from './Overlay'
+import Cart from './Cart'
 
 export default function Header() {
-  const menuStore = useMenuStore();
-  const cartStore = useCartStore();
-  const checkoutStore = useCheckoutStore();
+  const menuStore = useMenuStore()
+  const cartStore = useCartStore()
+  const checkoutStore = useCheckoutStore()
   return (
     <header className="relative flex justify-center">
-      <div
-        className="bg-[#101010] flex justify-between p-10 items-center border-b-[1px] border-b-[gray] 
-        fixed z-20 w-[100%] md:justify-normal md:gap-[4.2rem] lg:justify-around"
-      >
+      <div className="fixed z-20 flex w-[100%] items-center justify-between border-b-[1px] border-b-[gray] bg-[#101010] p-10 md:justify-normal md:gap-[4.2rem] lg:justify-around">
         <svg
           className="lg:hidden"
           width="16"
           height="15"
           xmlns="http://www.w3.org/2000/svg"
           onClick={() => {
-            if (checkoutStore.isPayActive) return;
-            menuStore.setMenuOpen(!menuStore.isMenuOpen);
-            cartStore.setCartOpen(false);
+            if (checkoutStore.isPayActive) return
+            menuStore.setMenuOpen(!menuStore.isMenuOpen)
+            cartStore.setCartOpen(false)
           }}
         >
           <g fill="#FFF">
@@ -37,13 +34,13 @@ export default function Header() {
           href="/"
           onClick={() => {
             if (checkoutStore.isPayActive) {
-              cartStore.setCartItems([]);
-              cartStore.setTotalPrice(0);
-              cartStore.setCartItemsQuantity(0);
-              checkoutStore.setPayActive(false);
+              cartStore.setCartItems([])
+              cartStore.setTotalPrice(0)
+              cartStore.setCartItemsQuantity(0)
+              checkoutStore.setPayActive(false)
             }
-            menuStore.setMenuOpen(false);
-            cartStore.setCartOpen(false);
+            menuStore.setMenuOpen(false)
+            cartStore.setCartOpen(false)
           }}
         >
           <svg width="143" height="25" xmlns="http://www.w3.org/2000/svg">
@@ -54,7 +51,7 @@ export default function Header() {
           </svg>
         </Link>
 
-        <div className="hidden lg:flex text-white text-[1.3rem] font-bold gap-[3.5rem]">
+        <div className="hidden gap-[3.5rem] text-[1.3rem] font-bold text-white lg:flex">
           <Link href="/" className="hover:text-[#d87d4a]">
             HOME
           </Link>
@@ -69,12 +66,9 @@ export default function Header() {
           </Link>
         </div>
 
-        <div className="relative md:absolute md:right-[5%] lg:relative cursor-pointer">
+        <div className="relative cursor-pointer md:absolute md:right-[5%] lg:relative">
           {cartStore.cartItemsQuantity === 0 ? null : (
-            <div
-              className="absolute text-white right-[-8px] top-[-7px] bg-[#d87d4a] 
-          rounded-full flex justify-center items-center w-[15px] h-[15px]"
-            >
+            <div className="absolute right-[-8px] top-[-7px] flex h-[15px] w-[15px] items-center justify-center rounded-full bg-[#d87d4a] text-white">
               {cartStore.cartItemsQuantity}
             </div>
           )}
@@ -83,9 +77,9 @@ export default function Header() {
             height="20"
             xmlns="http://www.w3.org/2000/svg"
             onClick={() => {
-              if (checkoutStore.isPayActive) return;
-              menuStore.setMenuOpen(false);
-              cartStore.setCartOpen(!cartStore.isCartOpen);
+              if (checkoutStore.isPayActive) return
+              menuStore.setMenuOpen(false)
+              cartStore.setCartOpen(!cartStore.isCartOpen)
             }}
           >
             <path
@@ -100,5 +94,5 @@ export default function Header() {
       <BurgerMenu />
       <Overlay />
     </header>
-  );
+  )
 }

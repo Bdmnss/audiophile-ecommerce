@@ -1,18 +1,18 @@
-import { useMenuStore } from "@/stores/menuStore";
-import { useCartStore } from "@/stores/cartStore";
+import { useMenuStore } from '@/stores/menuStore'
+import { useCartStore } from '@/stores/cartStore'
 
 export default function Overlay() {
-  const menuStore = useMenuStore();
-  const cartStore = useCartStore();
+  const menuStore = useMenuStore()
+  const cartStore = useCartStore()
   return (
     <div
-      className={`bg-black h-[100%] w-[100%] opacity-75 fixed cursor-pointer z-[1] ${
-        menuStore.isMenuOpen ? "flex" : cartStore.isCartOpen ? "flex" : "hidden"
+      className={`fixed z-[1] h-[100%] w-[100%] cursor-pointer bg-black opacity-75 ${
+        menuStore.isMenuOpen ? 'flex' : cartStore.isCartOpen ? 'flex' : 'hidden'
       }`}
       onClick={() => {
-        menuStore.setMenuOpen(false);
-        cartStore.setCartOpen(false);
+        menuStore.setMenuOpen(false)
+        cartStore.setCartOpen(false)
       }}
     ></div>
-  );
+  )
 }

@@ -1,40 +1,40 @@
-"use client";
+'use client'
 
-import Link from "next/link";
-import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { useCheckoutStore } from "@/stores/checkoutStore";
-import { ObjectSchema } from "yup";
-import BillingDetails from "./BillingDetails";
-import ShippingInfo from "./ShippingInfo";
-import PaymentDetails from "./PaymentDetails";
-import Summary from "./Summary";
-import PaymentConfirmation from "./PaymentConfirmation";
+import Link from 'next/link'
+import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
+import { useCheckoutStore } from '@/stores/checkoutStore'
+import { ObjectSchema } from 'yup'
+import BillingDetails from './BillingDetails'
+import ShippingInfo from './ShippingInfo'
+import PaymentDetails from './PaymentDetails'
+import Summary from './Summary'
+import PaymentConfirmation from './PaymentConfirmation'
 
 export type Inputs = {
-  name: string;
-  email: string;
-  phone: number;
-  address: string;
-  zip: number;
-  city: string;
-  country: string;
-  eMoneyNumber?: number;
-  eMoneyPin?: number;
-};
+  name: string
+  email: string
+  phone: number
+  address: string
+  zip: number
+  city: string
+  country: string
+  eMoneyNumber?: number
+  eMoneyPin?: number
+}
 
 type SchemaType = ObjectSchema<{
-  name: string;
-  email: string;
-  phone: number;
-  address: string;
-  zip: number;
-  city: string;
-  country: string;
-  eMoneyNumber?: number;
-  eMoneyPin?: number;
-}>;
+  name: string
+  email: string
+  phone: number
+  address: string
+  zip: number
+  city: string
+  country: string
+  eMoneyNumber?: number
+  eMoneyPin?: number
+}>
 
 const schema: SchemaType = yup.object().shape({
   name: yup.string().required(),
@@ -46,28 +46,28 @@ const schema: SchemaType = yup.object().shape({
   country: yup.string().required(),
   eMoneyNumber: yup.number(),
   eMoneyPin: yup.number(),
-});
+})
 
 const Checkout: React.FC = () => {
   const methods = useForm<Inputs>({
     resolver: yupResolver(schema),
-  });
+  })
 
-  const checkoutStore = useCheckoutStore();
+  const checkoutStore = useCheckoutStore()
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    checkoutStore.setPayActive(true);
-  };
+  const onSubmit: SubmitHandler<Inputs> = () => {
+    checkoutStore.setPayActive(true)
+  }
 
   return (
     <div className="relative">
-      <div className="px-[2.4rem] py-[9rem] bg-[#fafafa] md:px-[4rem] lg:px-[16.5rem]">
-        <Link href="/" className="text-[gray] text-[1.5rem] font-medium">
+      <div className="bg-[#fafafa] px-[2.4rem] py-[9rem] md:px-[4rem] lg:px-[16.5rem]">
+        <Link href="/" className="text-[1.5rem] font-medium text-[gray]">
           Go Back
         </Link>
 
-        <div className="bg-white mt-[2.4rem] p-[2.4rem]">
-          <h1 className="text-black text-[2.8rem] font-bold mb-[3.2rem] md:text-[3.2rem]">
+        <div className="mt-[2.4rem] bg-white p-[2.4rem]">
+          <h1 className="mb-[3.2rem] text-[2.8rem] font-bold text-black md:text-[3.2rem]">
             CHECKOUT
           </h1>
 
@@ -85,7 +85,7 @@ const Checkout: React.FC = () => {
               <Summary />
               <button
                 type="submit"
-                className="bg-[#d87d4a] text-white text-[1.4rem] font-bold w-full p-[1.6rem]"
+                className="w-full bg-[#d87d4a] p-[1.6rem] text-[1.4rem] font-bold text-white"
               >
                 CONTINUE & PAY
               </button>
@@ -96,7 +96,7 @@ const Checkout: React.FC = () => {
 
       {checkoutStore.isPayActive && <PaymentConfirmation />}
     </div>
-  );
-};
+  )
+}
 
-export default Checkout;
+export default Checkout

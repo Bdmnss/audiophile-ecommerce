@@ -1,28 +1,27 @@
-import Link from "next/link";
-import { useCartStore } from "../stores/cartStore";
-import Image from "next/image";
+import Link from 'next/link'
+import { useCartStore } from '../stores/cartStore'
+import Image from 'next/image'
 
 export default function Cart() {
-  const cartStore = useCartStore();
+  const cartStore = useCartStore()
   return (
     <div
-      className={`fixed w-[90%] bg-white z-10 flex flex-col p-[3rem] rounded-xl 
-        gap-[3.2rem] overflow-y-auto h-[45vh] md:h-[47vh] ${
-          cartStore.isCartOpen
-            ? "animate-slide-top-to-bottom mt-[10rem]"
-            : "animate-slide-bottom-to-top"
-        } md:w-[50%] right-[4%] lg:w-[30%]`}
+      className={`fixed z-10 flex h-[45vh] w-[90%] flex-col gap-[3.2rem] overflow-y-auto rounded-xl bg-white p-[3rem] md:h-[47vh] ${
+        cartStore.isCartOpen
+          ? 'animate-slide-top-to-bottom mt-[10rem]'
+          : 'animate-slide-bottom-to-top'
+      } right-[4%] md:w-[50%] lg:w-[30%]`}
     >
-      <div className="flex justify-between items-center">
-        <p className="text-black text-[1.8rem] font-bold">
+      <div className="flex items-center justify-between">
+        <p className="text-[1.8rem] font-bold text-black">
           CART ({cartStore.cartItemsQuantity})
         </p>
         <p
-          className="text-[gray] text-[1.5rem] underline cursor-pointer hover:text-[#d87d4a]"
+          className="cursor-pointer text-[1.5rem] text-[gray] underline hover:text-[#d87d4a]"
           onClick={() => {
-            cartStore.setCartItems([]);
-            cartStore.setTotalPrice(0);
-            cartStore.setCartItemsQuantity(0);
+            cartStore.setCartItems([])
+            cartStore.setTotalPrice(0)
+            cartStore.setCartItemsQuantity(0)
           }}
         >
           Remove all
@@ -31,15 +30,15 @@ export default function Cart() {
 
       {cartStore.cartItemsQuantity === 0 ? (
         <div>
-          <h2 className="text-black text-[3rem] mb-[3.2rem]">
+          <h2 className="mb-[3.2rem] text-[3rem] text-black">
             Your cart is empty
           </h2>
 
-          <p className="text-[gray] text-[1.5rem]">
-            Continue shopping on the audiophile website{" "}
+          <p className="text-[1.5rem] text-[gray]">
+            Continue shopping on the audiophile website{' '}
             <Link
               href="/"
-              className="text-[#d87d4a] font-bold"
+              className="font-bold text-[#d87d4a]"
               onClick={() => cartStore.setCartOpen(false)}
             >
               homepage
@@ -49,7 +48,7 @@ export default function Cart() {
       ) : (
         <div className="flex flex-col gap-[2.4rem]">
           {cartStore.cartItems.map((product) => (
-            <div key={product.id} className="flex justify-between items-center">
+            <div key={product.id} className="flex items-center justify-between">
               <Image
                 src={product.image}
                 alt="product image"
@@ -59,39 +58,39 @@ export default function Cart() {
               />
 
               <div className="">
-                <p className="text-black text-[1.5rem] font-bold">
+                <p className="text-[1.5rem] font-bold text-black">
                   {product.name}
                 </p>
-                <p className="text-[gray] text-[1.4rem] font-bold">
+                <p className="text-[1.4rem] font-bold text-[gray]">
                   $ {product.originalPrice}
                 </p>
               </div>
 
-              <div className="bg-[#80808038] flex justify-between items-center py-[0.7rem] px-[1.5rem] gap-[2rem]">
+              <div className="flex items-center justify-between gap-[2rem] bg-[#80808038] px-[1.5rem] py-[0.7rem]">
                 <button
                   onClick={() => {
-                    product.quantity > 1
-                      ? (product.quantity--,
-                        cartStore.setTotalPrice(
-                          cartStore.totalPrice - product.originalPrice
-                        ))
-                      : "";
+                    if (product.quantity > 1) {
+                      product.quantity--
+                      cartStore.setTotalPrice(
+                        cartStore.totalPrice - product.originalPrice
+                      )
+                    }
                   }}
-                  className="text-[gray] text-[2rem] font-bold hover:text-[#d87d4a]"
+                  className="text-[2rem] font-bold text-[gray] hover:text-[#d87d4a]"
                 >
                   -
                 </button>
-                <span className="text-black text-[1.3rem] font-bold">
+                <span className="text-[1.3rem] font-bold text-black">
                   {product.quantity}
                 </span>
                 <button
                   onClick={() => {
-                    product.quantity++;
+                    product.quantity++
                     cartStore.setTotalPrice(
                       cartStore.totalPrice + product.originalPrice
-                    );
+                    )
                   }}
-                  className="text-[gray] text-[2rem] font-bold hover:text-[#d87d4a]"
+                  className="text-[2rem] font-bold text-[gray] hover:text-[#d87d4a]"
                 >
                   +
                 </button>
@@ -101,9 +100,9 @@ export default function Cart() {
         </div>
       )}
 
-      <div className="flex justify-between items-center">
-        <p className="text-[gray] text-[1.5rem] font-medium">TOTAL</p>
-        <p className="text-black text-[1.8rem] font-bold">
+      <div className="flex items-center justify-between">
+        <p className="text-[1.5rem] font-medium text-[gray]">TOTAL</p>
+        <p className="text-[1.8rem] font-bold text-black">
           $ {cartStore.totalPrice}
         </p>
       </div>
@@ -112,12 +111,11 @@ export default function Cart() {
         <button
           onClick={() => cartStore.setCartOpen(false)}
           disabled={cartStore.cartItemsQuantity === 0}
-          className="bg-[#d87d4a] text-white text-[1.5rem] py-[1rem] px-[2rem] rounded-lg 
-          disabled:opacity-50 w-[100%] hover:bg-[#fbaf85]"
+          className="w-[100%] rounded-lg bg-[#d87d4a] px-[2rem] py-[1rem] text-[1.5rem] text-white hover:bg-[#fbaf85] disabled:opacity-50"
         >
           CHECKOUT
         </button>
       </Link>
     </div>
-  );
+  )
 }
