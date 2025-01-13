@@ -18,7 +18,7 @@ export default function ProductPage({
   const product = data.filter((item) => item.slug === productName)
 
   return (
-    <div className="px-[2.4rem] pb-[12rem] pt-[9rem] md:px-[4rem] lg:px-[16.5rem] lg:pt-[15rem]">
+    <div className="px-[2.4rem] pb-[12rem] pt-[9rem] md:px-[4rem] lg:px-[16.5rem] lg:pt-[15rem] bg-[#f1f1f1] dark:bg-[#101010]">
       <Link
         href={`/${productMenu}`}
         className="text-[1.5rem] font-medium text-[gray]"
@@ -60,7 +60,7 @@ export default function ProductPage({
                 </p>
               )}
 
-              <h1 className="mb-[2.4rem] text-[2.8rem] font-bold text-black lg:text-[4rem]">
+              <h1 className="mb-[2.4rem] text-[2.8rem] font-bold text-black dark:text-white lg:text-[4rem]">
                 {product.name.toUpperCase()}
               </h1>
 
@@ -68,7 +68,7 @@ export default function ProductPage({
                 {product.description}
               </p>
 
-              <p className="mb-[3rem] text-[1.8rem] font-bold text-black">
+              <p className="mb-[3rem] text-[1.8rem] font-bold text-black dark:text-white">
                 $ {product.price}
               </p>
 
@@ -80,7 +80,7 @@ export default function ProductPage({
                   >
                     -
                   </button>
-                  <span className="text-[1.3rem] font-bold text-black">
+                  <span className="text-[1.3rem] font-bold text-black dark:text-white">
                     {cartStore.itemsQuantity}
                   </span>
                   <button
@@ -140,7 +140,7 @@ export default function ProductPage({
 
           <div className="lg:flex lg:gap-[12.5rem]">
             <div className="lg:w-[50%]">
-              <h2 className="mb-[2.4rem] text-[2.4rem] font-bold text-black md:text-[3.2rem]">
+              <h2 className="mb-[2.4rem] text-[2.4rem] font-bold text-black dark:text-white md:text-[3.2rem]">
                 FEATURES
               </h2>
 
@@ -150,7 +150,7 @@ export default function ProductPage({
             </div>
 
             <div className="mb-[9rem] md:flex md:justify-center md:gap-[20rem] lg:w-[50%] lg:flex-col lg:gap-0">
-              <h2 className="mb-[2.4rem] text-[2.4rem] font-bold text-black md:text-[3.2rem]">
+              <h2 className="mb-[2.4rem] text-[2.4rem] font-bold text-black dark:text-white md:text-[3.2rem]">
                 IN THE BOX
               </h2>
 
@@ -221,7 +221,7 @@ export default function ProductPage({
           </div>
 
           <div className="mb-[12rem] flex flex-col items-center justify-center">
-            <h2 className="mb-[4rem] text-[2.4rem] font-bold text-black md:text-[3.2rem]">
+            <h2 className="mb-[4rem] text-[2.4rem] font-bold text-black dark:text-white md:text-[3.2rem]">
               YOU MAY ALSO LIKE
             </h2>
 
@@ -255,7 +255,7 @@ export default function ProductPage({
                     height={768}
                   />
 
-                  <h3 className="text-[1.8rem] font-bold text-black md:text-[2.4rem]">
+                  <h3 className="text-[1.8rem] font-bold text-black dark:text-white md:text-[2.4rem]">
                     {item.name}
                   </h3>
 

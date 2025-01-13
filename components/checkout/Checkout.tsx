@@ -64,13 +64,13 @@ const Checkout: React.FC = () => {
 
   return (
     <div className="relative">
-      <div className="bg-[#fafafa] px-[2.4rem] py-[9rem] md:px-[4rem] lg:px-[16.5rem]">
+      <div className="bg-[#fafafa] dark:bg-[#101010] px-[2.4rem] py-[9rem] md:px-[4rem] lg:px-[16.5rem]">
         <Link href="/" className="text-[1.5rem] font-medium text-[gray]">
           Go Back
         </Link>
 
-        <div className="mt-[2.4rem] bg-white p-[2.4rem]">
-          <h1 className="mb-[3.2rem] text-[2.8rem] font-bold text-black md:text-[3.2rem]">
+        <div className="mt-[2.4rem] bg-white dark:bg-black p-[2.4rem]">
+          <h1 className="mb-[3.2rem] text-[2.8rem] font-bold text-black dark:text-white md:text-[3.2rem]">
             CHECKOUT
           </h1>
 

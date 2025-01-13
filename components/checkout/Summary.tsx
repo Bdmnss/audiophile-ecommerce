@@ -19,13 +19,13 @@ const Summary: React.FC = () => {
               className="rounded-lg"
             />
             <div className="flex flex-col">
-              <h3 className="text-[1.4rem] font-bold text-black">
+              <h3 className="text-[1.4rem] font-bold text-black dark:text-white">
                 {item.name}
               </h3>
-              <p className="text-[1.2rem] font-medium text-black">
+              <p className="text-[1.2rem] font-medium text-black dark:text-white">
                 Quantity: {item.quantity}
               </p>
-              <p className="text-[1.2rem] font-medium text-black">
+              <p className="text-[1.2rem] font-medium text-black dark:text-white">
                 Price: ${item.price}
               </p>
             </div>
@@ -33,8 +33,8 @@ const Summary: React.FC = () => {
         ))}
       </ul>
       <div className="mt-[2.4rem] flex items-center justify-between">
-        <h3 className="text-[1.4rem] font-bold text-black">Total Price:</h3>
-        <p className="text-[1.4rem] font-bold text-black">${totalPrice}</p>
+        <h3 className="text-[1.4rem] font-bold text-black dark:text-white">Total Price:</h3>
+        <p className="text-[1.4rem] font-bold text-black dark:text-white">${totalPrice}</p>
       </div>
     </div>
   )

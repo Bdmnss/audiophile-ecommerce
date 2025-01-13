@@ -6,18 +6,18 @@ export default function Cart() {
   const cartStore = useCartStore()
   return (
     <div
-      className={`fixed z-10 flex h-[45vh] w-[90%] flex-col gap-[3.2rem] overflow-y-auto rounded-xl bg-white p-[3rem] md:h-[47vh] ${
+      className={`fixed z-10 flex h-[45vh] w-[90%] flex-col gap-[3.2rem] overflow-y-auto rounded-xl bg-white dark:bg-[#101010] p-[3rem] md:h-[47vh] ${
         cartStore.isCartOpen
           ? 'animate-slide-top-to-bottom mt-[10rem]'
           : 'animate-slide-bottom-to-top'
       } right-[4%] md:w-[50%] lg:w-[30%]`}
     >
       <div className="flex items-center justify-between">
-        <p className="text-[1.8rem] font-bold text-black">
+        <p className="text-[1.8rem] font-bold text-black dark:text-white">
           CART ({cartStore.cartItemsQuantity})
         </p>
         <p
-          className="cursor-pointer text-[1.5rem] text-[gray] underline hover:text-[#d87d4a]"
+          className="cursor-pointer text-[1.5rem] text-[gray] dark:text-gray-400 underline hover:text-[#d87d4a] dark:hover:text-[#fbaf85]"
           onClick={() => {
             cartStore.setCartItems([])
             cartStore.setTotalPrice(0)
@@ -30,15 +30,15 @@ export default function Cart() {
 
       {cartStore.cartItemsQuantity === 0 ? (
         <div>
-          <h2 className="mb-[3.2rem] text-[3rem] text-black">
+          <h2 className="mb-[3.2rem] text-[3rem] text-black dark:text-white">
             Your cart is empty
           </h2>
 
-          <p className="text-[1.5rem] text-[gray]">
+          <p className="text-[1.5rem] text-[gray] dark:text-gray-400">
             Continue shopping on the audiophile website{' '}
             <Link
               href="/"
-              className="font-bold text-[#d87d4a]"
+              className="font-bold text-[#d87d4a] dark:text-[#fbaf85]"
               onClick={() => cartStore.setCartOpen(false)}
             >
               homepage
@@ -58,15 +58,15 @@ export default function Cart() {
               />
 
               <div className="">
-                <p className="text-[1.5rem] font-bold text-black">
+                <p className="text-[1.5rem] font-bold text-black dark:text-white">
                   {product.name}
                 </p>
-                <p className="text-[1.4rem] font-bold text-[gray]">
+                <p className="text-[1.4rem] font-bold text-[gray] dark:text-gray-400">
                   $ {product.originalPrice}
                 </p>
               </div>
 
-              <div className="flex items-center justify-between gap-[2rem] bg-[#80808038] px-[1.5rem] py-[0.7rem]">
+              <div className="flex items-center justify-between gap-[2rem] bg-[#80808038] dark:bg-gray-700 px-[1.5rem] py-[0.7rem] rounded-lg">
                 <button
                   onClick={() => {
                     if (product.quantity > 1) {
@@ -76,11 +76,11 @@ export default function Cart() {
                       )
                     }
                   }}
-                  className="text-[2rem] font-bold text-[gray] hover:text-[#d87d4a]"
+                  className="text-[2rem] font-bold text-[gray] dark:text-gray-400 hover:text-[#d87d4a] dark:hover:text-[#fbaf85]"
                 >
                   -
                 </button>
-                <span className="text-[1.3rem] font-bold text-black">
+                <span className="text-[1.3rem] font-bold text-black dark:text-white">
                   {product.quantity}
                 </span>
                 <button
@@ -90,7 +90,7 @@ export default function Cart() {
                       cartStore.totalPrice + product.originalPrice
                     )
                   }}
-                  className="text-[2rem] font-bold text-[gray] hover:text-[#d87d4a]"
+                  className="text-[2rem] font-bold text-[gray] dark:text-gray-400 hover:text-[#d87d4a] dark:hover:text-[#fbaf85]"
                 >
                   +
                 </button>
@@ -101,8 +101,8 @@ export default function Cart() {
       )}
 
       <div className="flex items-center justify-between">
-        <p className="text-[1.5rem] font-medium text-[gray]">TOTAL</p>
-        <p className="text-[1.8rem] font-bold text-black">
+        <p className="text-[1.5rem] font-medium text-[gray] dark:text-gray-400">TOTAL</p>
+        <p className="text-[1.8rem] font-bold text-black dark:text-white">
           $ {cartStore.totalPrice}
         </p>
       </div>

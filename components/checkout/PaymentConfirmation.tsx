@@ -10,7 +10,7 @@ const PaymentConfirmation: React.FC = () => {
 
   return (
     <div className="fixed top-0 z-[1] h-full w-full cursor-pointer bg-[#000000bf]">
-      <div className="fixed left-1/2 top-[12rem] z-10 h-[73vh] w-[90%] -translate-x-1/2 transform overflow-y-auto rounded-xl bg-white p-[3.2rem] md:h-[61vh] md:w-[70%] lg:w-[40%]">
+      <div className="fixed left-1/2 top-[12rem] z-10 h-[73vh] w-[90%] -translate-x-1/2 transform overflow-y-auto rounded-xl bg-white dark:bg-[#101010] p-[3.2rem] md:h-[61vh] md:w-[70%] lg:w-[40%]">
         <svg
           width="64"
           height="64"
@@ -22,7 +22,7 @@ const PaymentConfirmation: React.FC = () => {
             <path stroke="#FFF" d="m20.754 33.333 6.751 6.751 15.804-15.803" />
           </g>
         </svg>
-        <h2 className="mb-[1.6rem] text-[2.4rem] font-bold leading-[2.8rem] text-black md:text-[3.2rem] md:leading-[3.6rem]">
+        <h2 className="mb-[1.6rem] text-[2.4rem] font-bold leading-[2.8rem] text-black dark:text-white md:text-[3.2rem] md:leading-[3.6rem]">
           THANK YOU FOR YOUR ORDER
         </h2>
         <p className="mb-[2.4rem] text-[1.5rem] font-medium text-[gray]">

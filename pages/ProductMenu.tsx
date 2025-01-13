@@ -1,8 +1,6 @@
-import data from '../data.json'
-import Navigation from '@/components/Navigation'
-import SloganText from '@/components/SloganText'
-import Link from 'next/link'
 import Image from 'next/image'
+import data from '../data.json'
+import Link from 'next/link'
 
 export default function ProductMenu({
   productMenuName,
@@ -11,7 +9,7 @@ export default function ProductMenu({
 }) {
   const productMenu = data.filter((item) => item.category === productMenuName)
   return (
-    <div className="pb-[12rem]">
+    <div className="pb-[12rem] bg-[#f1f1f1] dark:bg-[#101010]">
       <div className="flex items-center justify-center bg-black pb-[3.2rem] pt-[11rem] md:pb-[7.2rem] md:pt-[15rem]">
         <h1 className="text-[2.8rem] font-bold text-white md:text-[4rem]">
           {productMenuName?.toString().toUpperCase()}
@@ -40,7 +38,6 @@ export default function ProductMenu({
                 width={768}
                 height={768}
               />
-
               <Image
                 src={item.categoryImage.desktop}
                 alt="product image"
@@ -49,34 +46,21 @@ export default function ProductMenu({
                 height={768}
               />
             </div>
-            <div className="lg:w-[50%]">
-              {item.new && (
-                <p className="mb-[2.4rem] text-[1.4rem] tracking-[1rem] text-[#d87d4a]">
-                  NEW PRODUCT
-                </p>
-              )}
-              <div className="md:px-44">
-                <h2 className="mb-[2.4rem] text-[2.8rem] font-bold text-black md:text-[4rem] md:leading-[4.4rem]">
-                  {item.name}
-                </h2>
-                <p className="mb-[2.4rem] text-[1.5rem] font-medium text-[gray]">
-                  {item.description}
-                </p>
-              </div>
+            <div className="lg:w-[40%]">
+              <h2 className="mb-[2.4rem] text-[2.4rem] font-bold text-black dark:text-white md:text-[3.2rem]">
+                {item.name}
+              </h2>
+              <p className="mb-[2.4rem] text-[1.5rem] text-[gray] dark:text-gray-400">
+                {item.description}
+              </p>
               <Link href={`/${productMenuName}/${item.slug}`}>
-                <button className="bg-[#d87d4a] px-10 py-5 text-[1.3rem] font-bold text-white hover:bg-[#fbaf85] md:px-14 md:py-7">
+                <button className="bg-[#d87d4a] px-[2.4rem] py-[1.2rem] text-[1.3rem] font-bold text-white hover:bg-[#fbaf85]">
                   SEE PRODUCT
                 </button>
               </Link>
             </div>
           </div>
         ))}
-
-        <div className="mt-[15rem] lg:mt-[25rem]">
-          <Navigation />
-        </div>
-
-        <SloganText />
       </div>
     </div>
   )

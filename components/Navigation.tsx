@@ -16,7 +16,7 @@ export default function Navigation() {
         className="w-[100%]"
         onClick={() => menuStore.setMenuOpen(false)}
       >
-        <div className="group relative flex flex-col items-center justify-center rounded-xl bg-[#f1f1f1] pb-6 pt-[7rem] lg:py-[7rem]">
+        <div className="group relative flex flex-col items-center justify-center rounded-xl bg-[#f1f1f1] dark:bg-zinc-900 pb-6 pt-[7rem] lg:py-[7rem]">
           <Image
             src={headphonesImage.src}
             alt="headphones image"
@@ -24,7 +24,7 @@ export default function Navigation() {
             width={260}
             height={260}
           />
-          <p className="mb-[1.7rem] text-[1.5rem] font-bold text-black lg:text-[1.8rem]">
+          <p className="mb-[1.7rem] text-[1.5rem] font-bold text-black dark:text-white lg:text-[1.8rem]">
             HEADPHONES
           </p>
 
@@ -44,7 +44,7 @@ export default function Navigation() {
         className="w-[100%]"
         onClick={() => menuStore.setMenuOpen(false)}
       >
-        <div className="group relative flex flex-col items-center justify-center rounded-xl bg-[#f1f1f1] pb-6 pt-[7rem] lg:py-[7rem]">
+        <div className="group relative flex flex-col items-center justify-center rounded-xl bg-[#f1f1f1] dark:bg-zinc-900 pb-6 pt-[7rem] lg:py-[7rem]">
           <Image
             src={speakersImage.src}
             alt="headphones image"
@@ -52,7 +52,7 @@ export default function Navigation() {
             width={260}
             height={260}
           />
-          <p className="mb-[1.7rem] text-[1.5rem] font-bold text-black lg:text-[1.8rem]">
+          <p className="mb-[1.7rem] text-[1.5rem] font-bold text-black dark:text-white lg:text-[1.8rem]">
             SPEAKERS
           </p>
 
@@ -72,7 +72,7 @@ export default function Navigation() {
         className="w-[100%]"
         onClick={() => menuStore.setMenuOpen(false)}
       >
-        <div className="group relative flex flex-col items-center justify-center rounded-xl bg-[#f1f1f1] pb-6 pt-[7rem] lg:py-[7rem]">
+        <div className="group relative flex flex-col items-center justify-center rounded-xl bg-[#f1f1f1] dark:bg-zinc-900 pb-6 pt-[7rem] lg:py-[7rem]">
           <Image
             src={earphonesImage.src}
             alt="headphones image"
@@ -80,7 +80,7 @@ export default function Navigation() {
             width={260}
             height={260}
           />
-          <p className="mb-[1.7rem] text-[1.5rem] font-bold text-black lg:text-[1.8rem]">
+          <p className="mb-[1.7rem] text-[1.5rem] font-bold text-black dark:text-white lg:text-[1.8rem]">
             EARPHONES
           </p>
 
