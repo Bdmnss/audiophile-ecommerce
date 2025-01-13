@@ -1,6 +1,10 @@
+"use client"
+
 import Image from 'next/image'
 import data from '../data.json'
 import Link from 'next/link'
+import { useTranslation } from 'react-i18next'
+import { useEffect } from 'react'
 
 export default function ProductMenu({
   productMenuName,
@@ -8,6 +12,12 @@ export default function ProductMenu({
   productMenuName: string
 }) {
   const productMenu = data.filter((item) => item.category === productMenuName)
+  const { t, i18n } = useTranslation()
+    
+      useEffect(() => {
+        const savedLanguage = localStorage.getItem('language') || 'en'
+        i18n.changeLanguage(savedLanguage)
+      }, [i18n])
   return (
     <div className="pb-[12rem] bg-[#f1f1f1] dark:bg-[#101010]">
       <div className="flex items-center justify-center bg-black pb-[3.2rem] pt-[11rem] md:pb-[7.2rem] md:pt-[15rem]">
@@ -55,7 +65,7 @@ export default function ProductMenu({
               </p>
               <Link href={`/${productMenuName}/${item.slug}`}>
                 <button className="bg-[#d87d4a] px-[2.4rem] py-[1.2rem] text-[1.3rem] font-bold text-white hover:bg-[#fbaf85]">
-                  SEE PRODUCT
+                  {t('see_product')}
                 </button>
               </Link>
             </div>

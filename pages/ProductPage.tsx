@@ -6,6 +6,8 @@ import { useCartStore } from '@/stores/cartStore'
 import Navigation from '@/components/Navigation'
 import SloganText from '@/components/SloganText'
 import Image from 'next/image'
+import { useTranslation } from 'react-i18next'
+import { useEffect } from 'react'
 
 export default function ProductPage({
   productMenu,
@@ -17,13 +19,20 @@ export default function ProductPage({
   const cartStore = useCartStore()
   const product = data.filter((item) => item.slug === productName)
 
+  const { t, i18n } = useTranslation()
+    
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('language') || 'en'
+    i18n.changeLanguage(savedLanguage)
+  }, [i18n])
+
   return (
     <div className="px-[2.4rem] pb-[12rem] pt-[9rem] md:px-[4rem] lg:px-[16.5rem] lg:pt-[15rem] bg-[#f1f1f1] dark:bg-[#101010]">
       <Link
         href={`/${productMenu}`}
-        className="text-[1.5rem] font-medium text-[gray]"
+        className="text-[1.5rem] font-medium text-[gray] hover:text-[#d87d4a]"
       >
-        Go Back
+        {t('go_back')}
       </Link>
 
       {product.map((product) => (
@@ -56,7 +65,7 @@ export default function ProductPage({
             <div className="md:w-[50%] lg:flex lg:flex-col lg:justify-center">
               {product.new && (
                 <p className="mb-[2.4rem] text-[1.4rem] tracking-[1rem] text-[#d87d4a]">
-                  NEW PRODUCT
+                  {t('new_product')}
                 </p>
               )}
 
@@ -132,7 +141,7 @@ export default function ProductPage({
                     }
                   }}
                 >
-                  ADD TO CART
+                  {t('add_to_cart')}
                 </button>
               </div>
             </div>
@@ -141,7 +150,7 @@ export default function ProductPage({
           <div className="lg:flex lg:gap-[12.5rem]">
             <div className="lg:w-[50%]">
               <h2 className="mb-[2.4rem] text-[2.4rem] font-bold text-black dark:text-white md:text-[3.2rem]">
-                FEATURES
+                {t('features')}
               </h2>
 
               <p className="mb-[9rem] text-[1.5rem] font-medium leading-[2.5rem] text-[gray]">
@@ -151,7 +160,7 @@ export default function ProductPage({
 
             <div className="mb-[9rem] md:flex md:justify-center md:gap-[20rem] lg:w-[50%] lg:flex-col lg:gap-0">
               <h2 className="mb-[2.4rem] text-[2.4rem] font-bold text-black dark:text-white md:text-[3.2rem]">
-                IN THE BOX
+                {t('in_the_box')}
               </h2>
 
               <div>
@@ -222,7 +231,7 @@ export default function ProductPage({
 
           <div className="mb-[12rem] flex flex-col items-center justify-center">
             <h2 className="mb-[4rem] text-[2.4rem] font-bold text-black dark:text-white md:text-[3.2rem]">
-              YOU MAY ALSO LIKE
+              {t('you_may_also_like')}
             </h2>
 
             <div className="gap-[1rem] md:flex lg:mb-[14rem] lg:gap-[3rem]">
@@ -261,7 +270,7 @@ export default function ProductPage({
 
                   <Link href={`/${productMenu}/${item.slug}`}>
                     <button className="bg-[#d87d4a] px-10 py-5 text-[1.3rem] font-bold text-white hover:bg-[#fbaf85] md:px-14 md:py-7">
-                      SEE PRODUCT
+                      {t('see_product')}
                     </button>
                   </Link>
                 </div>

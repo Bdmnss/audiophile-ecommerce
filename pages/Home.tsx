@@ -5,25 +5,34 @@ import Navigation from '@/components/Navigation'
 import SloganText from '@/components/SloganText'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useTranslation } from 'react-i18next'
+import { useEffect } from 'react'
+import '../app/i18n/index'
 
 export default function HomePage() {
+  const { t, i18n } = useTranslation()
+
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('language') || 'en'
+    i18n.changeLanguage(savedLanguage)
+  }, [i18n])
+
   return (
     <main className='bg-[#f1f1f1] dark:bg-[#101010]'>
       <div>
         <div className="lg:header-home-desktop mb-[9rem] flex h-[55rem] flex-col items-center justify-center bg-header-home-mobile bg-cover bg-center bg-no-repeat px-10 text-center md:bg-header-home-tablet md:px-96 lg:mb-[20rem] lg:h-[80rem]">
           <p className="mb-[1.6rem] text-[1.4rem] tracking-[1rem] text-[gray]">
-            NEW PRODUCT
+            {t('new_product')}
           </p>
           <h2 className="mb-[2.4rem] text-[3.6rem] font-bold leading-[4rem] text-white md:text-[5.6rem] md:leading-[5.8rem]">
             XX99 Mark II Headphones
           </h2>
           <p className="mb-[2.8rem] text-[1.5rem] leading-[2.5rem] text-[gray]">
-            Experience natural, lifelike audio and exceptional build quality
-            made for the passionate music enthusiast.
+            {t('experience')}
           </p>
           <Link href="/headphones/xx99-mark-two-headphones">
             <button className="bg-[#d87d4a] px-10 py-5 text-[1.3rem] font-bold text-white hover:bg-[#fbaf85] md:px-14 md:py-7">
-              SEE PRODUCT
+              {t('see_product')}
             </button>
           </Link>
         </div>
@@ -43,12 +52,11 @@ export default function HomePage() {
                 ZX9 SPEAKER
               </h2>
               <p className="mb-[2.4rem] text-[1.5rem] font-medium leading-[2.5rem] text-white">
-                Upgrade to premium speakers that are phenomenally built to
-                deliver truly remarkable sound.
+                {t('upgrade_speakers')}
               </p>
               <Link href="/speakers/zx9-speaker">
                 <button className="bg-black px-10 py-5 text-[1.3rem] font-bold text-white hover:bg-[#4c4c4c] md:px-14 md:py-7">
-                  SEE PRODUCT
+                  {t('see_product')}
                 </button>
               </Link>
             </div>
@@ -60,7 +68,7 @@ export default function HomePage() {
             </h2>
             <Link href="/speakers/zx7-speaker">
               <button className="border-[1px] border-black px-10 py-5 text-[1.3rem] font-bold text-black hover:bg-black hover:text-white">
-                SEE PRODUCT
+                {t('see_product')}
               </button>
             </Link>
           </div>
@@ -74,7 +82,7 @@ export default function HomePage() {
               </h2>
               <Link href="/earphones/yx1-earphones">
                 <button className="border-[1px] border-black bg-[#f1f1f100] px-10 py-5 text-[1.3rem] font-bold text-black hover:bg-black hover:text-white">
-                  SEE PRODUCT
+                  {t('see_product')}
                 </button>
               </Link>
             </div>

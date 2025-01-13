@@ -1,6 +1,17 @@
+"use client"
+
 import Link from 'next/link'
+import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
 export default function Footer() {
+  const { t, i18n } = useTranslation()
+  
+    useEffect(() => {
+      const savedLanguage = localStorage.getItem('language') || 'en'
+      i18n.changeLanguage(savedLanguage)
+    }, [i18n])
+  
   return (
     <footer className="flex flex-col items-center justify-center bg-[#101010] dark:bg-black pb-[5rem] text-center md:items-start md:justify-start md:px-[4rem] md:text-left lg:px-[16.5rem]">
       <div className="lg:flex lg:w-full lg:items-center lg:justify-between">
@@ -15,30 +26,27 @@ export default function Footer() {
 
         <div className="mb-[5rem] flex flex-col items-center gap-[1.6rem] text-[1.3rem] font-bold text-white md:flex-row md:gap-[3.4rem] md:text-[1.5rem] lg:pt-[5rem]">
           <Link href="/" className="hover:text-[#d87d4a]">
-            HOME
+            {t('home')}
           </Link>
           <Link href="/headphones" className="hover:text-[#d87d4a]">
-            HEADPHONES
+            {t('headphones')}
           </Link>
           <Link href="/speakers" className="hover:text-[#d87d4a]">
-            SPEAKERS
+            {t('speakers')}
           </Link>
           <Link href="/earphones" className="hover:text-[#d87d4a]">
-            EARPHONES
+            {t('earphones')}
           </Link>
         </div>
       </div>
 
       <p className="mb-[5rem] text-[1.5rem] font-medium leading-[2.5rem] text-[gray] lg:w-[54rem]">
-        Audiophile is an all in one stop to fulfill your audio needs. We&apos;re
-        a small team of music lovers and sound specialists who are devoted to
-        helping you get the most out of personal audio. Come and visit our demo
-        facility - we&apos;re open 7 days a week.
+        {t('footer_text')}
       </p>
 
       <div className="w-full md:flex md:items-center md:justify-between">
         <p className="mb-[5rem] text-[1.5rem] font-medium text-[gray] md:mb-0">
-          Copyright 2021. All Rights Reserved
+          Copyright 2025. All Rights Reserved
         </p>
 
         <div className="flex justify-center gap-[1.6rem]">

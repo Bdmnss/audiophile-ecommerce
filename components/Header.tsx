@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { FaSun, FaMoon } from 'react-icons/fa'
+import { FaSun, FaMoon, FaGlobe, FaShoppingCart } from 'react-icons/fa'
 import Link from 'next/link'
 import { useMenuStore } from '@/stores/menuStore'
 import { useCartStore } from '@/stores/cartStore'
@@ -9,18 +9,25 @@ import { useCheckoutStore } from '@/stores/checkoutStore'
 import BurgerMenu from './BurgerMenu'
 import Overlay from './Overlay'
 import Cart from './Cart'
+import { useTranslation } from 'react-i18next'
+import '../app/i18n/index'
 
 export default function Header() {
   const menuStore = useMenuStore()
   const cartStore = useCartStore()
   const checkoutStore = useCheckoutStore()
   const [theme, setTheme] = useState('system')
+  const { t, i18n } = useTranslation()
+  const [dropdownOpen, setDropdownOpen] = useState(false)
 
   useEffect(() => {
     const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
     const savedTheme = localStorage.getItem('theme') || systemTheme
     setTheme(savedTheme)
     document.documentElement.classList.add(savedTheme)
+
+    const savedLanguage = localStorage.getItem('language') || 'en'
+    i18n.changeLanguage(savedLanguage)
   }, [])
 
   const toggleTheme = () => {
@@ -31,6 +38,16 @@ export default function Header() {
     document.documentElement.classList.add(newTheme)
   }
 
+  const changeLanguage = (lang: string) => {
+    i18n.changeLanguage(lang)
+    localStorage.setItem('language', lang)
+    setDropdownOpen(false)
+  }
+
+  const options = [
+    { value: 'en', label: t('EN') },
+    { value: 'ge', label: t('GE') }
+  ]
   return (
     <header className="relative flex justify-center">
       <div className="fixed z-20 flex w-[100%] items-center justify-between border-b-[1px] border-b-[gray] bg-[#101010] p-10 md:justify-normal md:gap-[4.2rem] lg:justify-around">
@@ -73,51 +90,65 @@ export default function Header() {
 
         <div className="hidden gap-[3.5rem] text-[1.3rem] font-bold text-white lg:flex">
           <Link href="/" className="hover:text-[#d87d4a]">
-            HOME
+            {t('home')}
           </Link>
           <Link href="/headphones" className="hover:text-[#d87d4a]">
-            HEADPHONES
+            {t('headphones')}
           </Link>
           <Link href="/speakers" className="hover:text-[#d87d4a]">
-            SPEAKERS
+            {t('speakers')}
           </Link>
           <Link href="/earphones" className="hover:text-[#d87d4a]">
-            EARPHONES
+            {t('earphones')}
           </Link>
         </div>
 
         <div className='flex items-center gap-4'>
           <div className="relative cursor-pointer md:absolute md:right-[5%] lg:relative">
-          {cartStore.cartItemsQuantity === 0 ? null : (
-            <div className="absolute right-[-8px] top-[-7px] flex h-[15px] w-[15px] items-center justify-center rounded-full bg-[#d87d4a] text-white">
-              {cartStore.cartItemsQuantity}
-            </div>
-          )}
-          <svg
-            width="23"
-            height="20"
-            xmlns="http://www.w3.org/2000/svg"
-            onClick={() => {
-              if (checkoutStore.isPayActive) return
-              menuStore.setMenuOpen(false)
-              cartStore.setCartOpen(!cartStore.isCartOpen)
-            }}
-          >
-            <path
-              d="M8.625 15.833c1.132 0 2.054.935 2.054 2.084 0 1.148-.922 2.083-2.054 2.083-1.132 0-2.054-.935-2.054-2.083 0-1.15.922-2.084 2.054-2.084zm9.857 0c1.132 0 2.054.935 2.054 2.084 0 1.148-.922 2.083-2.054 2.083-1.132 0-2.053-.935-2.053-2.083 0-1.15.92-2.084 2.053-2.084zm-9.857 1.39a.69.69 0 00-.685.694.69.69 0 00.685.694.69.69 0 00.685-.694.69.69 0 00-.685-.695zm9.857 0a.69.69 0 00-.684.694.69.69 0 00.684.694.69.69 0 00.685-.694.69.69 0 00-.685-.695zM4.717 0c.316 0 .59.215.658.517l.481 2.122h16.47a.68.68 0 01.538.262c.127.166.168.38.11.579l-2.695 9.236a.672.672 0 01-.648.478H7.41a.667.667 0 00-.673.66c0 .364.303.66.674.66h12.219c.372 0 .674.295.674.66 0 .364-.302.66-.674.66H7.412c-1.115 0-2.021-.889-2.021-1.98 0-.812.502-1.511 1.218-1.816L4.176 1.32H.674A.667.667 0 010 .66C0 .296.302 0 .674 0zm16.716 3.958H6.156l1.797 7.917h11.17l2.31-7.917z"
-              fill="#FFF"
+            {cartStore.cartItemsQuantity === 0 ? null : (
+              <div className="absolute right-[-8px] top-[-7px] flex h-[15px] w-[15px] items-center justify-center rounded-full bg-[#d87d4a] text-white">
+                {cartStore.cartItemsQuantity}
+              </div>
+            )}
+            <FaShoppingCart
+              size={23}
+              color="#FFF"
+              className="hover:text-[#d87d4a]"
+              onClick={() => {
+                if (checkoutStore.isPayActive) return
+                menuStore.setMenuOpen(false)
+                cartStore.setCartOpen(!cartStore.isCartOpen)
+              }}
             />
-          </svg>
           </div>
           <button
-          onClick={toggleTheme}
-          className="ml-4 p-2 text-white hover:text-[#d87d4a]"
-        >
-          {theme === 'dark' ? <FaSun size={20} /> : <FaMoon size={20} />}
-        </button>
+            onClick={toggleTheme}
+            className="ml-4 p-2 text-white hover:text-[#d87d4a]"
+          >
+            {theme === 'dark' ? <FaSun size={20} /> : <FaMoon size={20} />}
+          </button>
+          <div className="relative">
+            <button
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className="p-2 text-white hover:text-[#d87d4a]"
+            >
+              <FaGlobe size={20} />
+            </button>
+            {dropdownOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-black text-white rounded shadow-lg">
+                {options.map(option => (
+                  <button
+                    key={option.value}
+                    onClick={() => changeLanguage(option.value)}
+                    className="block w-full px-4 py-2 text-left hover:bg-[#d87d4a] hover:text-white cursor-pointer"
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
-
-        
       </div>
 
       <Cart />
