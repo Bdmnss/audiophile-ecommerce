@@ -2,10 +2,9 @@
 
 import Link from 'next/link'
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 import { useCheckoutStore } from '@/stores/checkoutStore'
-import { ObjectSchema } from 'yup'
 import BillingDetails from './BillingDetails'
 import ShippingInfo from './ShippingInfo'
 import PaymentDetails from './PaymentDetails'
@@ -20,37 +19,41 @@ export type Inputs = {
   zip: number
   city: string
   country: string
-  eMoneyNumber?: number
-  eMoneyPin?: number
+  eMoneyNumber: number
+  eMoneyPin: number
 }
 
-type SchemaType = ObjectSchema<{
-  name: string
-  email: string
-  phone: number
-  address: string
-  zip: number
-  city: string
-  country: string
-  eMoneyNumber?: number
-  eMoneyPin?: number
-}>
-
-const schema: SchemaType = yup.object().shape({
-  name: yup.string().required(),
-  email: yup.string().email().required(),
-  phone: yup.number().required(),
-  address: yup.string().required(),
-  zip: yup.number().required(),
-  city: yup.string().required(),
-  country: yup.string().required(),
-  eMoneyNumber: yup.number(),
-  eMoneyPin: yup.number(),
+const schema = z.object({
+  name: z.string().nonempty('Name is required'),
+  email: z.string().email('Email is not valid').nonempty('Email is required'),
+  phone: z
+    .string()
+    .nonempty('Phone is required')
+    .regex(/^\d{9}$/, 'Phone number must be 9 digits')
+    .transform((val) => Number(val)),
+  address: z.string().nonempty('Address is required').min(5, 'Address is too short'),
+  zip: z
+    .string()
+    .nonempty('ZIP Code is required')
+    .regex(/^\d{5}$/, 'ZIP Code must be 5 digits')
+    .transform((val) => Number(val)),
+  city: z.string().nonempty('City is required'),
+  country: z.string().nonempty('Country is required'),
+  eMoneyNumber: z
+    .string()
+    .nonempty('e-Money Number is required')
+    .regex(/^\d{9}$/, 'e-Money Number must be 9 digits')
+    .transform((val) => Number(val)),
+  eMoneyPin: z
+    .string()
+    .nonempty('e-Money PIN is required')
+    .regex(/^\d{4}$/, 'e-Money PIN must be 4 digits')
+    .transform((val) => Number(val)),
 })
 
 const Checkout: React.FC = () => {
   const methods = useForm<Inputs>({
-    resolver: yupResolver(schema),
+    resolver: zodResolver(schema),
   })
 
   const checkoutStore = useCheckoutStore()
