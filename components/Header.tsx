@@ -1,7 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { FaSun, FaMoon, FaShoppingCart } from 'react-icons/fa'
+import { FaShoppingCart } from 'react-icons/fa'
 import Link from 'next/link'
 import { useMenuStore } from '@/stores/menuStore'
 import { useCartStore } from '@/stores/cartStore'
@@ -11,35 +10,17 @@ import Overlay from './Overlay'
 import Cart from './Cart'
 import { useTranslation } from 'react-i18next'
 import LanguageChanger from './LanguageChanger'
+import ThemeToggleButton from './ThemeToggleButton'
 
 export default function Header() {
   const menuStore = useMenuStore()
   const cartStore = useCartStore()
   const checkoutStore = useCheckoutStore()
-  const [theme, setTheme] = useState('system')
   const { t } = useTranslation()
-
-  useEffect(() => {
-    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
-      .matches
-      ? 'dark'
-      : 'light'
-    const savedTheme = localStorage.getItem('theme') || systemTheme
-    setTheme(savedTheme)
-    document.documentElement.classList.add(savedTheme)
-  }, [])
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark'
-    setTheme(newTheme)
-    localStorage.setItem('theme', newTheme)
-    document.documentElement.classList.remove(theme)
-    document.documentElement.classList.add(newTheme)
-  }
 
   return (
     <header className="relative flex justify-center">
-      <div className="fixed z-20 flex w-[100%] items-center justify-between border-b-[1px] border-b-[gray] bg-[#101010] p-10 md:justify-normal md:gap-[4.2rem] lg:justify-around">
+      <div className="fixed z-20 flex w-[100%] items-center justify-between border-b-[1px] border-b-[gray] bg-[#101010] p-10 md:gap-[4.2rem]">
         <svg
           className="lg:hidden"
           width="16"
@@ -93,7 +74,7 @@ export default function Header() {
         </div>
 
         <div className="flex items-center gap-4">
-          <div className="relative cursor-pointer md:absolute md:right-[5%] lg:relative">
+          <div className="relative cursor-pointer lg:relative">
             {cartStore.cartItemsQuantity === 0 ? null : (
               <div className="absolute right-[-8px] top-[-7px] flex h-[15px] w-[15px] items-center justify-center rounded-full bg-[#d87d4a] text-white">
                 {cartStore.cartItemsQuantity}
@@ -101,8 +82,7 @@ export default function Header() {
             )}
             <FaShoppingCart
               size={23}
-              color="#FFF"
-              className="hover:text-[#d87d4a]"
+              className="text-white hover:text-[#d87d4a]"
               onClick={() => {
                 if (checkoutStore.isPayActive) return
                 menuStore.setMenuOpen(false)
@@ -110,13 +90,12 @@ export default function Header() {
               }}
             />
           </div>
-          <button
-            onClick={toggleTheme}
-            className="ml-4 p-2 text-white hover:text-[#d87d4a]"
-          >
-            {theme === 'dark' ? <FaSun size={20} /> : <FaMoon size={20} />}
-          </button>
-          <LanguageChanger />
+          <div className="hidden md:block">
+            <ThemeToggleButton />
+          </div>
+          <div className="hidden md:block">
+            <LanguageChanger />
+          </div>
         </div>
       </div>
 

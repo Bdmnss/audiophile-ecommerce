@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import i18nConfig from '@/i18nConfig'
 import { useState } from 'react'
 import { FaGlobe } from 'react-icons/fa'
+import { useThemeStore } from '@/stores/themeStore'
 
 export default function LanguageChanger() {
   const { i18n } = useTranslation()
@@ -13,6 +14,7 @@ export default function LanguageChanger() {
   const router = useRouter()
   const currentPathname = usePathname()
   const [dropdownOpen, setDropdownOpen] = useState(false)
+  const { theme } = useThemeStore()
 
   const handleChange = (newLocale) => {
     const days = 30
@@ -45,10 +47,15 @@ export default function LanguageChanger() {
         onClick={() => setDropdownOpen(!dropdownOpen)}
         className="p-2 text-white hover:text-[#d87d4a]"
       >
-        <FaGlobe size={20} />
+        <FaGlobe
+          size={20}
+          className={`${
+            theme === 'dark' ? 'text-white' : 'text-black'
+          } hover:text-[#d87d4a] md:text-white`}
+        />
       </button>
       {dropdownOpen && (
-        <div className="absolute right-0 mt-2 w-48 rounded bg-black text-white shadow-lg">
+        <div className="absolute right-0 z-10 mt-2 w-48 rounded bg-black text-white shadow-lg">
           {options.map((option) => (
             <button
               key={option.value}

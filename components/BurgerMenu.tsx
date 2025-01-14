@@ -2,6 +2,8 @@
 
 import { useMenuStore } from '@/stores/menuStore'
 import Navigation from './Navigation'
+import ThemeToggleButton from './ThemeToggleButton'
+import LanguageChanger from './LanguageChanger'
 
 export default function BurgerMenu() {
   const menuStore = useMenuStore()
@@ -14,6 +16,10 @@ export default function BurgerMenu() {
       }`}
     >
       <div className="mt-[16rem]">
+        <div className="absolute right-12 top-36 flex items-center md:hidden">
+          <ThemeToggleButton />
+          <LanguageChanger />
+        </div>
         <Navigation />
       </div>
     </div>

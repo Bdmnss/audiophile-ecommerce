@@ -1,4 +1,4 @@
-export default {
+const config = {
   tabWidth: 2,
   printWidth: 80,
   singleQuote: true,
@@ -6,3 +6,5 @@ export default {
   trailingComma: 'es5',
   plugins: ['prettier-plugin-tailwindcss'],
 }
+
+export default config
