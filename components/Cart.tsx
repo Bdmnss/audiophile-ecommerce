@@ -1,9 +1,12 @@
 import Link from 'next/link'
 import { useCartStore } from '../stores/cartStore'
 import Image from 'next/image'
+import { useTranslation } from 'react-i18next'
 
 export default function Cart() {
   const cartStore = useCartStore()
+  const { t } = useTranslation()
+
   return (
     <div
       className={`fixed z-10 flex h-[45vh] w-[90%] flex-col gap-[3.2rem] overflow-y-auto rounded-xl bg-white dark:bg-[#101010] p-[3rem] md:h-[47vh] ${
@@ -14,7 +17,7 @@ export default function Cart() {
     >
       <div className="flex items-center justify-between">
         <p className="text-[1.8rem] font-bold text-black dark:text-white">
-          CART ({cartStore.cartItemsQuantity})
+          {t('cart')} ({cartStore.cartItemsQuantity})
         </p>
         <p
           className="cursor-pointer text-[1.5rem] text-[gray] dark:text-gray-400 underline hover:text-[#d87d4a] dark:hover:text-[#fbaf85]"
@@ -24,24 +27,24 @@ export default function Cart() {
             cartStore.setCartItemsQuantity(0)
           }}
         >
-          Remove all
+          {t('remove_all')}
         </p>
       </div>
 
       {cartStore.cartItemsQuantity === 0 ? (
         <div>
           <h2 className="mb-[3.2rem] text-[3rem] text-black dark:text-white">
-            Your cart is empty
+            {t('cart_empty')}
           </h2>
 
           <p className="text-[1.5rem] text-[gray] dark:text-gray-400">
-            Continue shopping on the audiophile website{' '}
+            {t('continue_shopping_on_the_audiophile_website')}{' '}
             <Link
               href="/"
               className="font-bold text-[#d87d4a] dark:text-[#fbaf85]"
               onClick={() => cartStore.setCartOpen(false)}
             >
-              homepage
+              {t('homepage')}
             </Link>
           </p>
         </div>
@@ -101,7 +104,7 @@ export default function Cart() {
       )}
 
       <div className="flex items-center justify-between">
-        <p className="text-[1.5rem] font-medium text-[gray] dark:text-gray-400">TOTAL</p>
+        <p className="text-[1.5rem] font-medium text-[gray] dark:text-gray-400">{t('total')}</p>
         <p className="text-[1.8rem] font-bold text-black dark:text-white">
           $ {cartStore.totalPrice}
         </p>
@@ -113,7 +116,7 @@ export default function Cart() {
           disabled={cartStore.cartItemsQuantity === 0}
           className="w-[100%] rounded-lg bg-[#d87d4a] px-[2rem] py-[1rem] text-[1.5rem] text-white hover:bg-[#fbaf85] disabled:opacity-50"
         >
-          CHECKOUT
+          {t('checkout')}
         </button>
       </Link>
     </div>

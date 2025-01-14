@@ -1,5 +1,6 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
 import { Inputs } from './Checkout'
+import { useTranslation } from 'react-i18next'
 
 type BillingDetailsProps = {
   register: UseFormRegister<Inputs>
@@ -10,6 +11,8 @@ export default function BillingDetails({
   register,
   errors,
 }: BillingDetailsProps) {
+  const { t } = useTranslation()  
+
   return (
     <div className="flex flex-col gap-[2.4rem]">
       <p className="text-[1.3rem] font-bold text-[#d87d4a]">BILLING DETAILS</p>
@@ -21,7 +24,7 @@ export default function BillingDetails({
               errors.name && 'text-red-500'
             }`}
           >
-            Name
+            {t('name')}
           </label>
           <input
             type="text"
@@ -44,7 +47,7 @@ export default function BillingDetails({
               errors.email && 'text-red-500'
             }`}
           >
-            Email Address
+            {t('email')}
           </label>
           <input
             type="text"
@@ -68,7 +71,7 @@ export default function BillingDetails({
             errors.phone && 'text-red-500'
           }`}
         >
-          Phone Number
+          {t('phone')}
         </label>
         <input
           type="text"

@@ -4,7 +4,6 @@ import Image from 'next/image'
 import data from '../data.json'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
-import { useEffect } from 'react'
 
 export default function ProductMenu({
   productMenuName,
@@ -12,17 +11,13 @@ export default function ProductMenu({
   productMenuName: string
 }) {
   const productMenu = data.filter((item) => item.category === productMenuName)
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
     
-      useEffect(() => {
-        const savedLanguage = localStorage.getItem('language') || 'en'
-        i18n.changeLanguage(savedLanguage)
-      }, [i18n])
   return (
     <div className="pb-[12rem] bg-[#f1f1f1] dark:bg-[#101010]">
       <div className="flex items-center justify-center bg-black pb-[3.2rem] pt-[11rem] md:pb-[7.2rem] md:pt-[15rem]">
         <h1 className="text-[2.8rem] font-bold text-white md:text-[4rem]">
-          {productMenuName?.toString().toUpperCase()}
+          {t(productMenuName)?.toString().toUpperCase()}
         </h1>
       </div>
       <div className="px-[2.4rem] md:px-[4rem] lg:px-[16.5rem]">

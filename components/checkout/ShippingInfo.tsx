@@ -1,7 +1,10 @@
 import React from 'react'
 import { useFormContext } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
 const ShippingInfo: React.FC = () => {
+  const { t } = useTranslation()
+
   const {
     register,
     formState: { errors },
@@ -18,7 +21,7 @@ const ShippingInfo: React.FC = () => {
               errors.address && 'text-red-500'
             }`}
           >
-            Address
+            {t('address')}
           </label>
           <input
             type="text"
@@ -43,7 +46,7 @@ const ShippingInfo: React.FC = () => {
               errors.zip && 'text-red-500'
             }`}
           >
-            ZIP Code
+            {t('zip')}
           </label>
           <input
             type="text"
@@ -66,7 +69,7 @@ const ShippingInfo: React.FC = () => {
               errors.city && 'text-red-500'
             }`}
           >
-            City
+            {t('city')}
           </label>
           <input
             type="text"
@@ -90,7 +93,7 @@ const ShippingInfo: React.FC = () => {
             errors.country && 'text-red-500'
           }`}
         >
-          Country
+          {t('country')}
         </label>
         <input
           type="text"

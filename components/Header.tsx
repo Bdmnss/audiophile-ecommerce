@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { FaSun, FaMoon, FaGlobe, FaShoppingCart } from 'react-icons/fa'
+import { FaSun, FaMoon, FaShoppingCart } from 'react-icons/fa'
 import Link from 'next/link'
 import { useMenuStore } from '@/stores/menuStore'
 import { useCartStore } from '@/stores/cartStore'
@@ -10,24 +10,20 @@ import BurgerMenu from './BurgerMenu'
 import Overlay from './Overlay'
 import Cart from './Cart'
 import { useTranslation } from 'react-i18next'
-import '../app/i18n/index'
+import LanguageChanger from './LanguageChanger'
 
 export default function Header() {
   const menuStore = useMenuStore()
   const cartStore = useCartStore()
   const checkoutStore = useCheckoutStore()
   const [theme, setTheme] = useState('system')
-  const { t, i18n } = useTranslation()
-  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const { t } = useTranslation()
 
   useEffect(() => {
     const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
     const savedTheme = localStorage.getItem('theme') || systemTheme
     setTheme(savedTheme)
     document.documentElement.classList.add(savedTheme)
-
-    const savedLanguage = localStorage.getItem('language') || 'en'
-    i18n.changeLanguage(savedLanguage)
   }, [])
 
   const toggleTheme = () => {
@@ -37,17 +33,7 @@ export default function Header() {
     document.documentElement.classList.remove(theme)
     document.documentElement.classList.add(newTheme)
   }
-
-  const changeLanguage = (lang: string) => {
-    i18n.changeLanguage(lang)
-    localStorage.setItem('language', lang)
-    setDropdownOpen(false)
-  }
-
-  const options = [
-    { value: 'en', label: t('EN') },
-    { value: 'ge', label: t('GE') }
-  ]
+  
   return (
     <header className="relative flex justify-center">
       <div className="fixed z-20 flex w-[100%] items-center justify-between border-b-[1px] border-b-[gray] bg-[#101010] p-10 md:justify-normal md:gap-[4.2rem] lg:justify-around">
@@ -127,27 +113,7 @@ export default function Header() {
           >
             {theme === 'dark' ? <FaSun size={20} /> : <FaMoon size={20} />}
           </button>
-          <div className="relative">
-            <button
-              onClick={() => setDropdownOpen(!dropdownOpen)}
-              className="p-2 text-white hover:text-[#d87d4a]"
-            >
-              <FaGlobe size={20} />
-            </button>
-            {dropdownOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-black text-white rounded shadow-lg">
-                {options.map(option => (
-                  <button
-                    key={option.value}
-                    onClick={() => changeLanguage(option.value)}
-                    className="block w-full px-4 py-2 text-left hover:bg-[#d87d4a] hover:text-white cursor-pointer"
-                  >
-                    {option.label}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
+          <LanguageChanger />
         </div>
       </div>
 

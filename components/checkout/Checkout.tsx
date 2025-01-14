@@ -10,6 +10,7 @@ import ShippingInfo from './ShippingInfo'
 import PaymentDetails from './PaymentDetails'
 import Summary from './Summary'
 import PaymentConfirmation from './PaymentConfirmation'
+import { useTranslation } from 'react-i18next'
 
 export type Inputs = {
   name: string
@@ -52,6 +53,8 @@ const schema = z.object({
 })
 
 const Checkout: React.FC = () => {
+  const { t } = useTranslation()  
+
   const methods = useForm<Inputs>({
     resolver: zodResolver(schema),
   })
@@ -66,12 +69,12 @@ const Checkout: React.FC = () => {
     <div className="relative">
       <div className="bg-[#fafafa] dark:bg-[#101010] px-[2.4rem] py-[9rem] md:px-[4rem] lg:px-[16.5rem]">
         <Link href="/" className="text-[1.5rem] font-medium text-[gray]">
-          Go Back
+          {t('go_back')}
         </Link>
 
         <div className="mt-[2.4rem] bg-white dark:bg-black p-[2.4rem]">
           <h1 className="mb-[3.2rem] text-[2.8rem] font-bold text-black dark:text-white md:text-[3.2rem]">
-            CHECKOUT
+            {t('checkout')}
           </h1>
 
           <FormProvider {...methods}>

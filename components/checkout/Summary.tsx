@@ -1,8 +1,10 @@
 import React from 'react'
 import Image from 'next/image'
 import { useCartStore } from '@/stores/cartStore'
+import { useTranslation } from 'react-i18next'
 
 const Summary: React.FC = () => {
+  const { t } = useTranslation()
   const { cartItems, totalPrice } = useCartStore()
 
   return (
@@ -23,17 +25,17 @@ const Summary: React.FC = () => {
                 {item.name}
               </h3>
               <p className="text-[1.2rem] font-medium text-black dark:text-white">
-                Quantity: {item.quantity}
+                {t('quantity')}: {item.quantity}
               </p>
               <p className="text-[1.2rem] font-medium text-black dark:text-white">
-                Price: ${item.price}
+                {t('price')}: ${item.price}
               </p>
             </div>
           </li>
         ))}
       </ul>
       <div className="mt-[2.4rem] flex items-center justify-between">
-        <h3 className="text-[1.4rem] font-bold text-black dark:text-white">Total Price:</h3>
+        <h3 className="text-[1.4rem] font-bold text-black dark:text-white">{t('total_price')}:</h3>
         <p className="text-[1.4rem] font-bold text-black dark:text-white">${totalPrice}</p>
       </div>
     </div>

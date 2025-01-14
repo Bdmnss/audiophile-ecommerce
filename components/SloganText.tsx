@@ -1,13 +1,7 @@
-import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 export default function SloganText() {
-  const { t, i18n } = useTranslation()
-
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem('language') || 'en'
-    i18n.changeLanguage(savedLanguage)
-  }, [i18n])
+  const { t } = useTranslation()
 
   return (
     <div className="lg:flex lg:flex-row-reverse lg:gap-[12.5rem]">

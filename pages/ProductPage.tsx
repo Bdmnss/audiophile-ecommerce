@@ -7,7 +7,6 @@ import Navigation from '@/components/Navigation'
 import SloganText from '@/components/SloganText'
 import Image from 'next/image'
 import { useTranslation } from 'react-i18next'
-import { useEffect } from 'react'
 
 export default function ProductPage({
   productMenu,
@@ -19,12 +18,7 @@ export default function ProductPage({
   const cartStore = useCartStore()
   const product = data.filter((item) => item.slug === productName)
 
-  const { t, i18n } = useTranslation()
-    
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem('language') || 'en'
-    i18n.changeLanguage(savedLanguage)
-  }, [i18n])
+  const { t } = useTranslation()
 
   return (
     <div className="px-[2.4rem] pb-[12rem] pt-[9rem] md:px-[4rem] lg:px-[16.5rem] lg:pt-[15rem] bg-[#f1f1f1] dark:bg-[#101010]">

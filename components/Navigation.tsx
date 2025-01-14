@@ -6,16 +6,11 @@ import earphonesImage from '../public/assets/shared/desktop/image-category-thumb
 import { useMenuStore } from '@/stores/menuStore'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 export default function Navigation() {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   
-    useEffect(() => {
-      const savedLanguage = localStorage.getItem('language') || 'en'
-      i18n.changeLanguage(savedLanguage)
-    }, [i18n])
   const menuStore = useMenuStore()
   return (
     <div className="mb-[12rem] flex w-[100%] flex-col items-center justify-center gap-[7rem] md:flex-row md:gap-[1rem] lg:gap-[3rem]">

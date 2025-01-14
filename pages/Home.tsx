@@ -6,16 +6,9 @@ import SloganText from '@/components/SloganText'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useTranslation } from 'react-i18next'
-import { useEffect } from 'react'
-import '../app/i18n/index'
 
 export default function HomePage() {
-  const { t, i18n } = useTranslation()
-
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem('language') || 'en'
-    i18n.changeLanguage(savedLanguage)
-  }, [i18n])
+  const { t } = useTranslation()
 
   return (
     <main className='bg-[#f1f1f1] dark:bg-[#101010]'>

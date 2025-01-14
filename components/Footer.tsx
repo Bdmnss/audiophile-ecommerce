@@ -1,16 +1,10 @@
 "use client"
 
 import Link from 'next/link'
-import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 export default function Footer() {
-  const { t, i18n } = useTranslation()
-  
-    useEffect(() => {
-      const savedLanguage = localStorage.getItem('language') || 'en'
-      i18n.changeLanguage(savedLanguage)
-    }, [i18n])
+  const { t } = useTranslation()
   
   return (
     <footer className="flex flex-col items-center justify-center bg-[#101010] dark:bg-black pb-[5rem] text-center md:items-start md:justify-start md:px-[4rem] md:text-left lg:px-[16.5rem]">
