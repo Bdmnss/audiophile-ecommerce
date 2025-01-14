@@ -21,7 +21,7 @@ export default function ProductPage({
   const { t } = useTranslation()
 
   return (
-    <div className="px-[2.4rem] pb-[12rem] pt-[9rem] md:px-[4rem] lg:px-[16.5rem] lg:pt-[15rem] bg-[#f1f1f1] dark:bg-[#101010]">
+    <div className="bg-[#f1f1f1] px-[2.4rem] pb-[12rem] pt-[9rem] dark:bg-[#101010] md:px-[4rem] lg:px-[16.5rem] lg:pt-[15rem]">
       <Link
         href={`/${productMenu}`}
         className="text-[1.5rem] font-medium text-[gray] hover:text-[#d87d4a]"

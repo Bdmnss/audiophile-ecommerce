@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next'
 
 export default function Navigation() {
   const { t } = useTranslation()
-  
+
   const menuStore = useMenuStore()
   return (
     <div className="mb-[12rem] flex w-[100%] flex-col items-center justify-center gap-[7rem] md:flex-row md:gap-[1rem] lg:gap-[3rem]">
@@ -19,7 +19,7 @@ export default function Navigation() {
         className="w-[100%]"
         onClick={() => menuStore.setMenuOpen(false)}
       >
-        <div className="group relative flex flex-col items-center justify-center rounded-xl bg-[#f1f1f1] dark:bg-zinc-900 pb-6 pt-[7rem] lg:py-[7rem]">
+        <div className="group relative flex flex-col items-center justify-center rounded-xl bg-[#f1f1f1] pb-6 pt-[7rem] dark:bg-zinc-900 lg:py-[7rem]">
           <Image
             src={headphonesImage.src}
             alt="headphones image"
@@ -47,7 +47,7 @@ export default function Navigation() {
         className="w-[100%]"
         onClick={() => menuStore.setMenuOpen(false)}
       >
-        <div className="group relative flex flex-col items-center justify-center rounded-xl bg-[#f1f1f1] dark:bg-zinc-900 pb-6 pt-[7rem] lg:py-[7rem]">
+        <div className="group relative flex flex-col items-center justify-center rounded-xl bg-[#f1f1f1] pb-6 pt-[7rem] dark:bg-zinc-900 lg:py-[7rem]">
           <Image
             src={speakersImage.src}
             alt="headphones image"
@@ -56,7 +56,7 @@ export default function Navigation() {
             height={260}
           />
           <p className="mb-[1.7rem] text-[1.5rem] font-bold text-black dark:text-white lg:text-[1.8rem]">
-            {(t('speakers'))}
+            {t('speakers')}
           </p>
 
           <div className="flex items-center gap-[1.3rem]">
@@ -75,7 +75,7 @@ export default function Navigation() {
         className="w-[100%]"
         onClick={() => menuStore.setMenuOpen(false)}
       >
-        <div className="group relative flex flex-col items-center justify-center rounded-xl bg-[#f1f1f1] dark:bg-zinc-900 pb-6 pt-[7rem] lg:py-[7rem]">
+        <div className="group relative flex flex-col items-center justify-center rounded-xl bg-[#f1f1f1] pb-6 pt-[7rem] dark:bg-zinc-900 lg:py-[7rem]">
           <Image
             src={earphonesImage.src}
             alt="headphones image"
@@ -84,7 +84,7 @@ export default function Navigation() {
             height={260}
           />
           <p className="mb-[1.7rem] text-[1.5rem] font-bold text-black dark:text-white lg:text-[1.8rem]">
-            {(t('earphones'))}
+            {t('earphones')}
           </p>
 
           <div className="flex items-center gap-[1.3rem]">

@@ -12,7 +12,11 @@ export default async function Home({ params: { locale } }: HomeProps) {
   const { resources } = await initTranslations(locale, ['default', 'common'])
 
   return (
-    <TranslationsProvider resources={resources} locale={locale} namespaces={['default', 'common']}>
+    <TranslationsProvider
+      resources={resources}
+      locale={locale}
+      namespaces={['default', 'common']}
+    >
       <HomePage />
     </TranslationsProvider>
   )

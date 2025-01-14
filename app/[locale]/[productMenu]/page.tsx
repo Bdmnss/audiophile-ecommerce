@@ -14,7 +14,11 @@ export default async function Page({ params }: Params) {
   const { resources } = await initTranslations(locale, ['default', 'common'])
 
   return (
-    <TranslationsProvider resources={resources} locale={locale} namespaces={['default', 'common']}>
+    <TranslationsProvider
+      resources={resources}
+      locale={locale}
+      namespaces={['default', 'common']}
+    >
       <ProductMenu productMenuName={productMenu} />
     </TranslationsProvider>
   )

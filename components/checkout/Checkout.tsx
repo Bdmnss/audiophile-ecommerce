@@ -32,7 +32,10 @@ const schema = z.object({
     .nonempty('Phone is required')
     .regex(/^\d{9}$/, 'Phone number must be 9 digits')
     .transform((val) => Number(val)),
-  address: z.string().nonempty('Address is required').min(5, 'Address is too short'),
+  address: z
+    .string()
+    .nonempty('Address is required')
+    .min(5, 'Address is too short'),
   zip: z
     .string()
     .nonempty('ZIP Code is required')
@@ -53,7 +56,7 @@ const schema = z.object({
 })
 
 const Checkout: React.FC = () => {
-  const { t } = useTranslation()  
+  const { t } = useTranslation()
 
   const methods = useForm<Inputs>({
     resolver: zodResolver(schema),
@@ -67,12 +70,12 @@ const Checkout: React.FC = () => {
 
   return (
     <div className="relative">
-      <div className="bg-[#fafafa] dark:bg-[#101010] px-[2.4rem] py-[9rem] md:px-[4rem] lg:px-[16.5rem]">
+      <div className="bg-[#fafafa] px-[2.4rem] py-[9rem] dark:bg-[#101010] md:px-[4rem] lg:px-[16.5rem]">
         <Link href="/" className="text-[1.5rem] font-medium text-[gray]">
           {t('go_back')}
         </Link>
 
-        <div className="mt-[2.4rem] bg-white dark:bg-black p-[2.4rem]">
+        <div className="mt-[2.4rem] bg-white p-[2.4rem] dark:bg-black">
           <h1 className="mb-[3.2rem] text-[2.8rem] font-bold text-black dark:text-white md:text-[3.2rem]">
             {t('checkout')}
           </h1>

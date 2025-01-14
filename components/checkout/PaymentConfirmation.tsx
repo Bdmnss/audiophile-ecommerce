@@ -10,7 +10,7 @@ const PaymentConfirmation: React.FC = () => {
 
   return (
     <div className="fixed top-0 z-[1] h-full w-full cursor-pointer bg-[#000000bf]">
-      <div className="fixed left-1/2 top-[12rem] z-10 h-[73vh] w-[90%] -translate-x-1/2 transform overflow-y-auto rounded-xl bg-white dark:bg-[#101010] p-[3.2rem] md:h-[61vh] md:w-[70%] lg:w-[40%]">
+      <div className="fixed left-1/2 top-[12rem] z-10 h-[73vh] w-[90%] -translate-x-1/2 transform overflow-y-auto rounded-xl bg-white p-[3.2rem] dark:bg-[#101010] md:h-[61vh] md:w-[70%] lg:w-[40%]">
         <svg
           width="64"
           height="64"

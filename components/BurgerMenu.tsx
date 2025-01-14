@@ -7,7 +7,7 @@ export default function BurgerMenu() {
   const menuStore = useMenuStore()
   return (
     <div
-      className={`fixed z-10 h-[100%] w-[100%] overflow-y-scroll rounded-xl bg-white dark:bg-[#101010] px-[4rem] md:h-[56%] ${
+      className={`fixed z-10 h-[100%] w-[100%] overflow-y-scroll rounded-xl bg-white px-[4rem] dark:bg-[#101010] md:h-[56%] ${
         menuStore.isMenuOpen
           ? 'animate-slide-top-to-bottom'
           : 'animate-slide-bottom-to-top'

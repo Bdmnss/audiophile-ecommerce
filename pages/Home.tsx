@@ -11,7 +11,7 @@ export default function HomePage() {
   const { t } = useTranslation()
 
   return (
-    <main className='bg-[#f1f1f1] dark:bg-[#101010]'>
+    <main className="bg-[#f1f1f1] dark:bg-[#101010]">
       <div>
         <div className="lg:header-home-desktop mb-[9rem] flex h-[55rem] flex-col items-center justify-center bg-header-home-mobile bg-cover bg-center bg-no-repeat px-10 text-center md:bg-header-home-tablet md:px-96 lg:mb-[20rem] lg:h-[80rem]">
           <p className="mb-[1.6rem] text-[1.4rem] tracking-[1rem] text-[gray]">

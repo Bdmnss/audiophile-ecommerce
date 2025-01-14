@@ -20,7 +20,10 @@ export default function Header() {
   const { t } = useTranslation()
 
   useEffect(() => {
-    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
+      .matches
+      ? 'dark'
+      : 'light'
     const savedTheme = localStorage.getItem('theme') || systemTheme
     setTheme(savedTheme)
     document.documentElement.classList.add(savedTheme)
@@ -33,7 +36,7 @@ export default function Header() {
     document.documentElement.classList.remove(theme)
     document.documentElement.classList.add(newTheme)
   }
-  
+
   return (
     <header className="relative flex justify-center">
       <div className="fixed z-20 flex w-[100%] items-center justify-between border-b-[1px] border-b-[gray] bg-[#101010] p-10 md:justify-normal md:gap-[4.2rem] lg:justify-around">
@@ -89,7 +92,7 @@ export default function Header() {
           </Link>
         </div>
 
-        <div className='flex items-center gap-4'>
+        <div className="flex items-center gap-4">
           <div className="relative cursor-pointer md:absolute md:right-[5%] lg:relative">
             {cartStore.cartItemsQuantity === 0 ? null : (
               <div className="absolute right-[-8px] top-[-7px] flex h-[15px] w-[15px] items-center justify-center rounded-full bg-[#d87d4a] text-white">

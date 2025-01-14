@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import Image from 'next/image'
 import data from '../data.json'
@@ -12,9 +12,9 @@ export default function ProductMenu({
 }) {
   const productMenu = data.filter((item) => item.category === productMenuName)
   const { t } = useTranslation()
-    
+
   return (
-    <div className="pb-[12rem] bg-[#f1f1f1] dark:bg-[#101010]">
+    <div className="bg-[#f1f1f1] pb-[12rem] dark:bg-[#101010]">
       <div className="flex items-center justify-center bg-black pb-[3.2rem] pt-[11rem] md:pb-[7.2rem] md:pt-[15rem]">
         <h1 className="text-[2.8rem] font-bold text-white md:text-[4rem]">
           {t(productMenuName)?.toString().toUpperCase()}

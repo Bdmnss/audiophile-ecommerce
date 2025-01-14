@@ -1,13 +1,13 @@
-"use client"
+'use client'
 
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
 
 export default function Footer() {
   const { t } = useTranslation()
-  
+
   return (
-    <footer className="flex flex-col items-center justify-center bg-[#101010] dark:bg-black pb-[5rem] text-center md:items-start md:justify-start md:px-[4rem] md:text-left lg:px-[16.5rem]">
+    <footer className="flex flex-col items-center justify-center bg-[#101010] pb-[5rem] text-center dark:bg-black md:items-start md:justify-start md:px-[4rem] md:text-left lg:px-[16.5rem]">
       <div className="lg:flex lg:w-full lg:items-center lg:justify-between">
         <div className="mb-[5rem] border-t-4 border-t-[#d87d4a] pt-[5rem]">
           <svg width="143" height="25" xmlns="http://www.w3.org/2000/svg">

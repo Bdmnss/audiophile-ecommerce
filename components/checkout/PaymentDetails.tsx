@@ -26,7 +26,9 @@ const PaymentDetails: React.FC = () => {
             {...register('eMoneyNumber')}
             id="eMoneyNumber"
             placeholder="238521993"
-            className={`mt-[1rem] w-full rounded-xl border border-[#d9d9d9] bg-white text-black dark:bg-black dark:text-white p-[1.6rem] text-[1.4rem] font-bold outline-none focus:border-[#d87d4a] ${errors.eMoneyNumber && 'border-red-500'}`}
+            className={`mt-[1rem] w-full rounded-xl border border-[#d9d9d9] bg-white p-[1.6rem] text-[1.4rem] font-bold text-black outline-none focus:border-[#d87d4a] dark:bg-black dark:text-white ${
+              errors.eMoneyNumber && 'border-red-500'
+            }`}
           />
           {errors.eMoneyNumber && (
             <p className="mt-[1rem] text-[1.2rem] font-bold text-red-500">
@@ -49,7 +51,9 @@ const PaymentDetails: React.FC = () => {
             {...register('eMoneyPin')}
             id="eMoneyPin"
             placeholder="6891"
-            className={`mt-[1rem] w-full rounded-xl border border-[#d9d9d9] bg-white text-black dark:bg-black dark:text-white p-[1.6rem] text-[1.4rem] font-bold outline-none focus:border-[#d87d4a] ${errors.eMoneyPin && 'border-red-500'}`}
+            className={`mt-[1rem] w-full rounded-xl border border-[#d9d9d9] bg-white p-[1.6rem] text-[1.4rem] font-bold text-black outline-none focus:border-[#d87d4a] dark:bg-black dark:text-white ${
+              errors.eMoneyPin && 'border-red-500'
+            }`}
           />
           {errors.eMoneyPin && (
             <p className="mt-[1rem] text-[1.2rem] font-bold text-red-500">

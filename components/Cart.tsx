@@ -9,7 +9,7 @@ export default function Cart() {
 
   return (
     <div
-      className={`fixed z-10 flex h-[45vh] w-[90%] flex-col gap-[3.2rem] overflow-y-auto rounded-xl bg-white dark:bg-[#101010] p-[3rem] md:h-[47vh] ${
+      className={`fixed z-10 flex h-[45vh] w-[90%] flex-col gap-[3.2rem] overflow-y-auto rounded-xl bg-white p-[3rem] dark:bg-[#101010] md:h-[47vh] ${
         cartStore.isCartOpen
           ? 'animate-slide-top-to-bottom mt-[10rem]'
           : 'animate-slide-bottom-to-top'
@@ -20,7 +20,7 @@ export default function Cart() {
           {t('cart')} ({cartStore.cartItemsQuantity})
         </p>
         <p
-          className="cursor-pointer text-[1.5rem] text-[gray] dark:text-gray-400 underline hover:text-[#d87d4a] dark:hover:text-[#fbaf85]"
+          className="cursor-pointer text-[1.5rem] text-[gray] underline hover:text-[#d87d4a] dark:text-gray-400 dark:hover:text-[#fbaf85]"
           onClick={() => {
             cartStore.setCartItems([])
             cartStore.setTotalPrice(0)
@@ -50,61 +50,74 @@ export default function Cart() {
         </div>
       ) : (
         <div className="flex flex-col gap-[2.4rem]">
-          {cartStore.cartItems.map((product) => (
-            <div key={product.id} className="flex items-center justify-between">
-              <Image
-                src={product.image}
-                alt="product image"
-                className="w-[6.4rem] rounded-xl"
-                width={64}
-                height={64}
-              />
+          {cartStore.cartItems.map(
+            (product: {
+              id: number
+              image: string
+              name: string
+              originalPrice: number
+              quantity: number
+            }) => (
+              <div
+                key={product.id}
+                className="flex items-center justify-between"
+              >
+                <Image
+                  src={product.image}
+                  alt="product image"
+                  className="w-[6.4rem] rounded-xl"
+                  width={64}
+                  height={64}
+                />
 
-              <div className="">
-                <p className="text-[1.5rem] font-bold text-black dark:text-white">
-                  {product.name}
-                </p>
-                <p className="text-[1.4rem] font-bold text-[gray] dark:text-gray-400">
-                  $ {product.originalPrice}
-                </p>
-              </div>
+                <div className="">
+                  <p className="text-[1.5rem] font-bold text-black dark:text-white">
+                    {product.name}
+                  </p>
+                  <p className="text-[1.4rem] font-bold text-[gray] dark:text-gray-400">
+                    $ {product.originalPrice}
+                  </p>
+                </div>
 
-              <div className="flex items-center justify-between gap-[2rem] bg-[#80808038] dark:bg-gray-700 px-[1.5rem] py-[0.7rem] rounded-lg">
-                <button
-                  onClick={() => {
-                    if (product.quantity > 1) {
-                      product.quantity--
+                <div className="flex items-center justify-between gap-[2rem] rounded-lg bg-[#80808038] px-[1.5rem] py-[0.7rem] dark:bg-gray-700">
+                  <button
+                    onClick={() => {
+                      if (product.quantity > 1) {
+                        product.quantity--
+                        cartStore.setTotalPrice(
+                          cartStore.totalPrice - product.originalPrice
+                        )
+                      }
+                    }}
+                    className="text-[2rem] font-bold text-[gray] hover:text-[#d87d4a] dark:text-gray-400 dark:hover:text-[#fbaf85]"
+                  >
+                    -
+                  </button>
+                  <span className="text-[1.3rem] font-bold text-black dark:text-white">
+                    {product.quantity}
+                  </span>
+                  <button
+                    onClick={() => {
+                      product.quantity++
                       cartStore.setTotalPrice(
-                        cartStore.totalPrice - product.originalPrice
+                        cartStore.totalPrice + product.originalPrice
                       )
-                    }
-                  }}
-                  className="text-[2rem] font-bold text-[gray] dark:text-gray-400 hover:text-[#d87d4a] dark:hover:text-[#fbaf85]"
-                >
-                  -
-                </button>
-                <span className="text-[1.3rem] font-bold text-black dark:text-white">
-                  {product.quantity}
-                </span>
-                <button
-                  onClick={() => {
-                    product.quantity++
-                    cartStore.setTotalPrice(
-                      cartStore.totalPrice + product.originalPrice
-                    )
-                  }}
-                  className="text-[2rem] font-bold text-[gray] dark:text-gray-400 hover:text-[#d87d4a] dark:hover:text-[#fbaf85]"
-                >
-                  +
-                </button>
+                    }}
+                    className="text-[2rem] font-bold text-[gray] hover:text-[#d87d4a] dark:text-gray-400 dark:hover:text-[#fbaf85]"
+                  >
+                    +
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          )}
         </div>
       )}
 
       <div className="flex items-center justify-between">
-        <p className="text-[1.5rem] font-medium text-[gray] dark:text-gray-400">{t('total')}</p>
+        <p className="text-[1.5rem] font-medium text-[gray] dark:text-gray-400">
+          {t('total')}
+        </p>
         <p className="text-[1.8rem] font-bold text-black dark:text-white">
           $ {cartStore.totalPrice}
         </p>
