@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import data from '../data.json'
+import data from '@/data.json'
 import { useCartStore } from '@/stores/cartStore'
 import Navigation from '@/components/Navigation'
 import SloganText from '@/components/SloganText'

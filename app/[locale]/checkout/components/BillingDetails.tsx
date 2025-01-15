@@ -1,5 +1,5 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
-import { Inputs } from './Checkout'
+import { Inputs } from '../client'
 import { useTranslation } from 'react-i18next'
 
 type BillingDetailsProps = {

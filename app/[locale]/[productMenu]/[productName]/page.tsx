@@ -1,4 +1,4 @@
-import ProductPage from '@/pages/ProductPage'
+import ProductPage from './client'
 
 interface Params {
   params: {

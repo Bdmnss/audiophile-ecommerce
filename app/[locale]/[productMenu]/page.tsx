@@ -1,4 +1,4 @@
-import ProductMenu from '@/pages/ProductMenu'
+import ProductMenu from './client'
 
 interface Params {
   params: {

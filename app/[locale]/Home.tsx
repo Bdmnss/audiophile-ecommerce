@@ -1,6 +1,6 @@
 'use client'
 
-import productSpeakerImage from '../public/assets/home/mobile/image-speaker-zx9.png'
+import productSpeakerImage from '@/public/assets/home/desktop/image-speaker-zx9.png'
 import Navigation from '@/components/Navigation'
 import SloganText from '@/components/SloganText'
 import Link from 'next/link'

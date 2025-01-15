@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import data from '../data.json'
+import data from '@/data.json'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
 
