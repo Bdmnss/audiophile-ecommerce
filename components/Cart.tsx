@@ -12,7 +12,7 @@ export default function Cart() {
       className={`fixed z-10 flex h-[45vh] w-[90%] flex-col gap-[3.2rem] overflow-y-auto rounded-xl bg-white p-[3rem] dark:bg-[#101010] md:h-[47vh] ${
         cartStore.isCartOpen
           ? 'animate-slide-top-to-bottom mt-[10rem]'
-          : 'animate-slide-bottom-to-top'
+          : 'hidden'
       } right-[4%] md:w-[50%] lg:w-[30%]`}
     >
       <div className="flex items-center justify-between">

@@ -26,21 +26,8 @@ html {
   }
 }
 
-@keyframes slide-bottom-to-top {
-  from {
-    transform: translateY(0%);
-  }
-  to {
-    transform: translateY(-300%);
-  }
-}
-
 .animate-slide-top-to-bottom {
   animation: slide-top-to-bottom 0.5s ease forwards;
-}
-
-.animate-slide-bottom-to-top {
-  animation: slide-bottom-to-top 0.5s ease forwards;
 }
 
 .custom-radio {

@@ -10,9 +10,7 @@ export default function BurgerMenu() {
   return (
     <div
       className={`fixed z-10 h-[100%] w-[100%] overflow-y-scroll rounded-xl bg-white px-[4rem] dark:bg-[#101010] md:h-[56%] ${
-        menuStore.isMenuOpen
-          ? 'animate-slide-top-to-bottom'
-          : 'animate-slide-bottom-to-top'
+        menuStore.isMenuOpen ? 'animate-slide-top-to-bottom' : 'hidden'
       }`}
     >
       <div className="mt-[16rem]">
