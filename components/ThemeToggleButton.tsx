@@ -15,7 +15,7 @@ export default function ThemeToggleButton() {
   }, [setTheme])
 
   return (
-    <button onClick={toggleTheme} className="ml-4 p-2 text-white">
+    <button onClick={toggleTheme} className="p-2 text-white">
       {theme === 'dark' ? (
         <FaSun size={20} className="text-white hover:text-[#d87d4a]" />
       ) : (
