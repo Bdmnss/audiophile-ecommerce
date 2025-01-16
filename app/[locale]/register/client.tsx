@@ -34,14 +34,16 @@ export default function Register() {
 
   return (
     <div
-      className={`flex min-h-screen items-center justify-center ${theme === 'dark' ? 'bg-[#101010] text-white' : 'bg-white text-black'}`}
+      className={`flex size-full min-h-screen items-center justify-center ${theme === 'dark' ? 'bg-[#101010] text-white' : 'bg-white text-black'}`}
     >
-      <div className="w-full max-w-md rounded-lg p-8 shadow-lg">
+      <div className="flex size-full flex-col gap-5 rounded-lg p-8 shadow-lg sm:w-[80%] md:w-[50%] lg:w-[30%]">
         <AuthToggleButtons />
-        <h2 className="mb-4 text-2xl font-bold">{t('register')}</h2>
+        <h2 className="flex justify-center text-[2rem] font-bold">
+          {t('register')}
+        </h2>
         <form>
           <div className="mb-4">
-            <label htmlFor="email" className="mb-2 block">
+            <label htmlFor="email" className="mb-4 block text-[1.5rem]">
               {t('email')}
             </label>
             <input
@@ -55,7 +57,7 @@ export default function Register() {
             )}
           </div>
           <div className="mb-4">
-            <label htmlFor="password" className="mb-2 block">
+            <label htmlFor="password" className="mb-2 block text-[1.5rem]">
               {t('password')}
             </label>
             <input
@@ -71,7 +73,10 @@ export default function Register() {
             )}
           </div>
           <div className="mb-4">
-            <label htmlFor="confirmPassword" className="mb-2 block">
+            <label
+              htmlFor="confirmPassword"
+              className="mb-2 block text-[1.5rem]"
+            >
               {t('confirm_password')}
             </label>
             <input
@@ -89,7 +94,7 @@ export default function Register() {
           <button
             formAction={signup}
             type="submit"
-            className="mt-4 w-full rounded bg-[#d87d4a] p-2 text-white hover:bg-[#fbaf85]"
+            className="mt-4 w-full rounded bg-[#d87d4a] p-3 text-[1.5rem] text-white hover:bg-[#fbaf85]"
           >
             {t('register')}
           </button>

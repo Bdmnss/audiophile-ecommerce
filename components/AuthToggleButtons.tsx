@@ -15,16 +15,16 @@ export default function AuthToggleButtons() {
     pathname === '/register' || pathname === `/${currentLocale}/register`
 
   return (
-    <div className="mb-4 flex">
+    <div className="flex">
       <button
         onClick={() => router.push('/login')}
-        className={`w-1/2 rounded-l p-2 ${isLoginPath ? 'bg-[#d87d4a] text-white' : 'bg-gray-200 text-black'}`}
+        className={`w-1/2 rounded-l p-3 text-[1.5rem] ${isLoginPath ? 'bg-[#d87d4a] text-white' : 'bg-gray-200 text-black'}`}
       >
         {t('login')}
       </button>
       <button
         onClick={() => router.push('/register')}
-        className={`w-1/2 rounded-r p-2 ${isRegisterPath ? 'bg-[#d87d4a] text-white' : 'bg-gray-200 text-black'}`}
+        className={`w-1/2 rounded-r p-3 text-[1.5rem] ${isRegisterPath ? 'bg-[#d87d4a] text-white' : 'bg-gray-200 text-black'}`}
       >
         {t('register')}
       </button>
