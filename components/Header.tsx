@@ -1,6 +1,6 @@
 'use client'
 
-import { FaShoppingCart, FaUser } from 'react-icons/fa'
+import { FaShoppingCart } from 'react-icons/fa'
 import Link from 'next/link'
 import { useMenuStore } from '@/stores/menuStore'
 import { useCartStore } from '@/stores/cartStore'
@@ -11,18 +11,18 @@ import Cart from './Cart'
 import { useTranslation } from 'react-i18next'
 import LanguageChanger from './LanguageChanger'
 import ThemeToggleButton from './ThemeToggleButton'
-import { useState } from 'react'
-import AuthModal from './AuthModal'
+import UserDropdown from './UserDropdown'
+import { User } from '@supabase/supabase-js'
 
-export default function Header() {
+interface HeaderProps {
+  user: User | null
+}
+
+export default function Header({ user }: HeaderProps) {
   const menuStore = useMenuStore()
   const cartStore = useCartStore()
   const checkoutStore = useCheckoutStore()
   const { t } = useTranslation()
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
-
-  const openAuthModal = () => setIsAuthModalOpen(true)
-  const closeAuthModal = () => setIsAuthModalOpen(false)
 
   return (
     <header className="relative flex justify-center">
@@ -102,15 +102,10 @@ export default function Header() {
           <div className="hidden md:block">
             <LanguageChanger />
           </div>
-          <FaUser
-            size={20}
-            className="cursor-pointer text-white hover:text-[#d87d4a]"
-            onClick={openAuthModal}
-          />
+          <UserDropdown user={user} />
         </div>
       </div>
 
-      <AuthModal isOpen={isAuthModalOpen} onClose={closeAuthModal} />
       <Cart />
       <BurgerMenu />
       <Overlay />

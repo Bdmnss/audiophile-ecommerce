@@ -8,9 +8,5 @@ interface Params {
 
 export default function page({ params }: Params) {
   const { productMenu } = params
-  return (
-    <div>
-      <ProductMenu productMenuName={productMenu} />
-    </div>
-  )
+  return <ProductMenu productMenuName={productMenu} />
 }

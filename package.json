@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.47.15",
     "i18next": "^24.2.1",
     "i18next-resources-to-backend": "^1.2.1",
     "next": "^14.2.23",

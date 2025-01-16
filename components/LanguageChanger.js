@@ -1,20 +1,20 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
-import { usePathname } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
 import i18nConfig from '@/i18nConfig'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { FaGlobe } from 'react-icons/fa'
 import { useThemeStore } from '@/stores/themeStore'
 
 export default function LanguageChanger() {
-  const { i18n } = useTranslation()
+  const { i18n, t } = useTranslation()
   const currentLocale = i18n.language
   const router = useRouter()
   const currentPathname = usePathname()
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const { theme } = useThemeStore()
+  const dropdownRef = useRef(null)
 
   const handleChange = (newLocale) => {
     const days = 30
@@ -36,13 +36,31 @@ export default function LanguageChanger() {
     setDropdownOpen(false)
   }
 
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setDropdownOpen(false)
+    }
+  }
+
+  useEffect(() => {
+    if (dropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [dropdownOpen])
+
   const options = [
-    { value: 'en', label: 'English' },
-    { value: 'ka', label: 'Georgian' },
+    { value: 'en', label: t('english') },
+    { value: 'ka', label: t('georgian') },
   ]
 
   return (
-    <div className="relative">
+    <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setDropdownOpen(!dropdownOpen)}
         className="p-2 text-white hover:text-[#d87d4a]"
@@ -55,12 +73,12 @@ export default function LanguageChanger() {
         />
       </button>
       {dropdownOpen && (
-        <div className="absolute right-0 z-10 mt-2 w-48 rounded bg-black text-white shadow-lg">
+        <div className="absolute right-0 z-10 mt-2 w-48 rounded bg-[#101010] text-white shadow-lg">
           {options.map((option) => (
             <button
               key={option.value}
               onClick={() => handleChange(option.value)}
-              className="block w-full cursor-pointer px-4 py-2 text-left hover:bg-[#d87d4a] hover:text-white"
+              className="block w-full cursor-pointer px-4 py-2 text-left hover:bg-[#d87d4a]"
             >
               {option.label}
             </button>

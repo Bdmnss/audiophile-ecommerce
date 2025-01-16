@@ -1,8 +1,10 @@
-import Checkout from './client'
+import dynamic from 'next/dynamic'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/utils/supabase/server'
 
-export default async function Page() {
+const Profile = dynamic(() => import('./client'), { ssr: false })
+
+export default async function ProfilePage() {
   const supabase = await createClient()
 
   const { data, error } = await supabase.auth.getUser()
@@ -10,5 +12,5 @@ export default async function Page() {
     redirect('/login')
   }
 
-  return <Checkout />
+  return <Profile user={data.user} />
 }

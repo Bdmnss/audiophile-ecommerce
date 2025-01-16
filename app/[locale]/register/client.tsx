@@ -1,0 +1,100 @@
+'use client'
+
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useThemeStore } from '@/stores/themeStore'
+import { signup } from './actions'
+import AuthToggleButtons from '@/components/AuthToggleButtons'
+import { useTranslation } from 'react-i18next'
+
+const signUpSchema = z
+  .object({
+    email: z.string().email('Invalid email address'),
+    password: z.string().min(6, 'Password must be at least 6 characters long'),
+    confirmPassword: z
+      .string()
+      .min(6, 'Password must be at least 6 characters long'),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Passwords do not match',
+    path: ['confirmPassword'],
+  })
+
+export default function Register() {
+  const { theme } = useThemeStore()
+  const { t } = useTranslation()
+
+  const {
+    register,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(signUpSchema),
+  })
+
+  return (
+    <div
+      className={`flex min-h-screen items-center justify-center ${theme === 'dark' ? 'bg-[#101010] text-white' : 'bg-white text-black'}`}
+    >
+      <div className="w-full max-w-md rounded-lg p-8 shadow-lg">
+        <AuthToggleButtons />
+        <h2 className="mb-4 text-2xl font-bold">{t('register')}</h2>
+        <form>
+          <div className="mb-4">
+            <label htmlFor="email" className="mb-2 block">
+              {t('email')}
+            </label>
+            <input
+              id="email"
+              type="email"
+              {...register('email')}
+              className="w-full rounded border p-2 text-[1.3rem] text-black focus:outline-none"
+            />
+            {errors.email?.message && (
+              <p className="text-red-500">{errors.email.message.toString()}</p>
+            )}
+          </div>
+          <div className="mb-4">
+            <label htmlFor="password" className="mb-2 block">
+              {t('password')}
+            </label>
+            <input
+              id="password"
+              type="password"
+              {...register('password')}
+              className="w-full rounded border p-2 text-[1.3rem] text-black focus:outline-none"
+            />
+            {errors.password?.message && (
+              <p className="text-red-500">
+                {errors.password.message.toString()}
+              </p>
+            )}
+          </div>
+          <div className="mb-4">
+            <label htmlFor="confirmPassword" className="mb-2 block">
+              {t('confirm_password')}
+            </label>
+            <input
+              id="confirmPassword"
+              type="password"
+              {...register('confirmPassword')}
+              className="w-full rounded border p-2 text-[1.3rem] text-black focus:outline-none"
+            />
+            {errors.confirmPassword?.message && (
+              <p className="text-red-500">
+                {errors.confirmPassword.message.toString()}
+              </p>
+            )}
+          </div>
+          <button
+            formAction={signup}
+            type="submit"
+            className="mt-4 w-full rounded bg-[#d87d4a] p-2 text-white hover:bg-[#fbaf85]"
+          >
+            {t('register')}
+          </button>
+        </form>
+      </div>
+    </div>
+  )
+}
