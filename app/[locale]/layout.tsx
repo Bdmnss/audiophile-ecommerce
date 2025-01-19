@@ -4,7 +4,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import initTranslations from '../i18n'
 import TranslationsProvider from '@/components/TranslationsProvider'
-import { createClient } from '@/utils/supabase/server'
+import ClientProviders from '@/components/ClientProviders'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -19,21 +19,21 @@ export default async function RootLayout({
   params: { locale: string }
 }>) {
   const { resources } = await initTranslations(locale, ['default', 'common'])
-  const supabase = await createClient()
-  const { data } = await supabase.auth.getUser()
 
   return (
     <html lang={locale}>
       <body>
-        <TranslationsProvider
-          resources={resources}
-          locale={locale}
-          namespaces={['default', 'common']}
-        >
-          <Header user={data.user} />
-          {children}
-          <Footer />
-        </TranslationsProvider>
+        <ClientProviders>
+          <TranslationsProvider
+            resources={resources}
+            locale={locale}
+            namespaces={['default', 'common']}
+          >
+            <Header />
+            {children}
+            <Footer />
+          </TranslationsProvider>
+        </ClientProviders>
       </body>
     </html>
   )

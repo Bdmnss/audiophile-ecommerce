@@ -4,9 +4,10 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useThemeStore } from '@/stores/themeStore'
-import { signup } from './actions'
 import AuthToggleButtons from '@/components/AuthToggleButtons'
 import { useTranslation } from 'react-i18next'
+import { useRegister } from '@/hooks/useRegister'
+import { useRouter } from 'next/navigation'
 
 const signUpSchema = z
   .object({
@@ -24,24 +25,38 @@ const signUpSchema = z
 export default function Register() {
   const { theme } = useThemeStore()
   const { t } = useTranslation()
+  const router = useRouter()
 
   const {
     register,
+    handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<{ email: string; password: string; confirmPassword: string }>({
     resolver: zodResolver(signUpSchema),
   })
 
+  const { mutate: handleRegister } = useRegister()
+
+  const onSubmit = (data: {
+    email: string
+    password: string
+    confirmPassword: string
+  }) => {
+    handleRegister({ email: data.email, password: data.password })
+  }
+
   return (
     <div
-      className={`flex size-full min-h-screen items-center justify-center ${theme === 'dark' ? 'bg-[#101010] text-white' : 'bg-white text-black'}`}
+      className={`flex size-full min-h-screen items-center justify-center ${
+        theme === 'dark' ? 'bg-[#101010] text-white' : 'bg-white text-black'
+      }`}
     >
       <div className="flex size-full flex-col gap-5 rounded-lg p-8 shadow-lg sm:w-[80%] md:w-[50%] lg:w-[30%]">
         <AuthToggleButtons />
         <h2 className="flex justify-center text-[2rem] font-bold">
           {t('register')}
         </h2>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <label htmlFor="email" className="mb-4 block text-[1.5rem]">
               {t('email')}
@@ -92,7 +107,6 @@ export default function Register() {
             )}
           </div>
           <button
-            formAction={signup}
             type="submit"
             className="mt-4 w-full rounded bg-[#d87d4a] p-3 text-[1.5rem] text-white hover:bg-[#fbaf85]"
           >

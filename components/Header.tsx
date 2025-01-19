@@ -12,13 +12,8 @@ import { useTranslation } from 'react-i18next'
 import LanguageChanger from './LanguageChanger'
 import ThemeToggleButton from './ThemeToggleButton'
 import UserDropdown from './UserDropdown'
-import { User } from '@supabase/supabase-js'
 
-interface HeaderProps {
-  user: User | null
-}
-
-export default function Header({ user }: HeaderProps) {
+export default function Header() {
   const menuStore = useMenuStore()
   const cartStore = useCartStore()
   const checkoutStore = useCheckoutStore()
@@ -102,7 +97,7 @@ export default function Header({ user }: HeaderProps) {
           <div className="hidden md:block">
             <LanguageChanger />
           </div>
-          <UserDropdown user={user} />
+          <UserDropdown />
         </div>
       </div>
 
