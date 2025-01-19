@@ -1,23 +1,38 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useUserStore } from '@/stores/userStore'
 import { useProfile } from '@/hooks/useProfile'
-import { Card, Descriptions, Spin, Alert } from 'antd'
+import { Card, Descriptions, Alert, Button, Form, Input, Modal } from 'antd'
 import { useThemeStore } from '@/stores/themeStore'
+import type { Profile } from '@/hooks/useProfile'
 import { useRouter } from 'next/navigation'
 
 export default function Profile() {
   const user = useUserStore((state) => state.user)
-  const { data: profile, isLoading, error } = useProfile()
+  const { data: profile, isLoading, error, updateProfile } = useProfile()
   const { theme } = useThemeStore()
-  const router = useRouter()
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const route = useRouter()
 
   useEffect(() => {
     if (user === null) {
-      router.push('/login')
+      route.push('/login')
     }
-  }, [router, user])
+  }, [route, user])
+
+  const showModal = () => {
+    setIsModalVisible(true)
+  }
+
+  const handleCancel = () => {
+    setIsModalVisible(false)
+  }
+
+  const onFinish = (values: Partial<Profile>) => {
+    updateProfile(values)
+    setIsModalVisible(false)
+  }
 
   if (isLoading)
     return (
@@ -25,7 +40,6 @@ export default function Profile() {
         <div className="loader"></div>
       </div>
     )
-
   if (error)
     return (
       <Alert
@@ -38,10 +52,11 @@ export default function Profile() {
 
   return (
     <div
-      className="profileContainer"
+      className={`flex min-h-screen w-full items-center justify-center p-5 ${
+        theme === 'dark' ? 'bg-[#101010] text-white' : 'bg-[#f1f1f1] text-black'
+      }`}
       style={{
-        backgroundColor: theme === 'dark' ? '#101010' : '#f1f1f1',
-        color: theme === 'dark' ? '#ffffff' : '#000000',
+        marginTop: '50px',
       }}
     >
       <Card
@@ -58,40 +73,78 @@ export default function Profile() {
         className="w-full lg:w-1/2"
       >
         {profile && (
-          <Descriptions
-            bordered
-            column={1}
-            styles={{
-              label: { color: theme === 'dark' ? '#ffffff' : '#000000' },
-              content: { color: theme === 'dark' ? '#ffffff' : '#000000' },
-            }}
-          >
-            <Descriptions.Item label="Name">
-              {profile.full_name || 'Not entered'}
-            </Descriptions.Item>
-            <Descriptions.Item label="Email">
-              {profile.email || 'Not entered'}
-            </Descriptions.Item>
-            <Descriptions.Item label="Phone">
-              {profile.phone || 'Not entered'}
-            </Descriptions.Item>
-            <Descriptions.Item label="Address">
-              {profile.address || 'Not entered'}
-            </Descriptions.Item>
-            <Descriptions.Item label="City">
-              {profile.city || 'Not entered'}
-            </Descriptions.Item>
-            <Descriptions.Item label="Country">
-              {profile.country || 'Not entered'}
-            </Descriptions.Item>
-            <Descriptions.Item label="ZIP">
-              {profile.zip || 'Not entered'}
-            </Descriptions.Item>
-            <Descriptions.Item label="Updated At">
-              {profile.updated_at || 'Not entered'}
-            </Descriptions.Item>
-          </Descriptions>
+          <>
+            <Descriptions
+              bordered
+              column={1}
+              styles={{
+                label: { color: theme === 'dark' ? '#ffffff' : '#000000' },
+                content: { color: theme === 'dark' ? '#ffffff' : '#000000' },
+              }}
+            >
+              <Descriptions.Item label="Name">
+                {profile.full_name || 'Not entered'}
+              </Descriptions.Item>
+              <Descriptions.Item label="Email">
+                {profile.email || 'Not entered'}
+              </Descriptions.Item>
+              <Descriptions.Item label="Phone">
+                {profile.phone || 'Not entered'}
+              </Descriptions.Item>
+              <Descriptions.Item label="Address">
+                {profile.address || 'Not entered'}
+              </Descriptions.Item>
+              <Descriptions.Item label="City">
+                {profile.city || 'Not entered'}
+              </Descriptions.Item>
+              <Descriptions.Item label="Country">
+                {profile.country || 'Not entered'}
+              </Descriptions.Item>
+              <Descriptions.Item label="ZIP">
+                {profile.zip || 'Not entered'}
+              </Descriptions.Item>
+            </Descriptions>
+            <Button type="primary" onClick={showModal} className="mt-4">
+              Edit Profile
+            </Button>
+          </>
         )}
+
+        <Modal
+          title="Edit Profile"
+          visible={isModalVisible}
+          onCancel={handleCancel}
+          footer={null}
+        >
+          <Form layout="vertical" initialValues={profile} onFinish={onFinish}>
+            <Form.Item name="full_name" label="Name">
+              <Input />
+            </Form.Item>
+            <Form.Item name="phone" label="Phone">
+              <Input />
+            </Form.Item>
+            <Form.Item name="address" label="Address">
+              <Input />
+            </Form.Item>
+            <Form.Item name="city" label="City">
+              <Input />
+            </Form.Item>
+            <Form.Item name="country" label="Country">
+              <Input />
+            </Form.Item>
+            <Form.Item name="zip" label="ZIP">
+              <Input />
+            </Form.Item>
+            <Form.Item>
+              <Button type="primary" htmlType="submit">
+                Save
+              </Button>
+              <Button type="default" onClick={handleCancel} className="ml-2">
+                Cancel
+              </Button>
+            </Form.Item>
+          </Form>
+        </Modal>
       </Card>
     </div>
   )

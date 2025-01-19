@@ -59,12 +59,16 @@ export default function UserDropdown() {
           <Link
             href="/profile"
             className="flex items-center p-2 hover:bg-[#d87d4a]"
+            onClick={() => setIsDropdownOpen(false)}
           >
             <FaUserCircle className="mr-2" />
             {t('profile')}
           </Link>
           <button
-            onClick={() => handleLogout()}
+            onClick={() => {
+              handleLogout()
+              setIsDropdownOpen(false)
+            }}
             className="flex w-full items-center p-2 hover:bg-[#d87d4a]"
           >
             <FaSignOutAlt className="mr-2" />
