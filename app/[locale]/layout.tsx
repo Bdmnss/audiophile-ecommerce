@@ -5,6 +5,7 @@ import Footer from '@/components/Footer'
 import initTranslations from '../i18n'
 import TranslationsProvider from '@/components/TranslationsProvider'
 import ClientProviders from '@/components/ClientProviders'
+import InitializeUser from '@/components/InitializeUser'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -29,6 +30,7 @@ export default async function RootLayout({
             locale={locale}
             namespaces={['default', 'common']}
           >
+            <InitializeUser />
             <Header />
             {children}
             <Footer />

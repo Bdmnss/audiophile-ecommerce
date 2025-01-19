@@ -7,6 +7,9 @@ import { useThemeStore } from '@/stores/themeStore'
 import AuthToggleButtons from '@/components/AuthToggleButtons'
 import { useTranslation } from 'react-i18next'
 import { useLogin } from '@/hooks/useLogin'
+import { useUserStore } from '@/stores/userStore'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 const logInSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -16,6 +19,7 @@ const logInSchema = z.object({
 export default function Login() {
   const { theme } = useThemeStore()
   const { t } = useTranslation()
+  const router = useRouter()
 
   const {
     register,
@@ -30,6 +34,14 @@ export default function Login() {
   const onSubmit = (data: { email: string; password: string }) => {
     handleLogin({ email: data.email, password: data.password })
   }
+
+  const user = useUserStore((state) => state.user)
+
+  useEffect(() => {
+    if (user) {
+      router.push('/')
+    }
+  }, [router, user])
 
   return (
     <div

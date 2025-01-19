@@ -14,18 +14,7 @@ export const useLogin = () => {
     onSuccess: (data) => {
       const user = data.data.user
       if (user) {
-        const appUser = {
-          id: user.id,
-          email: user.email ?? null,
-          full_name: user.user_metadata.full_name,
-          address: user.user_metadata.address,
-          city: user.user_metadata.city,
-          country: user.user_metadata.country,
-          zip: user.user_metadata.zip,
-          phone: user.user_metadata.phone,
-          updated_at: user.updated_at ?? null,
-        }
-        setUser(appUser)
+        setUser(user)
         localStorage.setItem('user', JSON.stringify(user))
         router.push('/')
       } else {

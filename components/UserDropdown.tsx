@@ -4,22 +4,25 @@ import { useState, useEffect, useRef } from 'react'
 import { FaUser, FaSignOutAlt, FaUserCircle } from 'react-icons/fa'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { User } from '@supabase/supabase-js'
 import { useTranslation } from 'react-i18next'
+import { useLogout } from '@/hooks/useLogout'
+import { useUserStore } from '@/stores/userStore'
 
 export default function UserDropdown() {
   const { t } = useTranslation()
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
+  const user = useUserStore((state) => state.user)
 
-  // const toggleDropdown = () => {
-  //   if (!user) {
-  //     router.push('/login')
-  //   } else {
-  //     setIsDropdownOpen((prev) => !prev)
-  //   }
-  // }
+  const toggleDropdown = () => {
+    if (!user) {
+      router.push('/login')
+      setIsDropdownOpen(false)
+    } else {
+      setIsDropdownOpen((prev) => !prev)
+    }
+  }
 
   const handleClickOutside = (event: MouseEvent) => {
     if (
@@ -29,6 +32,8 @@ export default function UserDropdown() {
       setIsDropdownOpen(false)
     }
   }
+
+  const { mutate: handleLogout } = useLogout()
 
   useEffect(() => {
     if (isDropdownOpen) {
@@ -47,7 +52,7 @@ export default function UserDropdown() {
       <FaUser
         size={20}
         className="cursor-pointer text-white hover:text-[#d87d4a]"
-        // onClick={toggleDropdown}
+        onClick={toggleDropdown}
       />
       {isDropdownOpen && (
         <div className="absolute right-0 mt-2 w-48 rounded bg-[#101010] text-white shadow-lg">
@@ -59,7 +64,7 @@ export default function UserDropdown() {
             {t('profile')}
           </Link>
           <button
-            // onClick={() => logout()}
+            onClick={() => handleLogout()}
             className="flex w-full items-center p-2 hover:bg-[#d87d4a]"
           >
             <FaSignOutAlt className="mr-2" />

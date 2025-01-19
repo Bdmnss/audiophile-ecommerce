@@ -11,6 +11,9 @@ import PaymentDetails from './components/PaymentDetails'
 import Summary from './components/Summary'
 import PaymentConfirmation from './components/PaymentConfirmation'
 import { useTranslation } from 'react-i18next'
+import { useUserStore } from '@/stores/userStore'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 export type Inputs = {
   name: string
@@ -57,6 +60,7 @@ const schema = z.object({
 
 const Checkout: React.FC = () => {
   const { t } = useTranslation()
+  const route = useRouter()
 
   const methods = useForm<Inputs>({
     resolver: zodResolver(schema),
@@ -67,6 +71,14 @@ const Checkout: React.FC = () => {
   const onSubmit: SubmitHandler<Inputs> = () => {
     checkoutStore.setPayActive(true)
   }
+
+  const user = useUserStore((state) => state.user)
+
+  useEffect(() => {
+    if (user === null) {
+      route.push('/login')
+    }
+  }, [route, user])
 
   return (
     <div className="relative">

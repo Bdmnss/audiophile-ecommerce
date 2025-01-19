@@ -1,23 +1,20 @@
+import { User } from '@supabase/supabase-js'
 import { create } from 'zustand'
-
-interface User {
-  id: string
-  full_name: string | null
-  email: string | null
-  phone: string | null
-  address: string | null
-  city: string | null
-  country: string | null
-  zip: string | null
-  updated_at: string | null
-}
 
 interface UserStore {
   user: User | null
-  setUser: (user: User) => void
+  setUser: (user: User | null) => void
+  setUserFromLocalStorage: () => void
 }
 
 export const useUserStore = create<UserStore>((set) => ({
   user: null,
   setUser: (user) => set({ user }),
+  setUserFromLocalStorage: () => {
+    const userString = localStorage.getItem('user')
+    if (userString) {
+      const user = JSON.parse(userString)
+      set({ user })
+    }
+  },
 }))

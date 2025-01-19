@@ -8,6 +8,8 @@ import AuthToggleButtons from '@/components/AuthToggleButtons'
 import { useTranslation } from 'react-i18next'
 import { useRegister } from '@/hooks/useRegister'
 import { useRouter } from 'next/navigation'
+import { useUserStore } from '@/stores/userStore'
+import { useEffect } from 'react'
 
 const signUpSchema = z
   .object({
@@ -44,6 +46,14 @@ export default function Register() {
   }) => {
     handleRegister({ email: data.email, password: data.password })
   }
+
+  const user = useUserStore((state) => state.user)
+
+  useEffect(() => {
+    if (user) {
+      router.push('/')
+    }
+  }, [router, user])
 
   return (
     <div
