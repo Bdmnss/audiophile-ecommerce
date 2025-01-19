@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next'
 import { useUserStore } from '@/stores/userStore'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { useProfile } from '@/hooks/useProfile'
 
 export type Inputs = {
   name: string
@@ -61,6 +62,7 @@ const schema = z.object({
 const Checkout: React.FC = () => {
   const { t } = useTranslation()
   const route = useRouter()
+  const { data: profile } = useProfile()
 
   const methods = useForm<Inputs>({
     resolver: zodResolver(schema),
@@ -79,6 +81,18 @@ const Checkout: React.FC = () => {
       route.push('/login')
     }
   }, [route, user])
+
+  useEffect(() => {
+    if (profile) {
+      methods.setValue('name', profile.full_name || '')
+      methods.setValue('email', profile.email || '')
+      methods.setValue('phone', profile.phone ? Number(profile.phone) : 0)
+      methods.setValue('address', profile.address || '')
+      methods.setValue('zip', profile.zip ? Number(profile.zip) : 0)
+      methods.setValue('city', profile.city || '')
+      methods.setValue('country', profile.country || '')
+    }
+  }, [profile, methods])
 
   return (
     <div className="relative">
