@@ -75,3 +75,14 @@ html {
     transform: rotate(360deg);
   }
 }
+
+.profileContainer {
+  padding: 20px;
+  width: 100%;
+  margin: 0 auto;
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 70px;
+}
