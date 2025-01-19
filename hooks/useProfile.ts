@@ -59,7 +59,7 @@ export const useProfile = () => {
     queryKey: ['profile', user?.id],
     queryFn: async () => {
       const profile = await fetchProfile(user!.id)
-      return { ...profile, email: user!.email }
+      return { ...profile, email: user!.user_metadata.email }
     },
     enabled: !!user?.id,
   })

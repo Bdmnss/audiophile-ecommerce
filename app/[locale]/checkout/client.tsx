@@ -77,9 +77,13 @@ const Checkout: React.FC = () => {
   const user = useUserStore((state) => state.user)
 
   useEffect(() => {
-    if (user === null) {
-      route.push('/login')
-    }
+    const delay = setTimeout(() => {
+      if (user === null) {
+        route.push('/login')
+      }
+    }, 1000)
+
+    return () => clearTimeout(delay)
   }, [route, user])
 
   useEffect(() => {

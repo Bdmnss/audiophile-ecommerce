@@ -16,9 +16,13 @@ export default function Profile() {
   const route = useRouter()
 
   useEffect(() => {
-    if (user === null) {
-      route.push('/login')
-    }
+    const delay = setTimeout(() => {
+      if (user === null) {
+        route.push('/login')
+      }
+    }, 1000)
+
+    return () => clearTimeout(delay)
   }, [route, user])
 
   const showModal = () => {
@@ -112,7 +116,7 @@ export default function Profile() {
 
         <Modal
           title="Edit Profile"
-          visible={isModalVisible}
+          open={isModalVisible}
           onCancel={handleCancel}
           footer={null}
         >
