@@ -7,6 +7,7 @@ import { Card, Descriptions, Alert, Button, Form, Input, Modal } from 'antd'
 import { useThemeStore } from '@/stores/themeStore'
 import type { Profile } from '@/hooks/useProfile'
 import { useRouter } from 'next/navigation'
+import { useTranslation } from 'react-i18next'
 
 export default function Profile() {
   const user = useUserStore((state) => state.user)
@@ -14,6 +15,7 @@ export default function Profile() {
   const { theme } = useThemeStore()
   const [isModalVisible, setIsModalVisible] = useState(false)
   const route = useRouter()
+  const { t } = useTranslation()
 
   useEffect(() => {
     const delay = setTimeout(() => {
@@ -66,7 +68,7 @@ export default function Profile() {
       <Card
         title={
           <span style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>
-            Profile
+            {t('profile')}
           </span>
         }
         bordered={false}
@@ -86,54 +88,54 @@ export default function Profile() {
                 content: { color: theme === 'dark' ? '#ffffff' : '#000000' },
               }}
             >
-              <Descriptions.Item label="Name">
-                {profile.full_name || 'Not entered'}
+              <Descriptions.Item label={t('name')}>
+                {profile.full_name || t('not_entered')}
               </Descriptions.Item>
-              <Descriptions.Item label="Email">
-                {profile.email || 'Not entered'}
+              <Descriptions.Item label={t('email')}>
+                {profile.email || t('not_entered')}
               </Descriptions.Item>
-              <Descriptions.Item label="Phone">
-                {profile.phone || 'Not entered'}
+              <Descriptions.Item label={t('phone')}>
+                {profile.phone || t('not_entered')}
               </Descriptions.Item>
-              <Descriptions.Item label="Address">
-                {profile.address || 'Not entered'}
+              <Descriptions.Item label={t('address')}>
+                {profile.address || t('not_entered')}
               </Descriptions.Item>
-              <Descriptions.Item label="City">
-                {profile.city || 'Not entered'}
+              <Descriptions.Item label={t('city')}>
+                {profile.city || t('not_entered')}
               </Descriptions.Item>
-              <Descriptions.Item label="Country">
-                {profile.country || 'Not entered'}
+              <Descriptions.Item label={t('country')}>
+                {profile.country || t('not_entered')}
               </Descriptions.Item>
               <Descriptions.Item label="ZIP">
-                {profile.zip || 'Not entered'}
+                {profile.zip || t('not_entered')}
               </Descriptions.Item>
             </Descriptions>
             <Button type="primary" onClick={showModal} className="mt-4">
-              Edit Profile
+              {t('edit_profile')}
             </Button>
           </>
         )}
 
         <Modal
-          title="Edit Profile"
+          title={t('edit_profile')}
           open={isModalVisible}
           onCancel={handleCancel}
           footer={null}
         >
           <Form layout="vertical" initialValues={profile} onFinish={onFinish}>
-            <Form.Item name="full_name" label="Name">
+            <Form.Item name="full_name" label={t('name')}>
               <Input />
             </Form.Item>
-            <Form.Item name="phone" label="Phone">
+            <Form.Item name="phone" label={t('phone')}>
               <Input />
             </Form.Item>
-            <Form.Item name="address" label="Address">
+            <Form.Item name="address" label={t('address')}>
               <Input />
             </Form.Item>
-            <Form.Item name="city" label="City">
+            <Form.Item name="city" label={t('city')}>
               <Input />
             </Form.Item>
-            <Form.Item name="country" label="Country">
+            <Form.Item name="country" label={t('country')}>
               <Input />
             </Form.Item>
             <Form.Item name="zip" label="ZIP">
@@ -141,10 +143,10 @@ export default function Profile() {
             </Form.Item>
             <Form.Item>
               <Button type="primary" htmlType="submit">
-                Save
+                {t('save')}
               </Button>
               <Button type="default" onClick={handleCancel} className="ml-2">
-                Cancel
+                {t('cancel')}
               </Button>
             </Form.Item>
           </Form>
