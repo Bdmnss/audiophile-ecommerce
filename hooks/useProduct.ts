@@ -57,6 +57,14 @@ const updateProduct = async (product: UpdateProduct): Promise<Product> => {
   return data
 }
 
+const deleteProduct = async (id: number): Promise<void> => {
+  const { error } = await supabase.from('products').delete().eq('id', id)
+
+  if (error) {
+    throw new Error(error.message)
+  }
+}
+
 export const useProducts = () => {
   const queryClient = useQueryClient()
 
@@ -85,10 +93,18 @@ export const useProducts = () => {
     },
   })
 
+  const deleteProductMutation = useMutation({
+    mutationFn: deleteProduct,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['products'] })
+    },
+  })
+
   return {
     ...productsQuery,
     productQuery,
     addProduct: addProductMutation.mutate,
     updateProduct: updateProductMutation.mutate,
+    deleteProduct: deleteProductMutation.mutate,
   }
 }

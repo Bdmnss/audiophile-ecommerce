@@ -1,12 +1,15 @@
 'use client'
 
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useCartStore } from '@/stores/cartStore'
 import Navigation from '@/components/Navigation'
 import SloganText from '@/components/SloganText'
 import Image from 'next/image'
 import { useTranslation } from 'react-i18next'
 import { useProducts } from '@/hooks/useProduct'
+import { Button, Modal, Form, Input, Select, message } from 'antd'
+import { useState } from 'react'
 
 export default function ProductPage({
   productMenu,
@@ -17,8 +20,11 @@ export default function ProductPage({
 }) {
   const cartStore = useCartStore()
   const { t } = useTranslation()
-  const { productQuery } = useProducts()
+  const { productQuery, deleteProduct, updateProduct } = useProducts()
   const { data: product, isLoading, error } = productQuery(productName)
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [form] = Form.useForm()
+  const router = useRouter()
 
   if (isLoading) {
     return (
@@ -30,6 +36,43 @@ export default function ProductPage({
   if (error) return <div>Error: {error.message}</div>
   if (!product) return <div>No product found</div>
 
+  const showModal = () => {
+    setIsModalVisible(true)
+    form.setFieldsValue(product)
+  }
+
+  const handleCancel = () => {
+    setIsModalVisible(false)
+    form.resetFields()
+  }
+
+  const handleUpdate = async (values: any) => {
+    updateProduct(
+      { ...product, ...values },
+      {
+        onSuccess: () => {
+          message.success('Product updated successfully')
+          setIsModalVisible(false)
+        },
+        onError: () => {
+          message.error('Failed to update product')
+        },
+      }
+    )
+  }
+
+  const handleDelete = () => {
+    deleteProduct(product.id, {
+      onSuccess: () => {
+        message.success('Product deleted successfully')
+        router.push('/')
+      },
+      onError: () => {
+        message.error('Failed to delete product')
+      },
+    })
+  }
+
   return (
     <div className="bg-[#f1f1f1] px-[2.4rem] pb-[12rem] pt-[9rem] dark:bg-[#101010] md:px-[4rem] lg:px-[16.5rem] lg:pt-[15rem]">
       <Link
@@ -38,6 +81,14 @@ export default function ProductPage({
       >
         {t('go_back')}
       </Link>
+      <div className="mt-[2rem] flex items-center justify-between">
+        <Button type="primary" onClick={showModal}>
+          {t('update_product')}
+        </Button>
+        <Button danger onClick={handleDelete} className="ml-2">
+          {t('delete_product')}
+        </Button>
+      </div>
 
       <div key={product.id}>
         <div className="md:mt-[2.4rem] md:flex md:gap-[7rem] lg:mt-[5.6rem] lg:gap-[12.5rem]">
@@ -164,6 +215,62 @@ export default function ProductPage({
 
         <SloganText />
       </div>
+
+      <Modal
+        title={t('update_product')}
+        visible={isModalVisible}
+        onCancel={handleCancel}
+        footer={null}
+      >
+        <Form layout="vertical" form={form} onFinish={handleUpdate}>
+          <Form.Item name="name" label={t('name')} rules={[{ required: true }]}>
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="category"
+            label={t('category')}
+            rules={[{ required: true }]}
+          >
+            <Select>
+              <Select.Option value="earphones">Earphones</Select.Option>
+              <Select.Option value="headphones">Headphones</Select.Option>
+              <Select.Option value="speakers">Speakers</Select.Option>
+            </Select>
+          </Form.Item>
+          <Form.Item
+            name="description"
+            label={t('description')}
+            rules={[{ required: true }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="features"
+            label={t('features')}
+            rules={[{ required: true }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item name="new" label={t('new')} valuePropName="checked">
+            <Input type="checkbox" />
+          </Form.Item>
+          <Form.Item
+            name="price"
+            label={t('price')}
+            rules={[{ required: true }]}
+          >
+            <Input type="number" />
+          </Form.Item>
+          <Form.Item name="slug" label={t('slug')} rules={[{ required: true }]}>
+            <Input />
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              {t('update_product')}
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   )
 }
