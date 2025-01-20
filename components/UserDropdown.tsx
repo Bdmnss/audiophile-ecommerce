@@ -58,7 +58,7 @@ export default function UserDropdown() {
         <div className="absolute right-0 mt-2 w-48 rounded bg-[#101010] text-white shadow-lg">
           <Link
             href="/profile"
-            className="flex items-center p-2 hover:bg-[#d87d4a]"
+            className="flex items-center p-2 text-[1.3rem] hover:bg-[#d87d4a]"
             onClick={() => setIsDropdownOpen(false)}
           >
             <FaUserCircle className="mr-2" />
@@ -69,7 +69,7 @@ export default function UserDropdown() {
               handleLogout()
               setIsDropdownOpen(false)
             }}
-            className="flex w-full items-center p-2 hover:bg-[#d87d4a]"
+            className="flex w-full items-center p-2 text-[1.3rem] hover:bg-[#d87d4a]"
           >
             <FaSignOutAlt className="mr-2" />
             {t('logout')}

@@ -78,7 +78,7 @@ export default function LanguageChanger() {
             <button
               key={option.value}
               onClick={() => handleChange(option.value)}
-              className="block w-full cursor-pointer px-4 py-2 text-left hover:bg-[#d87d4a]"
+              className="block w-full cursor-pointer px-4 py-2 text-left text-[1.3rem] hover:bg-[#d87d4a]"
             >
               {option.label}
             </button>

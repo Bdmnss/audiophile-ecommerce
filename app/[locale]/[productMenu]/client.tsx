@@ -8,6 +8,7 @@ import { Modal, Form, Input, Select, Button, Upload, message } from 'antd'
 import { UploadOutlined } from '@ant-design/icons'
 import { useProducts } from '@/hooks/useProduct'
 import { uploadImage } from '@/hooks/useImageUpload'
+import { useUserStore } from '@/stores/userStore'
 
 export default function ProductMenu({
   productMenuName,
@@ -33,6 +34,7 @@ export default function ProductMenu({
       slug: string | null
     }[]
   >([])
+  const user = useUserStore((state) => state.user)
 
   useEffect(() => {
     if (products) {
@@ -95,9 +97,11 @@ export default function ProductMenu({
         </h1>
       </div>
       <div className="px-[2.4rem] md:px-[4rem] lg:px-[16.5rem]">
-        <Button type="primary" onClick={showModal} className="mb-4">
-          {t('add_product')}
-        </Button>
+        {user && (
+          <Button type="primary" onClick={showModal} className="mb-4">
+            {t('add_product')}
+          </Button>
+        )}
         {filteredProducts.map((item, index) => (
           <div
             key={item.id}
@@ -190,7 +194,7 @@ export default function ProductMenu({
           >
             <Input type="number" />
           </Form.Item>
-          <Form.Item name="slug" label={t('slug')} rules={[{ required: true }]}>
+          <Form.Item name="slug" label="Slug" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
           <Form.Item label={t('image')}>
@@ -201,7 +205,7 @@ export default function ProductMenu({
               }}
               maxCount={1}
             >
-              <Button icon={<UploadOutlined />}>{t('select_file')}</Button>
+              <Button icon={<UploadOutlined />}>{t('select_image')}</Button>
             </Upload>
           </Form.Item>
           <Form.Item>

@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next'
 import { useProducts } from '@/hooks/useProduct'
 import { Button, Modal, Form, Input, Select, message } from 'antd'
 import { useState } from 'react'
+import { useUserStore } from '@/stores/userStore'
 
 export default function ProductPage({
   productMenu,
@@ -25,6 +26,7 @@ export default function ProductPage({
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [form] = Form.useForm()
   const router = useRouter()
+  const user = useUserStore((state) => state.user)
 
   if (isLoading) {
     return (
@@ -81,14 +83,16 @@ export default function ProductPage({
       >
         {t('go_back')}
       </Link>
-      <div className="mt-[2rem] flex items-center justify-between">
-        <Button type="primary" onClick={showModal}>
-          {t('update_product')}
-        </Button>
-        <Button danger onClick={handleDelete} className="ml-2">
-          {t('delete_product')}
-        </Button>
-      </div>
+      {user && (
+        <div className="mt-[2rem] flex items-center justify-between">
+          <Button type="primary" onClick={showModal}>
+            {t('update_product')}
+          </Button>
+          <Button danger onClick={handleDelete} className="ml-2">
+            {t('delete_product')}
+          </Button>
+        </div>
+      )}
 
       <div key={product.id}>
         <div className="md:mt-[2.4rem] md:flex md:gap-[7rem] lg:mt-[5.6rem] lg:gap-[12.5rem]">
