@@ -6,14 +6,116 @@ import SloganText from '@/components/SloganText'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useTranslation } from 'react-i18next'
+import { FaSearch } from 'react-icons/fa'
+import { useProducts } from '@/hooks/useProduct'
+import { useEffect, useState } from 'react'
+import qs from 'qs'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useDebounce } from 'use-debounce'
+import { supabase } from '@/app/supabase'
 
 export default function HomePage() {
   const { t } = useTranslation()
+  const { data: products } = useProducts()
+  const [searchTerm, setSearchTerm] = useState('')
+  const [debouncedSearchTerm] = useDebounce(searchTerm, 500)
+  const [filteredProducts, setFilteredProducts] = useState<
+    Array<{
+      category: string | null
+      created_at: string
+      description: string | null
+      features: string | null
+      id: number
+      image: string | null
+      name: string | null
+      new: boolean | null
+      price: number | null
+      slug: string | null
+    }>
+  >([])
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    const searchQuery = searchParams.get('search')
+    if (searchQuery) {
+      setSearchTerm(searchQuery)
+    }
+  }, [searchParams])
+
+  useEffect(() => {
+    const queryString = qs.stringify(
+      debouncedSearchTerm ? { search: debouncedSearchTerm } : {},
+      { addQueryPrefix: true }
+    )
+    router.replace(queryString)
+  }, [debouncedSearchTerm, router])
+
+  useEffect(() => {
+    const fetchFilteredProducts = async () => {
+      if (debouncedSearchTerm) {
+        const { data, error } = await supabase
+          .from('products')
+          .select('*')
+          .ilike('name', `%${debouncedSearchTerm}%`)
+
+        if (error) {
+          console.error('Error fetching filtered products:', error)
+        } else {
+          setFilteredProducts(data)
+        }
+      } else {
+        setFilteredProducts(products || [])
+      }
+    }
+
+    fetchFilteredProducts()
+  }, [debouncedSearchTerm, products])
 
   return (
     <main className="bg-[#f1f1f1] dark:bg-[#101010]">
       <div>
         <div className="lg:header-home-desktop mb-[9rem] flex h-[55rem] flex-col items-center justify-center bg-header-home-mobile bg-cover bg-center bg-no-repeat px-10 text-center md:bg-header-home-tablet md:px-96 lg:mb-[20rem] lg:h-[80rem]">
+          <div className="relative mb-[2.8rem] w-[80%]">
+            <input
+              type="text"
+              placeholder={t('search')}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full rounded-xl border border-white bg-transparent p-4 pl-16 text-[1.5rem] text-white placeholder-white focus:outline-none"
+            />
+            <FaSearch
+              size={20}
+              className="absolute left-6 top-1/2 -translate-y-1/2 transform text-white"
+            />
+            {searchTerm && (
+              <div className="absolute left-0 top-full mt-2 w-full rounded-xl bg-white p-4 shadow-lg dark:bg-[#333]">
+                {filteredProducts.length > 0 ? (
+                  filteredProducts.map((product) => (
+                    <div
+                      key={product.id}
+                      className="flex items-center p-2 text-black dark:text-white"
+                    >
+                      <Image
+                        src={product.image || '/placeholder-image.png'}
+                        alt={product.name || 'Product Image'}
+                        width={50}
+                        height={50}
+                        className="mr-4 rounded"
+                      />
+                      <Link href={`/${product.category}/${product.slug}`}>
+                        {product.name}
+                      </Link>
+                    </div>
+                  ))
+                ) : (
+                  <div className="p-2 text-[1.7rem] text-black dark:text-white">
+                    {t('no_results')}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
           <p className="mb-[1.6rem] text-[1.4rem] tracking-[1rem] text-[gray]">
             {t('new_product')}
           </p>
