@@ -1,12 +1,12 @@
 'use client'
 
 import Link from 'next/link'
-import data from '@/data.json'
 import { useCartStore } from '@/stores/cartStore'
 import Navigation from '@/components/Navigation'
 import SloganText from '@/components/SloganText'
 import Image from 'next/image'
 import { useTranslation } from 'react-i18next'
+import { useProducts } from '@/hooks/useProduct'
 
 export default function ProductPage({
   productMenu,
@@ -16,9 +16,19 @@ export default function ProductPage({
   productName: string
 }) {
   const cartStore = useCartStore()
-  const product = data.filter((item) => item.slug === productName)
-
   const { t } = useTranslation()
+  const { productQuery } = useProducts()
+  const { data: product, isLoading, error } = productQuery(productName)
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="loader"></div>
+      </div>
+    )
+  }
+  if (error) return <div>Error: {error.message}</div>
+  if (!product) return <div>No product found</div>
 
   return (
     <div className="bg-[#f1f1f1] px-[2.4rem] pb-[12rem] pt-[9rem] dark:bg-[#101010] md:px-[4rem] lg:px-[16.5rem] lg:pt-[15rem]">
@@ -29,254 +39,131 @@ export default function ProductPage({
         {t('go_back')}
       </Link>
 
-      {product.map((product) => (
-        <div key={product.id}>
-          <div className="md:mt-[2.4rem] md:flex md:gap-[7rem] lg:mt-[5.6rem] lg:gap-[12.5rem]">
-            <div className="md:w-[50%]">
-              <Image
-                src={product.image.mobile}
-                alt="product image"
-                className="mb-[4rem] mt-[2.4rem] rounded-lg md:hidden"
-                width={375}
-                height={375}
-              />
-              <Image
-                src={product.image.tablet}
-                alt="product image"
-                className="mb-[4rem] hidden rounded-lg md:block lg:hidden"
-                width={768}
-                height={768}
-              />
-              <Image
-                src={product.image.desktop}
-                alt="product image"
-                className="mb-[4rem] hidden rounded-lg lg:block"
-                width={768}
-                height={768}
-              />
-            </div>
+      <div key={product.id}>
+        <div className="md:mt-[2.4rem] md:flex md:gap-[7rem] lg:mt-[5.6rem] lg:gap-[12.5rem]">
+          <div className="md:w-[50%]">
+            <Image
+              src={product.image || ''}
+              alt="product image"
+              className="mb-[4rem] mt-[2.4rem] rounded-lg md:hidden"
+              width={375}
+              height={375}
+            />
+            <Image
+              src={product.image || ''}
+              alt="product image"
+              className="mb-[4rem] hidden rounded-lg md:block lg:hidden"
+              width={768}
+              height={768}
+            />
+            <Image
+              src={product.image || ''}
+              alt="product image"
+              className="mb-[4rem] hidden rounded-lg lg:block"
+              width={768}
+              height={768}
+            />
+          </div>
 
-            <div className="md:w-[50%] lg:flex lg:flex-col lg:justify-center">
-              {product.new && (
-                <p className="mb-[2.4rem] text-[1.4rem] tracking-[1rem] text-[#d87d4a]">
-                  {t('new_product')}
-                </p>
-              )}
-
-              <h1 className="mb-[2.4rem] text-[2.8rem] font-bold text-black dark:text-white lg:text-[4rem]">
-                {product.name.toUpperCase()}
-              </h1>
-
-              <p className="mb-[2.4rem] text-[1.5rem] font-medium leading-[2.5rem] text-[gray]">
-                {product.description}
+          <div className="md:w-[50%] lg:flex lg:flex-col lg:justify-center">
+            {product.new && (
+              <p className="mb-[2.4rem] text-[1.4rem] tracking-[1rem] text-[#d87d4a]">
+                {t('new_product')}
               </p>
+            )}
 
-              <p className="mb-[3rem] text-[1.8rem] font-bold text-black dark:text-white">
-                $ {product.price}
-              </p>
+            <h1 className="mb-[2.4rem] text-[2.8rem] font-bold text-black dark:text-white lg:text-[4rem]">
+              {product.name?.toUpperCase() || 'Unknown Product'}
+            </h1>
 
-              <div className="mb-[9rem] flex items-center gap-[1.6rem]">
-                <div className="flex items-center justify-between gap-[2rem] bg-[#80808038] px-[2.5rem] py-[1rem]">
-                  <button
-                    onClick={() => cartStore.removeItemsQuantity()}
-                    className="text-[1.3rem] font-bold text-[gray] hover:text-[#d87d4a] lg:text-[1.5rem]"
-                  >
-                    -
-                  </button>
-                  <span className="text-[1.3rem] font-bold text-black dark:text-white">
-                    {cartStore.itemsQuantity}
-                  </span>
-                  <button
-                    onClick={() => cartStore.addItemsQuantity()}
-                    className="text-[1.3rem] font-bold text-[gray] hover:text-[#d87d4a] lg:text-[1.5rem]"
-                  >
-                    +
-                  </button>
-                </div>
+            <p className="mb-[2.4rem] text-[1.5rem] font-medium leading-[2.5rem] text-[gray]">
+              {product.description}
+            </p>
 
+            <p className="mb-[3rem] text-[1.8rem] font-bold text-black dark:text-white">
+              $ {product.price}
+            </p>
+
+            <div className="mb-[9rem] flex items-center gap-[1.6rem]">
+              <div className="flex items-center justify-between gap-[2rem] bg-[#80808038] px-[2.5rem] py-[1rem]">
                 <button
-                  className="bg-[#d87d4a] px-[3rem] py-[1rem] text-[1.3rem] font-bold text-white hover:bg-[#fbaf85]"
-                  onClick={() => {
-                    const existingCartItem = cartStore.cartItems.find(
-                      (cartItem) => cartItem.name === product.name
-                    )
-
-                    if (existingCartItem) {
-                      existingCartItem.quantity = cartStore.itemsQuantity
-                      existingCartItem.price =
-                        product.price * existingCartItem.quantity
-                      cartStore.setTotalPrice(
-                        cartStore.cartItems.reduce(
-                          (acc, item) => acc + item.price,
-                          0
-                        )
-                      )
-                      cartStore.setItemsQuantity(1)
-                    } else {
-                      cartStore.setCartItems([
-                        ...cartStore.cartItems,
-                        {
-                          id: product.id,
-                          name: product.name,
-                          price: product.price * cartStore.itemsQuantity,
-                          quantity: cartStore.itemsQuantity,
-                          image: product.image.mobile,
-                          originalPrice: product.price,
-                        },
-                      ])
-                      cartStore.setCartItemsQuantity(
-                        cartStore.cartItemsQuantity + 1
-                      )
-                      cartStore.setTotalPrice(
-                        cartStore.totalPrice +
-                          product.price * cartStore.itemsQuantity
-                      )
-                      cartStore.setItemsQuantity(1)
-                    }
-                  }}
+                  onClick={() => cartStore.removeItemsQuantity()}
+                  className="text-[1.3rem] font-bold text-[gray] hover:text-[#d87d4a] lg:text-[1.5rem]"
                 >
-                  {t('add_to_cart')}
+                  -
+                </button>
+                <span className="text-[1.3rem] font-bold text-black dark:text-white">
+                  {cartStore.itemsQuantity}
+                </span>
+                <button
+                  onClick={() => cartStore.addItemsQuantity()}
+                  className="text-[1.3rem] font-bold text-[gray] hover:text-[#d87d4a] lg:text-[1.5rem]"
+                >
+                  +
                 </button>
               </div>
+
+              <button
+                className="bg-[#d87d4a] px-[3rem] py-[1rem] text-[1.3rem] font-bold text-white hover:bg-[#fbaf85]"
+                onClick={() => {
+                  const existingCartItem = cartStore.cartItems.find(
+                    (cartItem) => cartItem.name === product.name
+                  )
+
+                  if (existingCartItem) {
+                    existingCartItem.quantity = cartStore.itemsQuantity
+                    existingCartItem.price =
+                      (product.price ?? 0) * existingCartItem.quantity
+                    cartStore.setTotalPrice(
+                      cartStore.cartItems.reduce(
+                        (acc, item) => acc + item.price,
+                        0
+                      )
+                    )
+                    cartStore.setItemsQuantity(1)
+                  } else {
+                    cartStore.setCartItems([
+                      ...cartStore.cartItems,
+                      {
+                        id: product.id,
+                        name: product.name || 'Unknown Product',
+                        price: (product.price ?? 0) * cartStore.itemsQuantity,
+                        quantity: cartStore.itemsQuantity,
+                        image: product.image || '',
+                        originalPrice: product.price ?? 0,
+                      },
+                    ])
+                    cartStore.setCartItemsQuantity(
+                      cartStore.cartItemsQuantity + 1
+                    )
+                    cartStore.setTotalPrice(
+                      cartStore.totalPrice +
+                        (product.price ?? 0) * cartStore.itemsQuantity
+                    )
+                    cartStore.setItemsQuantity(1)
+                  }
+                }}
+              >
+                {t('add_to_cart')}
+              </button>
             </div>
           </div>
-
-          <div className="lg:flex lg:gap-[12.5rem]">
-            <div className="lg:w-[50%]">
-              <h2 className="mb-[2.4rem] text-[2.4rem] font-bold text-black dark:text-white md:text-[3.2rem]">
-                {t('features')}
-              </h2>
-
-              <p className="mb-[9rem] text-[1.5rem] font-medium leading-[2.5rem] text-[gray]">
-                {product.features}
-              </p>
-            </div>
-
-            <div className="mb-[9rem] md:flex md:justify-center md:gap-[20rem] lg:w-[50%] lg:flex-col lg:gap-0">
-              <h2 className="mb-[2.4rem] text-[2.4rem] font-bold text-black dark:text-white md:text-[3.2rem]">
-                {t('in_the_box')}
-              </h2>
-
-              <div>
-                {product.includes.map((item, index) => (
-                  <p
-                    key={index}
-                    className="mb-[1rem] flex items-center gap-[2.4rem] text-[1.5rem] font-medium text-[gray]"
-                  >
-                    <span className="font-bold text-[#d87d4a]">
-                      {item.quantity}x
-                    </span>{' '}
-                    {item.item}
-                  </p>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="mb-[12rem] flex flex-col gap-[2rem] md:grid md:grid-cols-gallery md:grid-rows-2 md:justify-center">
-            <Image
-              src={product.gallery.first.mobile}
-              alt="gallery image"
-              className="rounded-xl md:hidden"
-              width={375}
-              height={375}
-            />
-
-            <Image
-              src={product.gallery.second.mobile}
-              alt="gallery image"
-              className="rounded-xl md:hidden"
-              width={375}
-              height={375}
-            />
-
-            <Image
-              src={product.gallery.third.mobile}
-              alt="gallery image"
-              className="rounded-xl md:hidden"
-              width={375}
-              height={375}
-            />
-
-            <Image
-              src={product.gallery.first.tablet}
-              alt="gallery image"
-              className="row-start-1 hidden rounded-xl md:block"
-              width={768}
-              height={768}
-            />
-
-            <Image
-              src={product.gallery.second.tablet}
-              alt="gallery image"
-              className="row-start-2 hidden rounded-xl md:block"
-              width={768}
-              height={768}
-            />
-
-            <Image
-              src={product.gallery.third.tablet}
-              alt="gallery image"
-              className="row-span-2 hidden h-full rounded-xl md:block"
-              width={768}
-              height={768}
-            />
-          </div>
-
-          <div className="mb-[12rem] flex flex-col items-center justify-center">
-            <h2 className="mb-[4rem] text-[2.4rem] font-bold text-black dark:text-white md:text-[3.2rem]">
-              {t('you_may_also_like')}
-            </h2>
-
-            <div className="gap-[1rem] md:flex lg:mb-[14rem] lg:gap-[3rem]">
-              {product.others.map((item) => (
-                <div
-                  key={item.slug}
-                  className="mb-[5.5rem] flex flex-col items-center justify-center gap-[3.2rem]"
-                >
-                  <Image
-                    src={item.image.mobile}
-                    alt="product image"
-                    className="rounded-lg md:hidden"
-                    width={375}
-                    height={375}
-                  />
-
-                  <Image
-                    src={item.image.tablet}
-                    alt="product image"
-                    className="hidden rounded-lg md:block lg:hidden"
-                    width={768}
-                    height={768}
-                  />
-
-                  <Image
-                    src={item.image.desktop}
-                    alt="product image"
-                    className="hidden rounded-lg lg:block"
-                    width={768}
-                    height={768}
-                  />
-
-                  <h3 className="text-[1.8rem] font-bold text-black dark:text-white md:text-[2.4rem]">
-                    {item.name}
-                  </h3>
-
-                  <Link href={`/${productMenu}/${item.slug}`}>
-                    <button className="bg-[#d87d4a] px-10 py-5 text-[1.3rem] font-bold text-white hover:bg-[#fbaf85] md:px-14 md:py-7">
-                      {t('see_product')}
-                    </button>
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <Navigation />
-
-          <SloganText />
         </div>
-      ))}
+
+        <div className="pb-[10rem] lg:w-[50%]">
+          <h2 className="mb-[2.4rem] text-[2.4rem] font-bold text-black dark:text-white md:text-[3.2rem]">
+            {t('features')}
+          </h2>
+
+          <p className="mb-[9rem] text-[1.5rem] font-medium leading-[2.5rem] text-[gray]">
+            {product.features}
+          </p>
+        </div>
+
+        <Navigation />
+
+        <SloganText />
+      </div>
     </div>
   )
 }

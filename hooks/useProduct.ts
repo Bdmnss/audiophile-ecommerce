@@ -16,6 +16,20 @@ const fetchProducts = async (): Promise<Product[]> => {
   return data
 }
 
+const fetchProductBySlug = async (slug: string): Promise<Product> => {
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .eq('slug', slug)
+    .single()
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return data
+}
+
 const addProduct = async (product: InsertProduct): Promise<Product> => {
   const { data, error } = await supabase
     .from('products')
@@ -51,6 +65,12 @@ export const useProducts = () => {
     queryFn: fetchProducts,
   })
 
+  const productQuery = (slug: string) =>
+    useQuery({
+      queryKey: ['product', slug],
+      queryFn: () => fetchProductBySlug(slug),
+    })
+
   const addProductMutation = useMutation({
     mutationFn: addProduct,
     onSuccess: () => {
@@ -67,6 +87,7 @@ export const useProducts = () => {
 
   return {
     ...productsQuery,
+    productQuery,
     addProduct: addProductMutation.mutate,
     updateProduct: updateProductMutation.mutate,
   }
