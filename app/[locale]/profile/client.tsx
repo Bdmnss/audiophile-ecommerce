@@ -40,13 +40,14 @@ export default function Profile() {
     setIsModalVisible(false)
   }
 
-  if (isLoading)
+  if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="loader"></div>
       </div>
     )
-  if (error)
+  }
+  if (error) {
     return (
       <Alert
         message="Error"
@@ -55,6 +56,7 @@ export default function Profile() {
         showIcon
       />
     )
+  }
 
   return (
     <div

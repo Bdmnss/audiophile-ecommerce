@@ -9,7 +9,8 @@
     "lint": "next lint",
     "format": "prettier --write .",
     "prepare": "husky install",
-    "type-check": "tsc --noEmit --skipLibCheck"
+    "type-check": "tsc --noEmit --skipLibCheck",
+    "generate-types": "npx supabase gen types typescript --project-id uklpsgcvbrgcdhngqxck --schema public > app/supabase/supabase.types.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
