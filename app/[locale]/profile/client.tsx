@@ -8,24 +8,24 @@ import { useThemeStore } from '@/stores/themeStore'
 import type { Profile } from '@/hooks/useProfile'
 import { useRouter } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
+import useCheckSession from '@/hooks/useCheckSession'
+import Loader from '@/components/Loader'
 
 export default function Profile() {
   const user = useUserStore((state) => state.user)
   const { data: profile, isLoading, error, updateProfile } = useProfile()
   const { theme } = useThemeStore()
   const [isModalVisible, setIsModalVisible] = useState(false)
-  const route = useRouter()
+  const router = useRouter()
   const { t } = useTranslation()
 
-  useEffect(() => {
-    const delay = setTimeout(() => {
-      if (user === null) {
-        route.push('/login')
-      }
-    }, 1000)
+  const sessionChecked = useCheckSession()
 
-    return () => clearTimeout(delay)
-  }, [route, user])
+  useEffect(() => {
+    if (sessionChecked && !user) {
+      router.push('/login')
+    }
+  }, [router, user, sessionChecked])
 
   const showModal = () => {
     setIsModalVisible(true)
@@ -40,12 +40,8 @@ export default function Profile() {
     setIsModalVisible(false)
   }
 
-  if (isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="loader"></div>
-      </div>
-    )
+  if (!sessionChecked || isLoading) {
+    return <Loader />
   }
   if (error) {
     return (

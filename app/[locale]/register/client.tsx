@@ -10,6 +10,7 @@ import { useRegister } from '@/hooks/useRegister'
 import { useRouter } from 'next/navigation'
 import { useUserStore } from '@/stores/userStore'
 import { useEffect } from 'react'
+import useCheckSession from '@/hooks/useCheckSession'
 
 const signUpSchema = z
   .object({
@@ -47,13 +48,15 @@ export default function Register() {
     handleRegister({ email: data.email, password: data.password })
   }
 
+  const sessionChecked = useCheckSession()
+
   const user = useUserStore((state) => state.user)
 
   useEffect(() => {
-    if (user) {
+    if (user && sessionChecked) {
       router.push('/')
     }
-  }, [router, user])
+  }, [router, user, sessionChecked])
 
   return (
     <div

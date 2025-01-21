@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
 import { useLogout } from '@/hooks/useLogout'
 import { useUserStore } from '@/stores/userStore'
+import useCheckSession from '@/hooks/useCheckSession'
 
 export default function UserDropdown() {
   const { t } = useTranslation()
@@ -15,8 +16,10 @@ export default function UserDropdown() {
   const router = useRouter()
   const user = useUserStore((state) => state.user)
 
+  const sessionChecked = useCheckSession()
+
   const toggleDropdown = () => {
-    if (!user) {
+    if (sessionChecked && !user) {
       router.push('/login')
       setIsDropdownOpen(false)
     } else {

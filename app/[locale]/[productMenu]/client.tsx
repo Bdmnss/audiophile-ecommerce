@@ -9,6 +9,7 @@ import { UploadOutlined } from '@ant-design/icons'
 import { useProducts } from '@/hooks/useProduct'
 import { uploadImage } from '@/hooks/useImageUpload'
 import { useUserStore } from '@/stores/userStore'
+import Loader from '@/components/Loader'
 
 export default function ProductMenu({
   productMenuName,
@@ -16,7 +17,7 @@ export default function ProductMenu({
   productMenuName: string
 }) {
   const { t } = useTranslation()
-  const { data: products, isLoading, error, addProduct } = useProducts()
+  const { data: products, isLoading, addProduct } = useProducts()
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [file, setFile] = useState<File | null>(null)
   const [form] = Form.useForm()
@@ -80,14 +81,9 @@ export default function ProductMenu({
     }
   }
 
-  if (isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="loader"></div>
-      </div>
-    )
+  if (isLoading || !products) {
+    return <Loader />
   }
-  if (error) return <div>Error: {error.message}</div>
 
   return (
     <div className="bg-[#f1f1f1] pb-[12rem] dark:bg-[#101010]">

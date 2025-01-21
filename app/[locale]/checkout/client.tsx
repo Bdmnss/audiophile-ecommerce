@@ -15,6 +15,8 @@ import { useUserStore } from '@/stores/userStore'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useProfile } from '@/hooks/useProfile'
+import useCheckSession from '@/hooks/useCheckSession'
+import Loader from '@/components/Loader'
 
 export type Inputs = {
   name: string
@@ -61,7 +63,7 @@ const schema = z.object({
 
 const Checkout: React.FC = () => {
   const { t } = useTranslation()
-  const route = useRouter()
+  const router = useRouter()
   const { data: profile } = useProfile()
 
   const methods = useForm<Inputs>({
@@ -76,15 +78,13 @@ const Checkout: React.FC = () => {
 
   const user = useUserStore((state) => state.user)
 
-  useEffect(() => {
-    const delay = setTimeout(() => {
-      if (user === null) {
-        route.push('/login')
-      }
-    }, 1000)
+  const sessionChecked = useCheckSession()
 
-    return () => clearTimeout(delay)
-  }, [route, user])
+  useEffect(() => {
+    if (sessionChecked && !user) {
+      router.push('/login')
+    }
+  }, [router, user, sessionChecked])
 
   useEffect(() => {
     if (profile) {
@@ -97,6 +97,8 @@ const Checkout: React.FC = () => {
       methods.setValue('country', profile.country || '')
     }
   }, [profile, methods])
+
+  if (!profile) return <Loader />
 
   return (
     <div className="relative">

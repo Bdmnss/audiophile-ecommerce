@@ -10,6 +10,8 @@ import { useLogin } from '@/hooks/useLogin'
 import { useUserStore } from '@/stores/userStore'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import useCheckSession from '@/hooks/useCheckSession'
+import Loader from '@/components/Loader'
 
 const logInSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -35,13 +37,17 @@ export default function Login() {
     handleLogin({ email: data.email, password: data.password })
   }
 
+  const sessionChecked = useCheckSession()
+
   const user = useUserStore((state) => state.user)
 
   useEffect(() => {
-    if (user) {
+    if (user && sessionChecked) {
       router.push('/')
     }
-  }, [router, user])
+  }, [router, user, sessionChecked])
+
+  if (!sessionChecked) return <Loader />
 
   return (
     <div

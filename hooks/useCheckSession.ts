@@ -1,17 +1,16 @@
-'use client'
-
-import { Database } from '@/app/supabase/supabase.types'
+import { useEffect, useState } from 'react'
 import { createClient } from '@supabase/supabase-js'
 import { useUserStore } from '@/stores/userStore'
-import { useEffect } from 'react'
+import { Database } from '@/app/supabase/supabase.types'
 
 export const supabase = createClient<Database>(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
 
-export default function CheckSession() {
+const useCheckSession = () => {
   const setUser = useUserStore((state) => state.setUser)
+  const [sessionChecked, setSessionChecked] = useState(false)
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -27,6 +26,7 @@ export default function CheckSession() {
       } else {
         setUser(null)
       }
+      setSessionChecked(true)
     })
 
     const {
@@ -44,10 +44,15 @@ export default function CheckSession() {
       } else {
         setUser(null)
       }
+      setSessionChecked(true)
     })
 
-    return () => subscription.unsubscribe()
+    return () => {
+      subscription?.unsubscribe()
+    }
   }, [setUser])
 
-  return null
+  return sessionChecked
 }
+
+export default useCheckSession

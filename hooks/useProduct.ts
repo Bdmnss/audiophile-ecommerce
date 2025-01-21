@@ -73,7 +73,7 @@ export const useProducts = () => {
     queryFn: fetchProducts,
   })
 
-  const productQuery = (slug: string) =>
+  const useProductQuery = (slug: string) =>
     useQuery({
       queryKey: ['product', slug],
       queryFn: () => fetchProductBySlug(slug),
@@ -102,7 +102,7 @@ export const useProducts = () => {
 
   return {
     ...productsQuery,
-    productQuery,
+    useProductQuery,
     addProduct: addProductMutation.mutate,
     updateProduct: updateProductMutation.mutate,
     deleteProduct: deleteProductMutation.mutate,

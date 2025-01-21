@@ -11,6 +11,7 @@ import { useProducts } from '@/hooks/useProduct'
 import { Button, Modal, Form, Input, Select, message } from 'antd'
 import { useState } from 'react'
 import { useUserStore } from '@/stores/userStore'
+import Loader from '@/components/Loader'
 
 export default function ProductPage({
   productMenu,
@@ -21,22 +22,16 @@ export default function ProductPage({
 }) {
   const cartStore = useCartStore()
   const { t } = useTranslation()
-  const { productQuery, deleteProduct, updateProduct } = useProducts()
-  const { data: product, isLoading, error } = productQuery(productName)
+  const { useProductQuery, deleteProduct, updateProduct } = useProducts()
+  const { data: product, isLoading } = useProductQuery(productName)
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [form] = Form.useForm()
   const router = useRouter()
   const user = useUserStore((state) => state.user)
 
-  if (isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="loader"></div>
-      </div>
-    )
+  if (isLoading || !product) {
+    return <Loader />
   }
-  if (error) return <div>Error: {error.message}</div>
-  if (!product) return <div>No product found</div>
 
   const showModal = () => {
     setIsModalVisible(true)
@@ -222,7 +217,7 @@ export default function ProductPage({
 
       <Modal
         title={t('update_product')}
-        visible={isModalVisible}
+        open={isModalVisible}
         onCancel={handleCancel}
         footer={null}
       >
