@@ -48,7 +48,11 @@ export default function HomePage() {
       debouncedSearchTerm ? { search: debouncedSearchTerm } : {},
       { addQueryPrefix: true }
     )
-    router.replace(queryString)
+    if (debouncedSearchTerm) {
+      router.replace(queryString)
+    } else {
+      router.replace('/')
+    }
   }, [debouncedSearchTerm, router])
 
   useEffect(() => {
