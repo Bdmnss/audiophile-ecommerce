@@ -129,10 +129,11 @@ export default function HomePage() {
           <p className="mb-[2.8rem] text-[1.5rem] leading-[2.5rem] text-[gray]">
             {t('experience')}
           </p>
-          <Link href="/headphones/xx99-mark-two-headphones">
-            <button className="bg-[#d87d4a] px-10 py-5 text-[1.3rem] font-bold text-white hover:bg-[#fbaf85] md:px-14 md:py-7">
-              {t('see_product')}
-            </button>
+          <Link
+            href="/headphones/xx99-mark-two-headphones"
+            className="bg-[#d87d4a] px-10 py-5 text-[1.3rem] font-bold text-white hover:bg-[#fbaf85] md:px-14 md:py-7"
+          >
+            {t('see_product')}
           </Link>
         </div>
 
@@ -153,10 +154,11 @@ export default function HomePage() {
               <p className="mb-[2.4rem] text-[1.5rem] font-medium leading-[2.5rem] text-white">
                 {t('upgrade_speakers')}
               </p>
-              <Link href="/speakers/zx9-speaker">
-                <button className="bg-black px-10 py-5 text-[1.3rem] font-bold text-white hover:bg-[#4c4c4c] md:px-14 md:py-7">
-                  {t('see_product')}
-                </button>
+              <Link
+                href="/speakers/zx9-speaker"
+                className="bg-black px-10 py-5 text-[1.3rem] font-bold text-white hover:bg-[#4c4c4c] md:px-14 md:py-7"
+              >
+                {t('see_product')}
               </Link>
             </div>
           </div>
@@ -165,10 +167,11 @@ export default function HomePage() {
             <h2 className="mb-[3.2rem] text-[2.8rem] font-bold text-black">
               ZX7 SPEAKER
             </h2>
-            <Link href="/speakers/zx7-speaker">
-              <button className="border-[1px] border-black px-10 py-5 text-[1.3rem] font-bold text-black hover:bg-black hover:text-white">
-                {t('see_product')}
-              </button>
+            <Link
+              href="/speakers/zx7-speaker"
+              className="border-[1px] border-black px-10 py-5 text-[1.3rem] font-bold text-black hover:bg-black hover:text-white"
+            >
+              {t('see_product')}
             </Link>
           </div>
 
@@ -179,10 +182,11 @@ export default function HomePage() {
               <h2 className="mb-[3.2rem] text-[2.8rem] font-bold text-black">
                 YX1 EARPHONES
               </h2>
-              <Link href="/earphones/yx1-earphones">
-                <button className="border-[1px] border-black bg-[#f1f1f100] px-10 py-5 text-[1.3rem] font-bold text-black hover:bg-black hover:text-white">
-                  {t('see_product')}
-                </button>
+              <Link
+                href="/earphones/yx1-earphones"
+                className="border-[1px] border-black bg-[#f1f1f100] px-10 py-5 text-[1.3rem] font-bold text-black hover:bg-black hover:text-white"
+              >
+                {t('see_product')}
               </Link>
             </div>
           </div>

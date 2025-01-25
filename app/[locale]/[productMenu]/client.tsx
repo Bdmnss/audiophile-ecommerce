@@ -135,10 +135,11 @@ export default function ProductMenu({
               <p className="mb-[2.4rem] text-[1.5rem] text-[gray] dark:text-gray-400">
                 {item.description}
               </p>
-              <Link href={`/${productMenuName}/${item.slug}`}>
-                <button className="bg-[#d87d4a] px-[2.4rem] py-[1.2rem] text-[1.3rem] font-bold text-white hover:bg-[#fbaf85]">
-                  {t('see_product')}
-                </button>
+              <Link
+                href={`/${productMenuName}/${item.slug}`}
+                className="bg-[#d87d4a] px-[2.4rem] py-[1.2rem] text-[1.3rem] font-bold text-white hover:bg-[#fbaf85]"
+              >
+                {t('see_product')}
               </Link>
             </div>
           </div>
